@@ -39,9 +39,8 @@ jar {
     } from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
 }
 
-
 application {
-    mainModule.set('me.iaksh')
+    //mainModule.set('me.iaksh')
     mainClass.set('me.iaksh.Main')
 }
 
