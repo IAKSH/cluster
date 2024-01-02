@@ -32,13 +32,10 @@ public class MainWindow extends Application {
         int bpm = 120;
         String path = savePathInputArea.getText();
         logger.log(Level.INFO,String.format("\"saving to \"%s\")",path));
-        Thread t = new Thread(new Runnable(){
-            @Override
-            public void run() {
-                saveButton.setDisable(true);
-                new NESLikeSynthesizer(bpm).saveToWav(path,new CoreTestcase().genTestSection());
-                saveButton.setDisable(false);
-            }
+        Thread t = new Thread(() -> {
+            saveButton.setDisable(true);
+            new NESLikeSynthesizer(bpm).saveToWav(path,new CoreTestcase().genTestSection());
+            saveButton.setDisable(false);
         });
         t.start();
     }
@@ -46,13 +43,10 @@ public class MainWindow extends Application {
     public void playButtonOnClick(ActionEvent actionEvent) {
         String path = savePathInputArea.getText();
         logger.log(Level.INFO,"playing core test case");
-        Thread t = new Thread(new Runnable(){
-            @Override
-            public void run() {
-                playButton.setDisable(true);
-                new Player(0.1f).play(0.25f,new NESLikeSynthesizer(bpm).genWavform(new CoreTestcase().genTestSection()));
-                playButton.setDisable(false);
-            }
+        Thread t = new Thread(() -> {
+            playButton.setDisable(true);
+            new Player(0.1f).play(0.25f,new NESLikeSynthesizer(bpm).genWavform(new CoreTestcase().genTestSection()));
+            playButton.setDisable(false);
         });
         t.start();
     }
