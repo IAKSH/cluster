@@ -40,8 +40,7 @@ jar {
 }
 
 application {
-    //mainModule.set('me.iaksh')
-    mainClass.set('me.iaksh.Main')
+    mainClass.set('me.iaksh.cluster.Main')
 }
 
 java {
