@@ -1,10 +1,10 @@
 package me.iaksh.core.waveform.effect;
 
-import me.iaksh.core.waveform.oscillator.Oscillator;
+import me.iaksh.core.waveform.WaveGenerator;
 
 public class LinearGradientEffect extends GradientEffect {
-    public LinearGradientEffect(Oscillator oscillator) {
-        super(oscillator);
+    public LinearGradientEffect(WaveGenerator generator) {
+        super(generator);
     }
 
     @Override
