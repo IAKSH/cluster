@@ -1,4 +1,4 @@
-package me.iaksh.cluster.tests;
+package me.iaksh.cluster.core;
 
 import me.iaksh.cluster.core.notation.EqualTempNote;
 import me.iaksh.cluster.core.notation.Section;

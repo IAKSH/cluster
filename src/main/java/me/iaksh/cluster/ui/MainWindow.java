@@ -10,7 +10,7 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import me.iaksh.cluster.core.mixer.NESLikeSynthesizer;
 import me.iaksh.cluster.core.player.Player;
-import me.iaksh.cluster.tests.CoreTestcase;
+import me.iaksh.cluster.core.CoreTestcase;
 
 import java.util.Objects;
 import java.util.logging.Level;
