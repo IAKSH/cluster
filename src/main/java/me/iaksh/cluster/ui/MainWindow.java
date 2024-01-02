@@ -17,9 +17,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MainWindow extends Application {
-    public Button playButton;
     public TextArea savePathInputArea;
     public Button saveButton;
+    public Button playButton;
 
     private final Logger logger;
     private final int bpm = 120;
@@ -32,20 +32,36 @@ public class MainWindow extends Application {
         int bpm = 120;
         String path = savePathInputArea.getText();
         logger.log(Level.INFO,String.format("\"saving to \"%s\")",path));
-        new NESLikeSynthesizer(bpm).saveToWav(path,new CoreTestcase().genTestSection());
+        Thread t = new Thread(new Runnable(){
+            @Override
+            public void run() {
+                saveButton.setDisable(true);
+                new NESLikeSynthesizer(bpm).saveToWav(path,new CoreTestcase().genTestSection());
+                saveButton.setDisable(false);
+            }
+        });
+        t.start();
     }
 
     public void playButtonOnClick(ActionEvent actionEvent) {
         String path = savePathInputArea.getText();
         logger.log(Level.INFO,"playing core test case");
-        new Player(0.1f).play(0.25f,new NESLikeSynthesizer(bpm).genWavform(new CoreTestcase().genTestSection()));
+        Thread t = new Thread(new Runnable(){
+            @Override
+            public void run() {
+                playButton.setDisable(true);
+                new Player(0.1f).play(0.25f,new NESLikeSynthesizer(bpm).genWavform(new CoreTestcase().genTestSection()));
+                playButton.setDisable(false);
+            }
+        });
+        t.start();
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxml/MainWindow.fxml")));
         primaryStage.setTitle("test");
-        primaryStage.setScene(new Scene(root, 800, 600));
+        primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
     }
 
