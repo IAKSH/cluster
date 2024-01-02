@@ -1,10 +1,9 @@
 package me.iaksh.cluster;
 
-import me.iaksh.cluster.tests.CoreTestcase;
+import me.iaksh.cluster.ui.MainWindow;
 
 public class Main {
     public static void main(String[] args) {
-        //new MainWindow().exec();
-        new CoreTestcase().exec();
+        MainWindow.start(args);
     }
 }

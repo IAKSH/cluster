@@ -330,7 +330,7 @@ public class CoreTestcase {
         return sections;
     }
 
-    private ArrayList<ArrayList<Section>> genTestSection() {
+    public ArrayList<ArrayList<Section>> genTestSection() {
         initEffect();
         ArrayList<ArrayList<Section>> sections = new ArrayList<>();
         sections.add(genTestSectionSq0());

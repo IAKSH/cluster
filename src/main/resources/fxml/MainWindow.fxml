@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.iaksh.cluster.ui.MainWindow">
+   <BorderPane prefHeight="400.0" prefWidth="600.0">
+      <bottom>
+         <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveButtonOnClick" text="保存" BorderPane.alignment="CENTER" />
+      </bottom>
+      <center>
+         <TextArea fx:id="savePathInputArea" prefHeight="200.0" prefWidth="200.0" text="Enter path here..." BorderPane.alignment="CENTER" />
+      </center>
+      <top>
+         <Button fx:id="playButton" mnemonicParsing="false" onAction="#playButtonOnClick" text="Play" BorderPane.alignment="CENTER" />
+      </top>
+   </BorderPane>
+</AnchorPane>
