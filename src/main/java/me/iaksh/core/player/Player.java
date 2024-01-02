@@ -1,50 +1,53 @@
 package me.iaksh.core.player;
 
 import me.iaksh.core.oscillator.Oscillator;
-import org.lwjgl.openal.AL11;
+
+import javax.sound.sampled.*;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 
 public class Player {
 
-    private static OpenALLoader loader;
-    private int source;
-    private int buffer;
+    private SourceDataLine line;
 
-    private void tryLoadOpenAL() {
-        if(loader == null)
-            loader = new OpenALLoader();
-    }
-
-    private void initSourceAndBuffer() {
-        source = AL11.alGenSources();
-        buffer = AL11.alGenBuffers();
-    }
-
-    private void waitTillSourceFinish() {
+    private void init() {
         try {
-            while(AL11.alGetSourcei(source,AL11.AL_SOURCE_STATE) != AL11.AL_STOPPED)
-                Thread.sleep(1);
-        } catch (InterruptedException e) {
+            AudioFormat format = new AudioFormat(Oscillator.getSampleRate(), 16, 1, true, false);
+            DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
+            line = (SourceDataLine) AudioSystem.getLine(info);
+            line.open(format);
+        } catch (LineUnavailableException e) {
             e.printStackTrace();
         }
     }
 
     public Player() {
-        tryLoadOpenAL();
-        initSourceAndBuffer();
+        init();
     }
 
-    public void play(float gain,short[] data) {
-        AL11.alSourcef(source,AL11.AL_GAIN,gain);
-        AL11.alBufferData(buffer,AL11.AL_FORMAT_MONO16,data,Oscillator.getSampleRate());
-        AL11.alSourcei(source,AL11.AL_BUFFER,buffer);
-        AL11.alSourcePlay(source);
-        waitTillSourceFinish();
+    public Player(float volume) {
+        init();
+        setVolume(volume);
     }
 
-    public static void closeOpenAL() {
-        if(loader != null)
-            loader.closeOpenAL();
-        else
-            throw new RuntimeException("OpenAL is not initialized, there's no need to close it");
+    public void play(float gain, short[] data) {
+        byte[] byteData = new byte[data.length * 2];
+        ByteBuffer.wrap(byteData).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().put(data);
+        line.start();
+        line.write(byteData, 0, byteData.length);
+        line.drain();
+        line.stop();
+    }
+
+    public void setVolume(float volume) {
+        if (volume < 0f || volume > 1f)
+            throw new IllegalArgumentException("Volume not valid: " + volume);
+        FloatControl gainControl =
+                (FloatControl) line.getControl(FloatControl.Type.MASTER_GAIN);
+        gainControl.setValue(20f * (float) Math.log10(volume));
+    }
+
+    public void close() {
+        line.close();
     }
 }
