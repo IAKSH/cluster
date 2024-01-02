@@ -8,6 +8,8 @@ public abstract class GradientEffect extends Effect {
         super(generator);
     }
 
+    public GradientEffect() {}
+
     protected abstract float gradientCoefficient(int waveformLen,int i);
 
     @Override

@@ -1,9 +1,17 @@
 package me.iaksh.core.notation;
 
+import me.iaksh.core.waveform.effect.Effect;
+
 public class EqualTempNote extends Note {
-    private final int simpleScore;
-    private final int octaveShift;
-    private final int semitoneShift;
+    private int simpleScore;
+    private int octaveShift;
+    private int semitoneShift;
+
+    private void init(int simpleScore,int octaveShift,int semitoneShift) {
+        this.simpleScore = simpleScore;
+        this.octaveShift = octaveShift;
+        this.semitoneShift = semitoneShift;
+    }
 
     public int toFreq(int simpleScore,int octaveShift,int semitoneShift) {
         double[] equalTemperaments = {0,261.63,293.66,329.63,349.23,392.00,440.00,493.88};
@@ -16,9 +24,12 @@ public class EqualTempNote extends Note {
 
     public EqualTempNote(float fra, boolean dot,int score, int oct, int semi) {
         super(fra,dot);
-        simpleScore = score;
-        octaveShift = oct;
-        semitoneShift = semi;
+        init(score,oct,semi);
+    }
+
+    public EqualTempNote(float fra, boolean dot, int score, int oct, int semi, Effect effect) {
+        super(fra,dot,effect);
+        init(score,oct,semi);
     }
 
     @Override

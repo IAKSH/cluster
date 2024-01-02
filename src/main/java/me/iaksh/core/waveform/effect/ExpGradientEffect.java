@@ -10,6 +10,8 @@ public class ExpGradientEffect extends GradientEffect {
         super(generator);
     }
 
+    public ExpGradientEffect() {}
+
     public ExpGradientEffect(WaveGenerator generator, float expCoefficient) {
         super(generator);
         this.expCoefficient = expCoefficient;

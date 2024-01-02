@@ -15,6 +15,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.ArrayList;
 
+@Deprecated
 public class ASynthesizer extends Synthesizer implements Exporter {
 
     public ASynthesizer(int bpm) {

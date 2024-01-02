@@ -6,22 +6,32 @@ import me.iaksh.core.notation.EqualTempNote;
 import me.iaksh.core.notation.FreqNote;
 import me.iaksh.core.notation.Section;
 import me.iaksh.core.player.Player;
+import me.iaksh.core.waveform.effect.Effect;
+import me.iaksh.core.waveform.effect.ExpGradientEffect;
 
 import java.util.ArrayList;
 
 public class CoreTestcase {
+
+    private Effect effect;
+
+    private void initEffect() {
+        ExpGradientEffect effect = new ExpGradientEffect();
+        effect.setExpCoefficient(4.0f);
+        this.effect = effect;
+    }
 
     private ArrayList<Section> genTestSectionSq0() {
         ArrayList<Section> sections = new ArrayList<>();
 
         {
             Section section = new Section(4,4);
-            section.getNotes().add(new EqualTempNote(0.25f,false,0,0,0));
-            section.getNotes().add(new EqualTempNote(0.25f,false,0,0,0));
-            section.getNotes().add(new EqualTempNote(0.125f,false,0,0,0));
-            section.getNotes().add(new EqualTempNote(0.125f,false,3,1,0));
-            section.getNotes().add(new EqualTempNote(0.125f,false,3,1,0));
-            section.getNotes().add(new EqualTempNote(0.125f,false,5,1,0));
+            section.getNotes().add(new EqualTempNote(0.25f,false,0,0,0,effect));
+            section.getNotes().add(new EqualTempNote(0.25f,false,0,0,0,effect));
+            section.getNotes().add(new EqualTempNote(0.125f,false,0,0,0,effect));
+            section.getNotes().add(new EqualTempNote(0.125f,false,3,1,0,effect));
+            section.getNotes().add(new EqualTempNote(0.125f,false,3,1,0,effect));
+            section.getNotes().add(new EqualTempNote(0.125f,false,5,1,0,effect));
             sections.add(section);
         }
         {
@@ -37,12 +47,12 @@ public class CoreTestcase {
         }
         {
             Section section = new Section(4,4);
-            section.getNotes().add(new EqualTempNote(0.25f,true,3,1,0));
-            section.getNotes().add(new EqualTempNote(0.25f,false,3,1,0));
-            section.getNotes().add(new EqualTempNote(0.125f,false,0,0,0));
-            section.getNotes().add(new EqualTempNote(0.125f,false,3,1,0));
-            section.getNotes().add(new EqualTempNote(0.125f,false,3,1,0));
-            section.getNotes().add(new EqualTempNote(0.125f,false,5,1,0));
+            section.getNotes().add(new EqualTempNote(0.25f,true,3,1,0,effect));
+            section.getNotes().add(new EqualTempNote(0.25f,false,3,1,0,effect));
+            section.getNotes().add(new EqualTempNote(0.125f,false,0,0,0,effect));
+            section.getNotes().add(new EqualTempNote(0.125f,false,3,1,0,effect));
+            section.getNotes().add(new EqualTempNote(0.125f,false,3,1,0,effect));
+            section.getNotes().add(new EqualTempNote(0.125f,false,5,1,0,effect));
             sections.add(section);
         }
         {
@@ -58,8 +68,8 @@ public class CoreTestcase {
         }
         {
             Section section = new Section(4,4);
-            section.getNotes().add(new EqualTempNote(0.25f,false,6,1,0));
-            section.getNotes().add(new EqualTempNote(0.25f,false,6,1,0));
+            section.getNotes().add(new EqualTempNote(0.25f,false,6,1,0,effect));
+            section.getNotes().add(new EqualTempNote(0.25f,false,6,1,0,effect));
             section.getNotes().add(new EqualTempNote(0.125f,false,0,0,0));
             section.getNotes().add(new EqualTempNote(0.0625f,false,5,1,0));
             section.getNotes().add(new EqualTempNote(0.0625f,false,6,1,0));
@@ -110,12 +120,12 @@ public class CoreTestcase {
 
         {
             Section section = new Section(4,4);
-            section.getNotes().add(new EqualTempNote(0.25f,false,0,1,0));
-            section.getNotes().add(new EqualTempNote(0.25f,false,0,1,0));
-            section.getNotes().add(new EqualTempNote(0.125f,false,0,1,0));
-            section.getNotes().add(new EqualTempNote(0.125f,false,3,2,0));
-            section.getNotes().add(new EqualTempNote(0.125f,false,3,2,0));
-            section.getNotes().add(new EqualTempNote(0.125f,false,5,2,0));
+            section.getNotes().add(new EqualTempNote(0.25f,false,0,1,0,effect));
+            section.getNotes().add(new EqualTempNote(0.25f,false,0,1,0,effect));
+            section.getNotes().add(new EqualTempNote(0.125f,false,0,1,0,effect));
+            section.getNotes().add(new EqualTempNote(0.125f,false,3,2,0,effect));
+            section.getNotes().add(new EqualTempNote(0.125f,false,3,2,0,effect));
+            section.getNotes().add(new EqualTempNote(0.125f,false,5,2,0,effect));
             sections.add(section);
         }
         {
@@ -131,12 +141,12 @@ public class CoreTestcase {
         }
         {
             Section section = new Section(4,4);
-            section.getNotes().add(new EqualTempNote(0.25f,true,3,2,0));
-            section.getNotes().add(new EqualTempNote(0.25f,false,3,2,0));
-            section.getNotes().add(new EqualTempNote(0.125f,false,0,1,0));
-            section.getNotes().add(new EqualTempNote(0.125f,false,3,2,0));
-            section.getNotes().add(new EqualTempNote(0.125f,false,3,2,0));
-            section.getNotes().add(new EqualTempNote(0.125f,false,5,2,0));
+            section.getNotes().add(new EqualTempNote(0.25f,true,3,2,0,effect));
+            section.getNotes().add(new EqualTempNote(0.25f,false,3,2,0,effect));
+            section.getNotes().add(new EqualTempNote(0.125f,false,0,1,0,effect));
+            section.getNotes().add(new EqualTempNote(0.125f,false,3,2,0,effect));
+            section.getNotes().add(new EqualTempNote(0.125f,false,3,2,0,effect));
+            section.getNotes().add(new EqualTempNote(0.125f,false,5,2,0,effect));
             sections.add(section);
         }
         {
@@ -152,8 +162,8 @@ public class CoreTestcase {
         }
         {
             Section section = new Section(4, 4);
-            section.getNotes().add(new EqualTempNote(0.25f, false,6, 2, 0));
-            section.getNotes().add(new EqualTempNote(0.25f, false,6, 2, 0));
+            section.getNotes().add(new EqualTempNote(0.25f, false,6, 2, 0,effect));
+            section.getNotes().add(new EqualTempNote(0.25f, false,6, 2, 0,effect));
             section.getNotes().add(new EqualTempNote(0.125f, false,0, 1, 0));
             section.getNotes().add(new EqualTempNote(0.0625f, false,5, 2, 0));
             section.getNotes().add(new EqualTempNote(0.0625f, false,6, 2, 0));
@@ -204,12 +214,12 @@ public class CoreTestcase {
 
         {
             Section section = new Section(4,4);
-            section.getNotes().add(new EqualTempNote(0.25f,false,0,0,0));
-            section.getNotes().add(new EqualTempNote(0.25f,false,0,0,0));
-            section.getNotes().add(new EqualTempNote(0.125f,false,0,0,0));
-            section.getNotes().add(new EqualTempNote(0.125f,false,3,-1,0));
-            section.getNotes().add(new EqualTempNote(0.125f,false,3,-1,0));
-            section.getNotes().add(new EqualTempNote(0.125f,false,5,-1,0));
+            section.getNotes().add(new EqualTempNote(0.25f,false,0,0,0,effect));
+            section.getNotes().add(new EqualTempNote(0.25f,false,0,0,0,effect));
+            section.getNotes().add(new EqualTempNote(0.125f,false,0,0,0,effect));
+            section.getNotes().add(new EqualTempNote(0.125f,false,3,-1,0,effect));
+            section.getNotes().add(new EqualTempNote(0.125f,false,3,-1,0,effect));
+            section.getNotes().add(new EqualTempNote(0.125f,false,5,-1,0,effect));
             sections.add(section);
         }
         {
@@ -225,12 +235,12 @@ public class CoreTestcase {
         }
         {
             Section section = new Section(4,4);
-            section.getNotes().add(new EqualTempNote(0.25f,true,3,-1,0));
-            section.getNotes().add(new EqualTempNote(0.25f,false,3,-1,0));
-            section.getNotes().add(new EqualTempNote(0.125f,false,0,0,0));
-            section.getNotes().add(new EqualTempNote(0.125f,false,3,-1,0));
-            section.getNotes().add(new EqualTempNote(0.125f,false,3,-1,0));
-            section.getNotes().add(new EqualTempNote(0.125f,false,5,-1,0));
+            section.getNotes().add(new EqualTempNote(0.25f,true,3,-1,0,effect));
+            section.getNotes().add(new EqualTempNote(0.25f,false,3,-1,0,effect));
+            section.getNotes().add(new EqualTempNote(0.125f,false,0,0,0,effect));
+            section.getNotes().add(new EqualTempNote(0.125f,false,3,-1,0,effect));
+            section.getNotes().add(new EqualTempNote(0.125f,false,3,-1,0,effect));
+            section.getNotes().add(new EqualTempNote(0.125f,false,5,-1,0,effect));
             sections.add(section);
         }
         {
@@ -298,14 +308,14 @@ public class CoreTestcase {
 
         for(int i = 0;i < 9;i++) {
             Section section = new Section(4,4);
-            section.getNotes().add(new FreqNote(0.21875f,false,0));
-            section.getNotes().add(new FreqNote(0.03125f,false,1000));
-            section.getNotes().add(new FreqNote(0.21875f,false,0));
-            section.getNotes().add(new FreqNote(0.03125f,false,100));
-            section.getNotes().add(new FreqNote(0.21875f,false,0));
-            section.getNotes().add(new FreqNote(0.03125f,false,10));
-            section.getNotes().add(new FreqNote(0.21875f,false,0));
-            section.getNotes().add(new FreqNote(0.03125f,false,1));
+            section.getNotes().add(new FreqNote(0.21875f,false,0,effect));
+            section.getNotes().add(new FreqNote(0.03125f,false,1000,effect));
+            section.getNotes().add(new FreqNote(0.21875f,false,0,effect));
+            section.getNotes().add(new FreqNote(0.03125f,false,100,effect));
+            section.getNotes().add(new FreqNote(0.21875f,false,0,effect));
+            section.getNotes().add(new FreqNote(0.03125f,false,10,effect));
+            section.getNotes().add(new FreqNote(0.21875f,false,0,effect));
+            section.getNotes().add(new FreqNote(0.03125f,false,1,effect));
             sections.add(section);
         }
 
@@ -313,6 +323,7 @@ public class CoreTestcase {
     }
 
     private ArrayList<ArrayList<Section>> genTestSection() {
+        initEffect();
         ArrayList<ArrayList<Section>> sections = new ArrayList<>();
         sections.add(genTestSectionSq0());
         sections.add(genTestSectionSq1());
@@ -323,7 +334,7 @@ public class CoreTestcase {
 
     public void exec() {
         int bpm = 120;
-        //new ASynthesizer(bpm).saveToWav("./out.wav",genTestSection());
-        new Player(0.05f).play(0.25f,new ASynthesizer(bpm).genWavform(genTestSection()));
+        //new NESLikeSynthesizer(bpm).saveToWav("./out.wav",genTestSection());
+        new Player(0.1f).play(0.25f,new NESLikeSynthesizer(bpm).genWavform(genTestSection()));
     }
 }
