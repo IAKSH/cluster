@@ -2,7 +2,7 @@ package me.iaksh.core.mixer;
 
 import me.iaksh.core.notation.Note;
 import me.iaksh.core.notation.Section;
-import me.iaksh.core.oscillator.WaveGenerator;
+import me.iaksh.core.waveform.WaveGenerator;
 
 import java.util.ArrayList;
 

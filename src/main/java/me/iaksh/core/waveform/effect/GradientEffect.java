@@ -1,4 +1,6 @@
-package me.iaksh.core.oscillator;
+package me.iaksh.core.waveform.effect;
+
+import me.iaksh.core.waveform.oscillator.Oscillator;
 
 public abstract class GradientEffect extends Effect {
 

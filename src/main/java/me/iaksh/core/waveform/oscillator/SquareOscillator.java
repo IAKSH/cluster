@@ -1,4 +1,4 @@
-package me.iaksh.core.oscillator;
+package me.iaksh.core.waveform.oscillator;
 
 public class SquareOscillator extends CroppingOscillator {
     private float dutyCycle = 0.5f;

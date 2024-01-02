@@ -1,6 +1,6 @@
 package me.iaksh.core.player;
 
-import me.iaksh.core.oscillator.Oscillator;
+import me.iaksh.core.waveform.oscillator.Oscillator;
 
 import javax.sound.sampled.*;
 import java.nio.ByteBuffer;

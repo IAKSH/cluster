@@ -1,4 +1,4 @@
-package me.iaksh.core.oscillator;
+package me.iaksh.core.waveform.oscillator;
 
 public abstract class CroppingOscillator extends Oscillator {
     protected abstract short[] genBasicWaveform(int samplesPerCycle);

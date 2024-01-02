@@ -1,7 +1,7 @@
 package me.iaksh.core.mixer;
 
 import me.iaksh.core.notation.Section;
-import me.iaksh.core.oscillator.*;
+import me.iaksh.core.waveform.oscillator.*;
 
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;

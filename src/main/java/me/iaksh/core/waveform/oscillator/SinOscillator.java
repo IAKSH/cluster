@@ -1,8 +1,8 @@
-package me.iaksh.core.oscillator;
+package me.iaksh.core.waveform.oscillator;
 
-public class TriangleOscillator extends CroppingOscillator {
-    protected float amplitude = 0.5f;
-    protected float phaseShift = 1.0f;
+public class SinOscillator extends CroppingOscillator {
+    private float amplitude = 0.5f;
+    private float phaseShift = 1.0f;
 
     @Override
     protected short[] genBasicWaveform(int samplesPerCycle) {
@@ -13,7 +13,7 @@ public class TriangleOscillator extends CroppingOscillator {
         float currentPhase = 0;
 
         for (int j = 0; j < data.length; j++) {
-            float value = (float) (Math.asin(Math.sin(currentPhase)) * 2 / Math.PI);
+            float value = (float) Math.sin(currentPhase);
             data[j] = (short) (value * maxAmplitude);
 
             currentPhase += phaseShift * phaseIncrement;

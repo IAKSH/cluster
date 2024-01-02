@@ -1,4 +1,4 @@
-package me.iaksh.core.oscillator;
+package me.iaksh.core.waveform.oscillator;
 
 import java.util.Random;
 
