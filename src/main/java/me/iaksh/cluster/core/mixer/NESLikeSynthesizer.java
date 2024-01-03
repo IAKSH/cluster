@@ -22,6 +22,8 @@ import java.util.ArrayList;
  */
 public class NESLikeSynthesizer extends Synthesizer implements Exporter {
 
+    private boolean[] disableChannel = new boolean[4];
+
     public NESLikeSynthesizer(int bpm) {
         for(int i = 0;i < 4;i++)
             tracks.add(new Track(bpm));
@@ -48,10 +50,18 @@ public class NESLikeSynthesizer extends Synthesizer implements Exporter {
     @Override
     public short[] genWaveform(ArrayList<ArrayList<Section>> sections) {
         ArrayList<ArrayList<Short>> channels = new ArrayList<>();
-        channels.add(tracks.get(0).genWaveform(new SquareOscillator(),sections.get(0)));
-        channels.add(tracks.get(1).genWaveform(new SquareOscillator(),sections.get(1)));
-        channels.add(tracks.get(2).genWaveform(new SteppedTriangleOscillator(),sections.get(2)));
-        channels.add(tracks.get(3).genWaveform(new NoiseOscillator(),sections.get(3)));
+        if(!disableChannel[0])
+            channels.add(tracks.get(0).genWaveform(new SquareOscillator(),sections.get(0)));
+        if(!disableChannel[1])
+            channels.add(tracks.get(1).genWaveform(new SquareOscillator(),sections.get(1)));
+        if(!disableChannel[2])
+            channels.add(tracks.get(2).genWaveform(new SteppedTriangleOscillator(),sections.get(2)));
+        if(!disableChannel[3])
+            channels.add(tracks.get(3).genWaveform(new NoiseOscillator(),sections.get(3)));
         return Mixer.mix(channels);
+    }
+
+    public void setDisableChannel(int i,boolean b) {
+        disableChannel[i] = b;
     }
 }

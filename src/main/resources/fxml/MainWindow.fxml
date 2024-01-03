@@ -83,17 +83,17 @@
                   <HBox minHeight="-Infinity" prefHeight="40.0" prefWidth="450.0">
                      <children>
                         <Label text="通道" />
-                        <TextField fx:id="channelTextField" prefHeight="23.0" prefWidth="43.0" />
+                        <TextField fx:id="channelTextField" prefHeight="23.0" prefWidth="43.0" text="0" />
                         <Label text="编号" />
-                        <TextField fx:id="noteIdTextField" prefHeight="23.0" prefWidth="43.0" />
+                        <TextField fx:id="noteIdTextField" prefHeight="23.0" prefWidth="43.0" text="1" />
                         <Label text="X分音符" />
-                        <TextField fx:id="noteFractionTextField" prefHeight="23.0" prefWidth="43.0" />
+                        <TextField fx:id="noteFractionTextField" prefHeight="23.0" prefWidth="43.0" text="0.25" />
                         <Label text="简谱" />
-                        <TextField fx:id="noteSimpleScoreTextField" prefHeight="23.0" prefWidth="43.0" />
+                        <TextField fx:id="noteSimpleScoreTextField" prefHeight="23.0" prefWidth="43.0" text="6" />
                         <Label text="八度" />
-                        <TextField fx:id="noteOctaveShiftTextField" prefHeight="23.0" prefWidth="43.0" />
+                        <TextField fx:id="noteOctaveShiftTextField" prefHeight="23.0" prefWidth="43.0" text="0" />
                         <Label text="半音" />
-                        <TextField fx:id="noteSemitoneShiftTextField" prefHeight="23.0" prefWidth="43.0" />
+                        <TextField fx:id="noteSemitoneShiftTextField" prefHeight="23.0" prefWidth="43.0" text="0" />
                         <CheckBox fx:id="noteIsDottedCheckBox" mnemonicParsing="false" text="附点" />
                      </children>
                   </HBox>
@@ -130,7 +130,7 @@
                   <HBox prefHeight="100.0" prefWidth="256.0">
                      <children>
                         <Label text="小节" />
-                        <TextField fx:id="sectionInfoTextField" prefHeight="23.0" prefWidth="53.0" promptText="4/4" />
+                        <TextField fx:id="sectionInfoTextField" prefHeight="23.0" prefWidth="53.0" promptText="4/4" text="4/4" />
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
@@ -179,7 +179,7 @@
             </HBox>
             <HBox prefHeight="269.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
                <children>
-                  <TableView fx:id="squareATableView" prefHeight="500.0" prefWidth="250.0">
+                  <TableView fx:id="squareATableView" onMouseClicked="#onSquareATableViewClick" prefHeight="500.0" prefWidth="250.0">
                      <columns>
                         <TableColumn fx:id="squareAIdColumn" prefWidth="40.0" text="编号" />
                         <TableColumn fx:id="squareAFractionColumn" prefWidth="40.0" text="X分音符" />
@@ -189,7 +189,7 @@
                         <TableColumn fx:id="squareASemitoneColumn" prefWidth="40.0" text="半音" />
                      </columns>
                   </TableView>
-                  <TableView fx:id="squareBTableView" prefHeight="500.0" prefWidth="250.0">
+                  <TableView fx:id="squareBTableView" onMouseClicked="#onSquareBTableViewClick" prefHeight="500.0" prefWidth="250.0">
                      <columns>
                         <TableColumn fx:id="squareBIdColumn" prefWidth="40.0" text="编号" />
                         <TableColumn fx:id="squareBFractionColumn" prefWidth="40.0" text="X分音符" />
@@ -199,7 +199,7 @@
                         <TableColumn fx:id="squareBSemitoneColumn" prefWidth="40.0" text="半音" />
                      </columns>
                   </TableView>
-                  <TableView fx:id="triangleTableView" prefHeight="500.0" prefWidth="250.0">
+                  <TableView fx:id="triangleTableView" onMouseClicked="#onTriangleTableViewClick" prefHeight="500.0" prefWidth="250.0">
                      <columns>
                         <TableColumn fx:id="triangleIdColumn" prefWidth="40.0" text="编号" />
                         <TableColumn fx:id="triangleFractionColumn" prefWidth="40.0" text="X分音符" />
@@ -209,7 +209,7 @@
                         <TableColumn fx:id="triangleSemitoneColumn" prefWidth="40.0" text="半音" />
                      </columns>
                   </TableView>
-                  <TableView fx:id="noiseTableView" prefHeight="500.0" prefWidth="250.0">
+                  <TableView fx:id="noiseTableView" onMouseClicked="#onNoiseTableViewClick" prefHeight="500.0" prefWidth="250.0">
                      <columns>
                         <TableColumn fx:id="noiseIdColumn" prefWidth="40.0" text="编号" />
                         <TableColumn fx:id="noiseFractionColumn" prefWidth="40.0" text="X分音符" />

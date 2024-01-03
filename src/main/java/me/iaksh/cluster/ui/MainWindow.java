@@ -11,13 +11,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import me.iaksh.cluster.core.mixer.Exporter;
+import javafx.scene.input.MouseEvent;
 import me.iaksh.cluster.core.mixer.NESLikeSynthesizer;
 import me.iaksh.cluster.core.notation.EqualTempNote;
-import me.iaksh.cluster.core.notation.Note;
 import me.iaksh.cluster.core.notation.Section;
 import me.iaksh.cluster.core.player.Player;
-import me.iaksh.cluster.core.waveform.effect.Effect;
 import me.iaksh.cluster.core.waveform.effect.ExpGradientEffect;
 
 import java.net.URL;
@@ -154,6 +152,26 @@ public class MainWindow implements Initializable {
     private ObservableList<NoteRecord> noiseRecords;
 
     @FXML
+    public void onSquareATableViewClick(MouseEvent mouseEvent) {
+        channelTextField.setText("0");
+    }
+
+    @FXML
+    public void onSquareBTableViewClick(MouseEvent mouseEvent) {
+        channelTextField.setText("1");
+    }
+
+    @FXML
+    public void onTriangleTableViewClick(MouseEvent mouseEvent) {
+        channelTextField.setText("2");
+    }
+
+    @FXML
+    public void onNoiseTableViewClick(MouseEvent mouseEvent) {
+        channelTextField.setText("3");
+    }
+
+    @FXML
     public void onPlayButtonClick(ActionEvent actionEvent) {
         float volume = (float) (volumeSlider.getValue() / 100.0f);
         int bpm = (int) (Math.floor(bpmSlider.getValue()));
@@ -161,10 +179,29 @@ public class MainWindow implements Initializable {
             playButton.setDisable(true);
             volumeSlider.setDisable(true);
             bpmSlider.setDisable(true);
-            new Player(volume).play(new NESLikeSynthesizer(bpm).genWaveform(genAllSections()));
+            squareAChannelCheckBox.setDisable(true);
+            squareBChannelCheckBox.setDisable(true);
+            triangleChannelCheckBox.setDisable(true);
+            noiseChannelCheckBox.setDisable(true);
+            NESLikeSynthesizer synthesizer = new NESLikeSynthesizer(bpm);
+
+            if(!squareAChannelCheckBox.isSelected())
+                synthesizer.setDisableChannel(0,true);
+            if(!squareBChannelCheckBox.isSelected())
+                synthesizer.setDisableChannel(1,true);
+            if(!triangleChannelCheckBox.isSelected())
+                synthesizer.setDisableChannel(2,true);
+            if(!noiseChannelCheckBox.isSelected())
+                synthesizer.setDisableChannel(3,true);
+
+            new Player(volume).play(synthesizer.genWaveform(genAllSections()));
             playButton.setDisable(false);
             volumeSlider.setDisable(false);
             bpmSlider.setDisable(false);
+            squareAChannelCheckBox.setDisable(false);
+            squareBChannelCheckBox.setDisable(false);
+            triangleChannelCheckBox.setDisable(false);
+            noiseChannelCheckBox.setDisable(false);
         }).start();
     }
 
@@ -185,11 +222,29 @@ public class MainWindow implements Initializable {
             playButton.setDisable(true);
             volumeSlider.setDisable(true);
             bpmSlider.setDisable(true);
-            Exporter exporter = new NESLikeSynthesizer(bpm);
-            exporter.saveWaveform(exportPathTextField.getText(),exporter.genWaveform(genAllSections()));
+            squareAChannelCheckBox.setDisable(true);
+            squareBChannelCheckBox.setDisable(true);
+            triangleChannelCheckBox.setDisable(true);
+            noiseChannelCheckBox.setDisable(true);
+            NESLikeSynthesizer synthesizer = new NESLikeSynthesizer(bpm);
+
+            if(!squareAChannelCheckBox.isSelected())
+                synthesizer.setDisableChannel(0,true);
+            if(!squareBChannelCheckBox.isSelected())
+                synthesizer.setDisableChannel(1,true);
+            if(!triangleChannelCheckBox.isSelected())
+                synthesizer.setDisableChannel(2,true);
+            if(!noiseChannelCheckBox.isSelected())
+                synthesizer.setDisableChannel(3,true);
+
+            synthesizer.saveWaveform(exportPathTextField.getText(),synthesizer.genWaveform(genAllSections()));
             playButton.setDisable(false);
             volumeSlider.setDisable(false);
             bpmSlider.setDisable(false);
+            squareAChannelCheckBox.setDisable(false);
+            squareBChannelCheckBox.setDisable(false);
+            triangleChannelCheckBox.setDisable(false);
+            noiseChannelCheckBox.setDisable(false);
         }).start();
     }
 
