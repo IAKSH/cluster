@@ -1,5 +1,9 @@
 package me.iaksh.cluster.core.waveform.oscillator;
 
+/**
+ * 裁剪振荡器
+ * 通过裁剪原始波形生成指定时长波形的振荡器
+ */
 public abstract class CroppingOscillator extends Oscillator {
     protected abstract short[] genBasicWaveform(int samplesPerCycle);
 

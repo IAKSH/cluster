@@ -2,6 +2,9 @@ package me.iaksh.cluster.core.waveform.effect;
 
 import me.iaksh.cluster.core.waveform.WaveGenerator;
 
+/**
+ * 渐变效果器
+ */
 public abstract class GradientEffect extends Effect {
 
     public GradientEffect(WaveGenerator generator) {

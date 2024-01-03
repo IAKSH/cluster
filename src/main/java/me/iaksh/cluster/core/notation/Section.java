@@ -13,14 +13,26 @@ public class Section {
         notes = new ArrayList<>();
     }
 
+    /**
+     * 获取音符ArrayList
+     * @return 音符ArrayList
+     */
     public ArrayList<Note> getNotes() {
         return notes;
     }
 
+    /**
+     * 获取x/y拍中的x，例如4/4拍
+     * @return x
+     */
     public int getTimeSignature0() {
         return timeSignature0;
     }
 
+    /**
+     * 获取x/y拍中的y，例如4/4拍
+     * @return y
+     */
     public int getTimeSignature1() {
         return timeSignature1;
     }

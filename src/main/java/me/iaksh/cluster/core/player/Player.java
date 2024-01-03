@@ -30,7 +30,13 @@ public class Player {
         setVolume(volume);
     }
 
-    public void play(float gain, short[] data) {
+    /**
+     * 播放16bit PCM数据
+     * @param volume 音量
+     * @param data 16bit PCM数据
+     */
+    public void play(float volume, short[] data) {
+        setVolume(volume);
         byte[] byteData = new byte[data.length * 2];
         ByteBuffer.wrap(byteData).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().put(data);
         line.start();
@@ -39,6 +45,23 @@ public class Player {
         line.stop();
     }
 
+    /**
+     * 播放16bit PCM数据
+     * @param data 16bit PCM数据
+     */
+    public void play(short[] data) {
+        byte[] byteData = new byte[data.length * 2];
+        ByteBuffer.wrap(byteData).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().put(data);
+        line.start();
+        line.write(byteData, 0, byteData.length);
+        line.drain();
+        line.stop();
+    }
+
+    /***
+     * 设置音量
+     * @param volume 音量[0.0f,1.0f]
+     */
     public void setVolume(float volume) {
         if (volume < 0f || volume > 1f)
             throw new IllegalArgumentException("Volume not valid: " + volume);
@@ -47,6 +70,9 @@ public class Player {
         gainControl.setValue(20f * (float) Math.log10(volume));
     }
 
+    /**
+     * 关闭播放器
+     */
     public void close() {
         line.close();
     }

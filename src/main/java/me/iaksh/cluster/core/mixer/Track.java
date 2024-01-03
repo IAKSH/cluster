@@ -7,6 +7,9 @@ import me.iaksh.cluster.core.waveform.effect.Effect;
 
 import java.util.ArrayList;
 
+/**
+ * 音轨
+ */
 public class Track {
     protected final ArrayList<Short> waveform;
     protected final int bpm;
@@ -16,6 +19,12 @@ public class Track {
         this.bpm = bpm;
     }
 
+    /**
+     * 从单个简谱（小节组）生成波形
+     * @param generator 默认使用的基础波源
+     * @param sections 简谱（小节组）
+     * @return 单个通道的16bit PCM数据
+     */
     public ArrayList<Short> genWaveform(WaveGenerator generator, ArrayList<Section> sections){
         waveform.clear();
         for(Section section : sections) {

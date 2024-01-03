@@ -2,6 +2,9 @@ package me.iaksh.cluster.core.notation;
 
 import me.iaksh.cluster.core.waveform.effect.Effect;
 
+/**
+ * 十二平均律音符
+ */
 public class EqualTempNote extends Note {
     private int simpleScore;
     private int octaveShift;
@@ -32,6 +35,10 @@ public class EqualTempNote extends Note {
         init(score,oct,semi);
     }
 
+    /**
+     * 根据十二平均律获取对应的频率
+     * @return 十二平均律下对应的频率
+     */
     @Override
     public int getFreq() {
         return toFreq(simpleScore,octaveShift,semitoneShift);

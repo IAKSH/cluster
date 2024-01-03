@@ -1,16 +1,12 @@
 package me.iaksh.cluster.core.waveform.oscillator;
 
+/**
+ * 阶梯化三角波振荡器
+ * 生成原始的阶梯化三角波
+ */
 public class SteppedTriangleOscillator extends TriangleOscillator {
 
     private int ladderNum;
-
-    public SteppedTriangleOscillator() {
-        ladderNum = 16;
-    }
-
-    public SteppedTriangleOscillator(int ladderNum) {
-        this.ladderNum = ladderNum;
-    }
 
     @Override
     protected short[] genBasicWaveform(int samplesPerCycle) {
@@ -33,10 +29,26 @@ public class SteppedTriangleOscillator extends TriangleOscillator {
         return data;
     }
 
+    public SteppedTriangleOscillator() {
+        ladderNum = 16;
+    }
+
+    public SteppedTriangleOscillator(int ladderNum) {
+        this.ladderNum = ladderNum;
+    }
+
+    /**
+     * 获取阶梯数
+     * @return 阶梯数
+     */
     public int getLadderNum() {
         return ladderNum;
     }
 
+    /**
+     * 设置阶梯数
+     * @param ladderNum 阶梯数
+     */
     public void setLadderNum(int ladderNum) {
         this.ladderNum = ladderNum;
     }

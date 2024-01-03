@@ -2,6 +2,9 @@ package me.iaksh.cluster.core.notation;
 
 import me.iaksh.cluster.core.waveform.effect.Effect;
 
+/**
+ * 直接指定频率的音符
+ */
 public class FreqNote extends Note {
 
     private int frequency;
@@ -20,6 +23,10 @@ public class FreqNote extends Note {
         init();
     }
 
+    /**
+     * 直接获取频率
+     * @return 频率
+     */
     @Override
     public int getFreq() {
         return frequency;

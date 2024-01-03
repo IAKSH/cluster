@@ -330,6 +330,10 @@ public class CoreTestcase {
         return sections;
     }
 
+    /**
+     * 生成测试用简谱
+     * @return 多通道简谱
+     */
     public ArrayList<ArrayList<Section>> genTestSection() {
         initEffect();
         ArrayList<ArrayList<Section>> sections = new ArrayList<>();

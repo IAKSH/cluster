@@ -2,8 +2,15 @@ package me.iaksh.cluster.core.mixer;
 
 import java.util.ArrayList;
 
+/***
+ * 音频通道混合器
+ */
 public class Mixer {
-    // mix by normalize
+    /**
+     * 通过归一化混合波形
+     * @param channels 多个通道的16bit PCM数据
+     * @return 归一化混合的最终波形
+     */
     public static short[] mix(ArrayList<ArrayList<Short>> channels) {
         if (channels.isEmpty()) {
             return new short[0];

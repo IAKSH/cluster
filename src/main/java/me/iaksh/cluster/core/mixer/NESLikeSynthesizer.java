@@ -17,6 +17,9 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.ArrayList;
 
+/***
+ * 类似NES的2A07的合成器
+ */
 public class NESLikeSynthesizer extends Synthesizer implements Exporter {
 
     public NESLikeSynthesizer(int bpm) {

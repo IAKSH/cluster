@@ -23,10 +23,18 @@ public abstract class Note implements EffectedNote {
         this.effect = effect;
     }
 
+    /**
+     * 获取x分音符
+     * @return 1.0f/x
+     */
     public float getNoteFraction() {
         return noteFraction;
     }
 
+    /**
+     * 是否为附点音符
+     * @return boolean
+     */
     public boolean isDotted() {
         return dotted;
     }
@@ -41,5 +49,9 @@ public abstract class Note implements EffectedNote {
         return effect;
     }
 
+    /**
+     * 获取音符的频率
+     * @return 频率
+     */
     public abstract int getFreq();
 }

@@ -1,5 +1,9 @@
 package me.iaksh.cluster.core.waveform.oscillator;
 
+/**
+ * 正弦振荡器
+ * 生成原始正弦波
+ */
 public class SinOscillator extends CroppingOscillator {
     private float amplitude = 0.5f;
     private float phaseShift = 1.0f;
@@ -24,18 +28,34 @@ public class SinOscillator extends CroppingOscillator {
         return data;
     }
 
+    /**
+     * 获取振幅系数
+     * @return 振幅系数
+     */
     public float getAmplitude() {
         return amplitude;
     }
 
+    /**
+     * 获取相位偏移
+     * @return 相位偏移
+     */
     public float getPhaseShift() {
         return phaseShift;
     }
 
+    /**
+     * 设置振幅系数
+     * @param amplitude 振幅系数
+     */
     public void setAmplitude(float amplitude) {
         this.amplitude = amplitude;
     }
 
+    /**
+     * 设置相位偏移
+     * @param phaseShift 相位偏移
+     */
     public void setPhaseShift(float phaseShift) {
         this.phaseShift = phaseShift;
     }
