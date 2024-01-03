@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -10,9 +13,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.iaksh.cluster.ui.Controller">
+<AnchorPane prefHeight="420.0" prefWidth="618.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.iaksh.cluster.ui.TrackViewController">
    <children>
-      <VBox prefHeight="400.0" prefWidth="600.0">
+      <VBox layoutY="27.0" prefHeight="373.0" prefWidth="601.0">
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
@@ -30,7 +33,7 @@
                      <children>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <Canvas fx:id="CanvasSquareWaveA" height="85.0" width="500.0" />
+                              <Canvas fx:id="CanvasSquareWaveA" height="85.0" onMouseClicked="#onCanvasSqAClick" width="500.0" />
                               <ScrollBar fx:id="ScrollBarSquareWaveA" />
                            </children>
                         </VBox>
@@ -54,7 +57,7 @@
                      <children>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <Canvas fx:id="CanvasSquareWaveB" height="85.0" width="500.0" />
+                              <Canvas fx:id="CanvasSquareWaveB" height="85.0" onMouseClicked="#onCanvasSqBClick" width="500.0" />
                               <ScrollBar fx:id="ScrollBarSquareWaveB" />
                            </children>
                         </VBox>
@@ -78,7 +81,7 @@
                      <children>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <Canvas fx:id="CanvasTriangleWave" height="85.0" width="500.0" />
+                              <Canvas fx:id="CanvasTriangleWave" height="85.0" onMouseClicked="#onCanvasTriClick" width="500.0" />
                               <ScrollBar fx:id="ScrollbarTriangleWave" />
                            </children>
                         </VBox>
@@ -102,7 +105,7 @@
                      <children>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <Canvas fx:id="CanvasNoiseWave" height="85.0" width="500.0" />
+                              <Canvas fx:id="CanvasNoiseWave" height="85.0" onMouseClicked="#onCanvasNoClick" width="500.0" />
                               <ScrollBar fx:id="ScrollbarNoiseWave" />
                            </children>
                         </VBox>
@@ -112,5 +115,24 @@
             </HBox>
          </children>
       </VBox>
+      <MenuBar layoutY="1.0" prefHeight="25.0" prefWidth="618.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
    </children>
 </AnchorPane>

@@ -35,6 +35,18 @@ public class EqualTempNote extends Note {
         init(score,oct,semi);
     }
 
+    public int getSimpleScore() {
+        return simpleScore;
+    }
+
+    public int getOctaveShift() {
+        return octaveShift;
+    }
+
+    public int getSemitoneShift() {
+        return semitoneShift;
+    }
+
     /**
      * 根据十二平均律获取对应的频率
      * @return 十二平均律下对应的频率
