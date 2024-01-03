@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.iaksh.cluster.ui.CoreTestWindowController">
+   <children>
+      <HBox layoutX="-3.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="190.0" prefWidth="400.0">
+         <children>
+            <VBox prefHeight="407.0" prefWidth="78.0">
+               <children>
+                  <Button fx:id="buttonPlayCoreTest" mnemonicParsing="false" onAction="#onPlayCoreTestButtonClick" text="播放测试例" />
+                  <Button fx:id="buttonExportCoreTest" mnemonicParsing="false" onAction="#onExportCoreTestButtonClick" text="导出测试例" />
+               </children>
+            </VBox>
+            <VBox prefHeight="190.0" prefWidth="323.0">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" text="volume" />
+                  <Slider fx:id="volumeSlider" max="1.0" showTickLabels="true" showTickMarks="true" value="0.5" />
+                  <Label text="bpm" />
+                  <Slider fx:id="bpmSlider" max="800.0" min="1.0" showTickLabels="true" showTickMarks="true" value="120.0" />
+                  <TextField fx:id="textFieldExportPath" promptText="导出路径" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
