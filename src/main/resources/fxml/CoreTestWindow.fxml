@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.iaksh.cluster.ui.CoreTestWindowController">
+<AnchorPane prefHeight="130.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.iaksh.cluster.ui.Controller">
    <children>
-      <HBox layoutX="-3.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="190.0" prefWidth="400.0">
+      <HBox layoutX="-3.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="130.0" prefWidth="420.0">
          <children>
             <VBox prefHeight="407.0" prefWidth="78.0">
                <children>
