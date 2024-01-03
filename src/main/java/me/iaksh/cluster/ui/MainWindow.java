@@ -8,7 +8,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
+import me.iaksh.cluster.core.mixer.Exporter;
 import me.iaksh.cluster.core.mixer.NESLikeSynthesizer;
+import me.iaksh.cluster.core.mixer.Synthesizer;
 import me.iaksh.cluster.core.player.Player;
 import me.iaksh.cluster.core.CoreTestcase;
 
@@ -34,7 +36,8 @@ public class MainWindow extends Application {
         logger.log(Level.INFO,String.format("\"saving to \"%s\")",path));
         Thread t = new Thread(() -> {
             saveButton.setDisable(true);
-            new NESLikeSynthesizer(bpm).saveToWav(path,new CoreTestcase().genTestSection());
+            Exporter exporter = new NESLikeSynthesizer(bpm);
+            exporter.saveWaveform(path,exporter.genWaveform(new CoreTestcase().genTestSection()));
             saveButton.setDisable(false);
         });
         t.start();
@@ -45,7 +48,8 @@ public class MainWindow extends Application {
         logger.log(Level.INFO,"playing core test case");
         Thread t = new Thread(() -> {
             playButton.setDisable(true);
-            new Player(0.1f).play(0.25f,new NESLikeSynthesizer(bpm).genWavform(new CoreTestcase().genTestSection()));
+            Exporter exporter = new NESLikeSynthesizer(bpm);
+            new Player(0.1f).play(0.25f,exporter.genWaveform(new CoreTestcase().genTestSection()));
             playButton.setDisable(false);
         });
         t.start();

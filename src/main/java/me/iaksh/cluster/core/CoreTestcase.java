@@ -340,9 +340,15 @@ public class CoreTestcase {
         return sections;
     }
 
-    public void exec() {
+    /*
+    public void play() {
         int bpm = 120;
-        //new NESLikeSynthesizer(bpm).saveToWav("./out.wav",genTestSection());
-        new Player(0.1f).play(0.25f,new NESLikeSynthesizer(bpm).genWavform(genTestSection()));
+        //new NESLikeSynthesizer(bpm).saveToWave("./out.wav",genTestSection());
+        new Player(0.1f).play(0.25f,new NESLikeSynthesizer(bpm).genWaveform(genTestSection()));
     }
+    public void save() {
+        int bpm = 120;
+        new NESLikeSynthesizer(bpm).saveToWave("./out.wav",genTestSection());
+    }
+     */
 }

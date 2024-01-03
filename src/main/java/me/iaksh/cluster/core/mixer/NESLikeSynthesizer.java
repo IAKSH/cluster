@@ -25,15 +25,14 @@ public class NESLikeSynthesizer extends Synthesizer implements Exporter {
     }
 
     @Override
-    public void saveToWav(String path,ArrayList<ArrayList<Section>> sections) {
-        short[] waveform = genWavform(sections);
-        byte[] byteBuffer = new byte[waveform.length * 2];
-        ByteBuffer.wrap(byteBuffer).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().put(waveform);
+    public void saveWaveform(String path,short[] data) {
+        byte[] byteBuffer = new byte[data.length * 2];
+        ByteBuffer.wrap(byteBuffer).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().put(data);
 
         AudioFormat format = new AudioFormat(Oscillator.getSampleRate(), 16, 1, true, false);
 
         ByteArrayInputStream bais = new ByteArrayInputStream(byteBuffer);
-        AudioInputStream audioInputStream = new AudioInputStream(bais, format, waveform.length);
+        AudioInputStream audioInputStream = new AudioInputStream(bais, format, data.length);
 
         File file = new File(path);
         try {
@@ -44,7 +43,7 @@ public class NESLikeSynthesizer extends Synthesizer implements Exporter {
     }
 
     @Override
-    public short[] genWavform(ArrayList<ArrayList<Section>> sections) {
+    public short[] genWaveform(ArrayList<ArrayList<Section>> sections) {
         ArrayList<ArrayList<Short>> channels = new ArrayList<>();
         channels.add(tracks.get(0).genWaveform(new SquareOscillator(),sections.get(0)));
         channels.add(tracks.get(1).genWaveform(new SquareOscillator(),sections.get(1)));
