@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,7 +17,7 @@ import me.iaksh.cluster.core.mixer.NESLikeSynthesizer;
 import me.iaksh.cluster.core.notation.EqualTempNote;
 import me.iaksh.cluster.core.notation.Section;
 import me.iaksh.cluster.core.player.Player;
-import me.iaksh.cluster.core.waveform.effect.ExpGradientEffect;
+import me.iaksh.cluster.core.waveform.effect.*;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -25,24 +26,29 @@ import java.util.ResourceBundle;
 public class MainWindow implements Initializable {
 
     public class NoteRecord {
-        private SimpleIntegerProperty id;
         private SimpleFloatProperty noteFraction;
         private SimpleBooleanProperty isDotted;
         private SimpleIntegerProperty simpleScore;
         private SimpleIntegerProperty octaveShift;
         private SimpleIntegerProperty semitoneShift;
+        private SimpleStringProperty effectName;
 
-        public NoteRecord(int id, float noteFraction, boolean isDotted, int simpleScore, int octaveShift, int semitoneShift) {
-            this.id = new SimpleIntegerProperty(id);
+        public NoteRecord(float noteFraction, boolean isDotted, int simpleScore, int octaveShift, int semitoneShift) {
             this.noteFraction = new SimpleFloatProperty(noteFraction);
             this.isDotted = new SimpleBooleanProperty(isDotted);
             this.simpleScore = new SimpleIntegerProperty(simpleScore);
             this.octaveShift = new SimpleIntegerProperty(octaveShift);
             this.semitoneShift = new SimpleIntegerProperty(semitoneShift);
+            this.effectName = new SimpleStringProperty("null");
         }
 
-        public int getId() {
-            return id.get();
+        public NoteRecord(float noteFraction, boolean isDotted, int simpleScore, int octaveShift, int semitoneShift,String effectName) {
+            this.noteFraction = new SimpleFloatProperty(noteFraction);
+            this.isDotted = new SimpleBooleanProperty(isDotted);
+            this.simpleScore = new SimpleIntegerProperty(simpleScore);
+            this.octaveShift = new SimpleIntegerProperty(octaveShift);
+            this.semitoneShift = new SimpleIntegerProperty(semitoneShift);
+            this.effectName = new SimpleStringProperty(effectName);
         }
 
         public float getNoteFraction() {
@@ -61,12 +67,12 @@ public class MainWindow implements Initializable {
             return simpleScore.get();
         }
 
-        public boolean isIsDotted() {
-            return isDotted.get();
+        public String getEffectName() {
+            return effectName.get();
         }
 
-        public void setId(int id) {
-            this.id.set(id);
+        public boolean isIsDotted() {
+            return isDotted.get();
         }
 
         public void setIsDotted(boolean isDotted) {
@@ -88,6 +94,30 @@ public class MainWindow implements Initializable {
         public void setSimpleScore(int simpleScore) {
             this.simpleScore.set(simpleScore);
         }
+
+        public void setEffectName(String effectName) {
+            this.effectName.set(effectName);
+        }
+    }
+
+    public enum EffectType {
+        EXP_GRADIENT,
+        REV_EXP_GRADIENT,
+        LINEAR_GRADIENT,
+        REV_LINEAR_GRADIENT,
+        NONE
+    }
+
+    public class EffectRecord {
+        private final EffectType effectType;
+
+        public EffectRecord(EffectType effectType) {
+            this.effectType = effectType;
+        }
+
+        public EffectType getEffectType() {
+            return effectType;
+        }
     }
 
     public Label bpmDisplayLabel;
@@ -99,7 +129,6 @@ public class MainWindow implements Initializable {
     public Button resetButton;
     public Button exportButton;
     public TextField channelTextField;
-    public TextField noteIdTextField;
     public TextField noteFractionTextField;
     public TextField noteSimpleScoreTextField;
     public TextField noteOctaveShiftTextField;
@@ -116,19 +145,15 @@ public class MainWindow implements Initializable {
     public CheckBox squareBChannelCheckBox;
     public CheckBox triangleChannelCheckBox;
     public CheckBox noiseChannelCheckBox;
-    public TableColumn squareAIdColumn;
     public TableColumn squareAScoreColumn;
     public TableColumn squareADottedColumn;
     public TableColumn squareAOctaveColumn;
-    public TableColumn squareBIdColumn;
     public TableColumn squareBScoreColumn;
     public TableColumn squareBDottedColumn;
     public TableColumn squareBOctaveColumn;
-    public TableColumn triangleIdColumn;
     public TableColumn triangleScoreColumn;
     public TableColumn triangleDottedColumn;
     public TableColumn triangleOctaveColumn;
-    public TableColumn noiseIdColumn;
     public TableColumn noiseScoreColumn;
     public TableColumn noiseDottedColumn;
     public TableColumn noiseOctaveColumn;
@@ -144,12 +169,34 @@ public class MainWindow implements Initializable {
     public TableView squareBTableView;
     public TableView triangleTableView;
     public TableView noiseTableView;
+    public MenuItem saveMenuItem;
+    public MenuItem loadMenuItem;
+    public MenuItem aboutMenuItem;
+    public TableColumn squareAEffectColumn;
+    public TableColumn squareBEffectColumn;
+    public TableColumn triangleEffectColumn;
+    public TableColumn noiseEffectColumn;
+    public ChoiceBox effectChoiceBox;
 
     private static boolean labelUpdateThreadShouldRunning = true;
     private ObservableList<NoteRecord> squareARecords;
     private ObservableList<NoteRecord> squareBRecords;
     private ObservableList<NoteRecord> triangleRecords;
     private ObservableList<NoteRecord> noiseRecords;
+
+    private ObservableList<EffectRecord> effectRecords;
+
+    @FXML
+    public void onSaveMenuItemClick(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void onLoadMenuItemClick(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void onAboutMenuItemClick(ActionEvent actionEvent) {
+    }
 
     @FXML
     public void onSquareATableViewClick(MouseEvent mouseEvent) {
@@ -312,22 +359,49 @@ public class MainWindow implements Initializable {
         }
     }
 
-    private ExpGradientEffect tempEffect = new ExpGradientEffect();
     private ArrayList<Section> genSectionsFromRecords(ObservableList<NoteRecord> records) {
-        tempEffect.setExpCoefficient(4.0f);
         ArrayList<Section> sections = new ArrayList<>();
         for(NoteRecord record : records) {
             if(record.getNoteFraction() == 0.0f) {
                 sections.add(new Section(record.getSimpleScore(),record.getOctaveShift()));
             } else {
-                sections.get(sections.size() - 1).getNotes().add(new EqualTempNote(
-                        record.getNoteFraction(),
-                        record.isIsDotted(),
-                        record.getSimpleScore(),
-                        record.getOctaveShift(),
-                        record.getSemitoneShift(),
-                        tempEffect
-                ));
+                if(record.getEffectName().equals("None")) {
+                    sections.get(sections.size() - 1).getNotes().add(new EqualTempNote(
+                            record.getNoteFraction(),
+                            record.isIsDotted(),
+                            record.getSimpleScore(),
+                            record.getOctaveShift(),
+                            record.getSemitoneShift()
+                    ));
+                } else {
+                    Effect effect = null;
+                    switch (record.getEffectName()) {
+                        case "EXP_GRADIENT" -> {
+                            ExpGradientEffect expGradientEffect = new ExpGradientEffect();
+                            expGradientEffect.setExpCoefficient(4.0f);
+                            effect = expGradientEffect;
+                        }
+                        case "REV_EXP_GRADIENT" -> {
+                            ReverseExpGradientEffect expGradientEffect = new ReverseExpGradientEffect();
+                            expGradientEffect.setExpCoefficient(4.0f);
+                            effect = expGradientEffect;
+                        }
+                        case "LINEAR_GRADIENT" -> {
+                            effect = new LinearGradientEffect();
+                        }
+                        case "REV_LINEAR_GRADIENT" -> {
+                            effect = new ReverseLinearGradientEffect();
+                        }
+                    }
+                    sections.get(sections.size() - 1).getNotes().add(new EqualTempNote(
+                            record.getNoteFraction(),
+                            record.isIsDotted(),
+                            record.getSimpleScore(),
+                            record.getOctaveShift(),
+                            record.getSemitoneShift(),
+                            effect
+                    ));
+                }
             }
         }
         return sections;
@@ -343,12 +417,11 @@ public class MainWindow implements Initializable {
     }
 
     private void addSectionRecord(ObservableList<NoteRecord> list,boolean isStarting) {
-        int id = Integer.parseInt(noteIdTextField.getText());
         int[] info = getSectionInfo();
         // 临时这样：
         // noteFraction = 0则为Section标记
         // 此时isDotted表示起（true）止（false）
-        list.add(new NoteRecord(id,0,isStarting,info[0],info[1],0));
+        list.add(new NoteRecord(0,isStarting,info[0],info[1],0));
     }
 
     private int[] getSectionInfo() {
@@ -383,43 +456,67 @@ public class MainWindow implements Initializable {
     }
 
     private void initSquareATableView() {
-        squareAIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         squareAFractionColumn.setCellValueFactory(new PropertyValueFactory<>("noteFraction"));
         squareADottedColumn.setCellValueFactory(new PropertyValueFactory<>("isDotted"));
         squareAScoreColumn.setCellValueFactory(new PropertyValueFactory<>("simpleScore"));
         squareAOctaveColumn.setCellValueFactory(new PropertyValueFactory<>("octaveShift"));
         squareASemitoneColumn.setCellValueFactory(new PropertyValueFactory<>("semitoneShift"));
+        squareAEffectColumn.setCellValueFactory(new PropertyValueFactory<>("effectName"));
         squareATableView.setItems(squareARecords);
     }
 
     private void initSquareBTableView() {
-        squareBIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         squareBFractionColumn.setCellValueFactory(new PropertyValueFactory<>("noteFraction"));
         squareBDottedColumn.setCellValueFactory(new PropertyValueFactory<>("isDotted"));
         squareBScoreColumn.setCellValueFactory(new PropertyValueFactory<>("simpleScore"));
         squareBOctaveColumn.setCellValueFactory(new PropertyValueFactory<>("octaveShift"));
         squareBSemitoneColumn.setCellValueFactory(new PropertyValueFactory<>("semitoneShift"));
+        squareBEffectColumn.setCellValueFactory(new PropertyValueFactory<>("effectName"));
         squareBTableView.setItems(squareBRecords);
     }
 
     private void initTriangleTableView() {
-        triangleIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         triangleFractionColumn.setCellValueFactory(new PropertyValueFactory<>("noteFraction"));
         triangleDottedColumn.setCellValueFactory(new PropertyValueFactory<>("isDotted"));
         triangleScoreColumn.setCellValueFactory(new PropertyValueFactory<>("simpleScore"));
         triangleOctaveColumn.setCellValueFactory(new PropertyValueFactory<>("octaveShift"));
         triangleSemitoneColumn.setCellValueFactory(new PropertyValueFactory<>("semitoneShift"));
+        triangleEffectColumn.setCellValueFactory(new PropertyValueFactory<>("effectName"));
         triangleTableView.setItems(triangleRecords);
     }
 
     private void initNoiseTableView() {
-        noiseIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         noiseFractionColumn.setCellValueFactory(new PropertyValueFactory<>("noteFraction"));
         noiseDottedColumn.setCellValueFactory(new PropertyValueFactory<>("isDotted"));
         noiseScoreColumn.setCellValueFactory(new PropertyValueFactory<>("simpleScore"));
         noiseOctaveColumn.setCellValueFactory(new PropertyValueFactory<>("octaveShift"));
         noiseSemitoneColumn.setCellValueFactory(new PropertyValueFactory<>("semitoneShift"));
+        noiseEffectColumn.setCellValueFactory(new PropertyValueFactory<>("effectName"));
         noiseTableView.setItems(noiseRecords);
+    }
+
+    private void initEffectRecords() {
+        effectRecords = FXCollections.observableArrayList();
+        effectRecords.add(new EffectRecord(EffectType.EXP_GRADIENT));
+        effectRecords.add(new EffectRecord(EffectType.REV_EXP_GRADIENT));
+        effectRecords.add(new EffectRecord(EffectType.LINEAR_GRADIENT));
+        effectRecords.add(new EffectRecord(EffectType.REV_LINEAR_GRADIENT));
+        effectRecords.add(new EffectRecord(EffectType.NONE));
+        effectChoiceBox.setItems(effectRecords);
+        /*
+        effectChoiceBox.setConverter(new StringConverter<EffectRecord>() {
+            @Override
+            public String toString(EffectRecord object) {
+                return object.getEffectType().toString();
+            }
+
+            @Override
+            public EffectRecord fromString(String string) {
+                System.out.println(string);
+                return null;
+            }
+        });
+         */
     }
 
     private void initAllTableViews() {
@@ -441,13 +538,13 @@ public class MainWindow implements Initializable {
     }
 
     private void addNoteRecord(ObservableList<NoteRecord> list) {
-        int id = Integer.parseInt(noteIdTextField.getText());
         float noteFraction = Float.parseFloat(noteFractionTextField.getText());
         boolean isDotted = noteIsDottedCheckBox.isSelected();
         int simpleScore = Integer.parseInt(noteSimpleScoreTextField.getText());
         int octaveShift = Integer.parseInt(noteOctaveShiftTextField.getText());
         int semitoneShift = Integer.parseInt(noteSemitoneShiftTextField.getText());
-        list.add(new NoteRecord(id,noteFraction,isDotted,simpleScore,octaveShift,semitoneShift));
+        list.add(new NoteRecord(noteFraction,isDotted,simpleScore,octaveShift,semitoneShift,
+                ((EffectRecord)effectChoiceBox.getSelectionModel().getSelectedItem()).getEffectType().toString()));
     }
 
     private void validateNoteInputArgs() {
@@ -458,6 +555,7 @@ public class MainWindow implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         initRecords();
         initAllTableViews();
+        initEffectRecords();
         initLabelUpdateThread();
     }
 

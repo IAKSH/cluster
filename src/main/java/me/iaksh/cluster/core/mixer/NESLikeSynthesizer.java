@@ -1,10 +1,7 @@
 package me.iaksh.cluster.core.mixer;
 
 import me.iaksh.cluster.core.notation.Section;
-import me.iaksh.cluster.core.waveform.oscillator.NoiseOscillator;
-import me.iaksh.cluster.core.waveform.oscillator.Oscillator;
-import me.iaksh.cluster.core.waveform.oscillator.SquareOscillator;
-import me.iaksh.cluster.core.waveform.oscillator.SteppedTriangleOscillator;
+import me.iaksh.cluster.core.waveform.oscillator.*;
 
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;
@@ -55,7 +52,8 @@ public class NESLikeSynthesizer extends Synthesizer implements Exporter {
         if(!disableChannel[1])
             channels.add(tracks.get(1).genWaveform(new SquareOscillator(),sections.get(1)));
         if(!disableChannel[2])
-            channels.add(tracks.get(2).genWaveform(new SteppedTriangleOscillator(),sections.get(2)));
+            //channels.add(tracks.get(2).genWaveform(new SteppedTriangleOscillator(),sections.get(2)));
+            channels.add(tracks.get(2).genWaveform(new TriangleOscillator(),sections.get(2)));
         if(!disableChannel[3])
             channels.add(tracks.get(3).genWaveform(new NoiseOscillator(),sections.get(3)));
         return Mixer.mix(channels);
