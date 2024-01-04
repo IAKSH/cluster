@@ -1,14 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="me.iaksh.cluster.ui.NoteEditPage"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.iaksh.cluster.ui.NoteEditPageController">
+   <children>
+      <HBox prefHeight="20.0" prefWidth="400.0" />
+      <HBox prefHeight="30.0" prefWidth="400.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="60.0" />
+            <Label text="通道">
+               <graphic>
+                  <TextField fx:id="channelTextField" prefHeight="23.0" prefWidth="162.0" />
+               </graphic>
+            </Label>
+         </children>
+      </HBox>
+      <HBox prefHeight="30.0" prefWidth="200.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="60.0" />
+            <Label text="X分音符">
+               <graphic>
+                  <TextField fx:id="noteFractionTextField" />
+               </graphic>
+            </Label>
+         </children>
+      </HBox>
+      <HBox prefHeight="30.0" prefWidth="200.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="60.0" />
+            <Label text="简谱">
+               <graphic>
+                  <TextField fx:id="simpleScoreTextField" />
+               </graphic>
+            </Label>
+         </children>
+      </HBox>
+      <HBox prefHeight="30.0" prefWidth="200.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="60.0" />
+            <Label text="八度">
+               <graphic>
+                  <TextField fx:id="octaveTextureField" />
+               </graphic>
+            </Label>
+         </children>
+      </HBox>
+      <HBox prefHeight="30.0" prefWidth="200.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="60.0" />
+            <Label text="半音">
+               <graphic>
+                  <TextField fx:id="semitoneTextField" />
+               </graphic>
+            </Label>
+         </children>
+      </HBox>
+      <HBox prefHeight="30.0" prefWidth="200.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="60.0" />
+            <CheckBox fx:id="dottedCheckbox" mnemonicParsing="false" text="附点" />
+         </children>
+      </HBox>
+      <HBox prefHeight="30.0" prefWidth="200.0">
+         <children>
+            <HBox prefHeight="30.0" prefWidth="180.0" />
+            <VBox prefHeight="30.0" prefWidth="100.0">
+               <children>
+                  <Button fx:id="saveButton" mnemonicParsing="false" onAction="#onSaveButtonClick" prefHeight="23.0" prefWidth="170.0" text="保存" />
+               </children>
+            </VBox>
+            <HBox prefHeight="30.0" prefWidth="200.0" />
+         </children>
+      </HBox>
+   </children>
+</VBox>

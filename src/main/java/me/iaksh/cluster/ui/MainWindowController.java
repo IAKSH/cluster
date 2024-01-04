@@ -31,7 +31,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class MainWindow implements Initializable {
+public class MainWindowController implements Initializable {
 
     public class NoteRecord {
         private SimpleFloatProperty noteFraction;
@@ -147,7 +147,6 @@ public class MainWindow implements Initializable {
     public Button deleteNoteButton;
     public TextField sectionInfoTextField;
     public Button sectionBeginButton;
-    public Button sectionEndButton;
     public CheckBox squareAChannelCheckBox;
     public CheckBox squareBChannelCheckBox;
     public CheckBox triangleChannelCheckBox;
@@ -186,7 +185,6 @@ public class MainWindow implements Initializable {
     public ChoiceBox effectChoiceBox;
     public Button forceStopButton;
 
-    private static boolean labelUpdateThreadShouldRunning = true;
     private ObservableList<NoteRecord> squareARecords;
     private ObservableList<NoteRecord> squareBRecords;
     private ObservableList<NoteRecord> triangleRecords;
@@ -424,7 +422,7 @@ public class MainWindow implements Initializable {
 
     @FXML
     public void onEditNoteButtonClick(ActionEvent actionEvent) {
-        // TODO
+        Main.noteEditPageStage.show();
     }
 
     @FXML
@@ -558,7 +556,7 @@ public class MainWindow implements Initializable {
         // TODO: 绘制实时波形图
         new Thread(() -> {
             try {
-                while (labelUpdateThreadShouldRunning) {
+                while (!Main.closing) {
                     String bpmStr = String.valueOf((int) Math.floor(bpmSlider.getValue()));
                     String volumeStr = String.valueOf((int) Math.floor(volumeSlider.getValue()));
                     Platform.runLater(() -> {
@@ -662,7 +660,7 @@ public class MainWindow implements Initializable {
         int octaveShift = Integer.parseInt(noteOctaveShiftTextField.getText());
         int semitoneShift = Integer.parseInt(noteSemitoneShiftTextField.getText());
         list.add(new NoteRecord(noteFraction,isDotted,simpleScore,octaveShift,semitoneShift,
-                ((EffectRecord)effectChoiceBox.getSelectionModel().getSelectedItem()).getEffectType().toString()));
+                ((EffectRecord)effectChoiceBox.getSelectionModel().getSelectedItem()).getEffectType().toString()));;
     }
 
     private void validateNoteInputArgs() {
@@ -675,14 +673,28 @@ public class MainWindow implements Initializable {
         initAllTableViews();
         initEffectRecords();
         initExternUIUpdateThread();
-
-        // 因为还没做，所以先直接禁用了
-        editNoteButton.setDisable(true);
-
         player = new Player();
+
+        GlobalDatas.mainWindowController = this;
     }
 
-    public static void setLabelUpdateThreadShouldRunning(boolean labelUpdateThreadShouldRunning) {
-        MainWindow.labelUpdateThreadShouldRunning = labelUpdateThreadShouldRunning;
+    public TableView getSelectedTableView() {
+        TableView tableView = switch (getSelectedChannelId()) {
+            case 0 -> squareATableView;
+            case 1 -> squareBTableView;
+            case 2 -> triangleTableView;
+            case 3 -> noiseTableView;
+            default ->
+                    throw new IllegalStateException("Unexpected value: " + Integer.parseInt(channelTextField.getText()));
+        };
+        return tableView;
+    }
+
+    public int getSelectedChannelId() {
+        return Integer.parseInt(channelTextField.getText());
+    }
+
+    public NoteRecord getSelectedNoteRecord() {
+        return (NoteRecord) getSelectedTableView().getSelectionModel().getSelectedItem();
     }
 }
