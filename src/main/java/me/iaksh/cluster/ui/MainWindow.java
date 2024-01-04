@@ -358,6 +358,8 @@ public class MainWindow implements Initializable {
 
     @FXML
     public void onExportButtonClick(ActionEvent actionEvent) {
+        // TODO: 限定后缀名为wav
+
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("导出音频");
         File file = fileChooser.showSaveDialog(Main.primaryStage);
@@ -535,7 +537,9 @@ public class MainWindow implements Initializable {
         //TODO
     }
 
-    private void initLabelUpdateThread() {
+    private void initExternUIUpdateThread() {
+        // TODO: 绘制实时播放位置
+        // TODO: 绘制实时波形图
         new Thread(() -> {
             try {
                 while (labelUpdateThreadShouldRunning) {
@@ -654,11 +658,12 @@ public class MainWindow implements Initializable {
         initRecords();
         initAllTableViews();
         initEffectRecords();
-        initLabelUpdateThread();
+        initExternUIUpdateThread();
 
         // 因为还没做，所以先直接禁用了
         pauseButton.setDisable(true);
         resetButton.setDisable(true);
+        editNoteButton.setDisable(true);
     }
 
     public static void setLabelUpdateThreadShouldRunning(boolean labelUpdateThreadShouldRunning) {
