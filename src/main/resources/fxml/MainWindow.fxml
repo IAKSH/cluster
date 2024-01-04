@@ -73,20 +73,27 @@
             </VBox>
             <VBox prefHeight="200.0" prefWidth="75.0">
                <children>
-                  <HBox prefHeight="80.0" prefWidth="100.0" styleClass="GrayBox" stylesheets="@../css/GrayBox.css" />
                   <HBox prefHeight="100.0" prefWidth="100.0" styleClass="GrayBox" stylesheets="@../css/GrayBox.css">
                      <children>
                         <HBox prefHeight="50.0" prefWidth="15.0" />
                         <VBox prefHeight="60.0" prefWidth="50.0">
                            <children>
-                              <Button fx:id="playButton" mnemonicParsing="false" onAction="#onPlayButtonClick" prefWidth="50.0" styleClass="BlackButton" text="播放">
+                              <VBox prefHeight="8.0" prefWidth="100.0" />
+                              <Button fx:id="forceStopButton" mnemonicParsing="false" onAction="#onForceStopButtonClick" prefHeight="20.0" prefWidth="50.0" styleClass="BlackButton" text="终止">
+                                 <stylesheets>
+                                    <URL value="@../css/FontWithShadow.css" />
+                                    <URL value="@../css/BlackButton.css" />
+                                 </stylesheets>
+                              </Button>
+                              <VBox prefHeight="5.0" prefWidth="100.0" />
+                              <Button fx:id="playButton" mnemonicParsing="false" onAction="#onPlayButtonClick" prefHeight="20.0" prefWidth="50.0" styleClass="BlackButton" text="播放">
                                  <stylesheets>
                                     <URL value="@../css/BlackButton.css" />
                                     <URL value="@../css/FontWithShadow.css" />
                                  </stylesheets>
                               </Button>
                               <VBox prefHeight="5.0" prefWidth="50.0" />
-                              <Button fx:id="exportButton" mnemonicParsing="false" onAction="#onExportButtonClick" prefHeight="23.0" prefWidth="50.0" styleClass="BlackButton" text="导出">
+                              <Button fx:id="exportButton" mnemonicParsing="false" onAction="#onExportButtonClick" prefHeight="20.0" prefWidth="50.0" styleClass="BlackButton" text="导出">
                                  <stylesheets>
                                     <URL value="@../css/BlackButton.css" />
                                     <URL value="@../css/FontWithShadow.css" />
@@ -129,7 +136,7 @@
                            <children>
                               <VBox prefHeight="200.0" prefWidth="100.0">
                                  <children>
-                                    <Button fx:id="pauseButton" mnemonicParsing="false" onAction="#onPauseButtonClick" styleClass="BlackButton" text="暂停">
+                                    <Button fx:id="pauseButton" disable="true" mnemonicParsing="false" onAction="#onPauseButtonClick" prefHeight="20.0" prefWidth="50.0" styleClass="BlackButton" text="暂停">
                                        <stylesheets>
                                           <URL value="@../css/BlackButton.css" />
                                           <URL value="@../css/FontWithShadow.css" />
@@ -139,7 +146,7 @@
                               </VBox>
                               <VBox prefHeight="200.0" prefWidth="100.0">
                                  <children>
-                                    <Button fx:id="resetButton" mnemonicParsing="false" onAction="#onResetButtonClick" styleClass="BlackButton" text="重置">
+                                    <Button fx:id="resetButton" disable="true" mnemonicParsing="false" onAction="#onResetButtonClick" prefHeight="20.0" prefWidth="50.0" styleClass="BlackButton" text="重置">
                                        <stylesheets>
                                           <URL value="@../css/BlackButton.css" />
                                           <URL value="@../css/FontWithShadow.css" />

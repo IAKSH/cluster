@@ -9,6 +9,7 @@ import java.nio.ByteOrder;
 public class Player {
 
     private SourceDataLine line;
+    private boolean isPaused;
 
     private void init() {
         try {
@@ -37,12 +38,7 @@ public class Player {
      */
     public void play(float volume, short[] data) {
         setVolume(volume);
-        byte[] byteData = new byte[data.length * 2];
-        ByteBuffer.wrap(byteData).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().put(data);
-        line.start();
-        line.write(byteData, 0, byteData.length);
-        line.drain();
-        line.stop();
+        play(data);
     }
 
     /**
@@ -50,12 +46,37 @@ public class Player {
      * @param data 16bit PCM数据
      */
     public void play(short[] data) {
-        byte[] byteData = new byte[data.length * 2];
-        ByteBuffer.wrap(byteData).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().put(data);
-        line.start();
-        line.write(byteData, 0, byteData.length);
-        line.drain();
-        line.stop();
+        try {
+            byte[] byteData = new byte[data.length * 2];
+            ByteBuffer.wrap(byteData).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().put(data);
+
+            int i = 0;
+            line.start();
+            while (i < byteData.length) {
+                while(isPaused)
+                    Thread.sleep(1);
+                line.write(byteData, i, Math.min(1024, byteData.length - i));
+                i += 1024;
+            }
+            line.drain();
+            line.stop();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 暂停播放
+     */
+    public void pause() {
+        isPaused = true;
+    }
+
+    /**
+     * 恢复播放
+     */
+    public void resume() {
+        isPaused = false;
     }
 
     /***
@@ -75,5 +96,15 @@ public class Player {
      */
     public void close() {
         line.close();
+    }
+
+    public boolean isPaused() {
+        return isPaused;
+    }
+
+    public void forceStop() {
+        line.stop();
+        close();
+        init();
     }
 }

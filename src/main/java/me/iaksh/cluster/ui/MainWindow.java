@@ -184,6 +184,7 @@ public class MainWindow implements Initializable {
     public TableColumn triangleEffectColumn;
     public TableColumn noiseEffectColumn;
     public ChoiceBox effectChoiceBox;
+    public Button forceStopButton;
 
     private static boolean labelUpdateThreadShouldRunning = true;
     private ObservableList<NoteRecord> squareARecords;
@@ -191,6 +192,13 @@ public class MainWindow implements Initializable {
     private ObservableList<NoteRecord> triangleRecords;
     private ObservableList<NoteRecord> noiseRecords;
     private ObservableList<EffectRecord> effectRecords;
+
+    private Player player;
+
+    @FXML
+    public void onForceStopButtonClick(ActionEvent actionEvent) {
+        player.forceStop();
+    }
 
     @FXML
     public void onSaveMenuItemClick(ActionEvent actionEvent) {
@@ -247,7 +255,7 @@ public class MainWindow implements Initializable {
     public void onLoadMenuItemClick(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("载入工程");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON",".json"));
+        //fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON",".json"));
         File file = fileChooser.showOpenDialog(Main.primaryStage);
 
         if(file != null) {
@@ -317,6 +325,7 @@ public class MainWindow implements Initializable {
         float volume = (float) (volumeSlider.getValue() / 100.0f);
         int bpm = (int) (Math.floor(bpmSlider.getValue()));
         new Thread(() -> {
+            pauseButton.setDisable(false);
             playButton.setDisable(true);
             volumeSlider.setDisable(true);
             bpmSlider.setDisable(true);
@@ -335,7 +344,8 @@ public class MainWindow implements Initializable {
             if(!noiseChannelCheckBox.isSelected())
                 synthesizer.setDisableChannel(3,true);
 
-            new Player(volume).play(synthesizer.genWaveform(genAllSections()));
+            player.play(volume,synthesizer.genWaveform(genAllSections()));
+
             playButton.setDisable(false);
             volumeSlider.setDisable(false);
             bpmSlider.setDisable(false);
@@ -343,17 +353,23 @@ public class MainWindow implements Initializable {
             squareBChannelCheckBox.setDisable(false);
             triangleChannelCheckBox.setDisable(false);
             noiseChannelCheckBox.setDisable(false);
+            pauseButton.setDisable(true);
+            resetButton.setDisable(true);
         }).start();
     }
 
     @FXML
     public void onPauseButtonClick(ActionEvent actionEvent) {
-        // TODO
+        resetButton.setDisable(false);
+        pauseButton.setDisable(true);
+        player.pause();
     }
 
     @FXML
     public void onResetButtonClick(ActionEvent actionEvent) {
-        // TODO
+        pauseButton.setDisable(false);
+        resetButton.setDisable(true);
+        player.resume();
     }
 
     @FXML
@@ -661,9 +677,9 @@ public class MainWindow implements Initializable {
         initExternUIUpdateThread();
 
         // 因为还没做，所以先直接禁用了
-        pauseButton.setDisable(true);
-        resetButton.setDisable(true);
         editNoteButton.setDisable(true);
+
+        player = new Player();
     }
 
     public static void setLabelUpdateThreadShouldRunning(boolean labelUpdateThreadShouldRunning) {
