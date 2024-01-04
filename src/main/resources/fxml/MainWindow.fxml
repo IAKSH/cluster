@@ -13,6 +13,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
@@ -249,9 +250,9 @@
                   </VBox>
                </children>
             </HBox>
-            <HBox prefHeight="269.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
+            <HBox prefHeight="269.0" prefWidth="1000.0" styleClass="HBox" stylesheets="@../css/Background.css" VBox.vgrow="ALWAYS">
                <children>
-                  <TableView fx:id="squareATableView" onMouseClicked="#onSquareATableViewClick" prefHeight="500.0" prefWidth="250.0" styleClass="GrayBoxWithShadow">
+                  <TableView fx:id="squareATableView" onMouseClicked="#onSquareATableViewClick" opacity="0.8" prefHeight="500.0" prefWidth="250.0" styleClass="GrayBoxWithShadow">
                      <columns>
                         <TableColumn fx:id="squareAFractionColumn" prefWidth="40.0" styleClass="GrayBoxWithShadow" text="X分音符" />
                         <TableColumn fx:id="squareADottedColumn" prefWidth="40.0" styleClass="GrayBoxWithShadow" text="附点" />
@@ -265,7 +266,7 @@
                         <URL value="@../css/GrayBox.css" />
                      </stylesheets>
                   </TableView>
-                  <TableView fx:id="squareBTableView" onMouseClicked="#onSquareBTableViewClick" prefHeight="500.0" prefWidth="250.0" styleClass="GrayBoxWithShadow">
+                  <TableView fx:id="squareBTableView" onMouseClicked="#onSquareBTableViewClick" opacity="0.8" prefHeight="500.0" prefWidth="250.0" styleClass="GrayBoxWithShadow">
                      <columns>
                         <TableColumn fx:id="squareBFractionColumn" prefWidth="40.0" styleClass="GrayBoxWithShadow" text="X分音符" />
                         <TableColumn fx:id="squareBScoreColumn" prefWidth="40.0" styleClass="GrayBoxWithShadow" text="简谱" />
@@ -279,7 +280,7 @@
                         <URL value="@../css/FontWithShadow.css" />
                      </stylesheets>
                   </TableView>
-                  <TableView fx:id="triangleTableView" onMouseClicked="#onTriangleTableViewClick" prefHeight="500.0" prefWidth="250.0" styleClass="GrayBoxWithShadow">
+                  <TableView fx:id="triangleTableView" onMouseClicked="#onTriangleTableViewClick" opacity="0.8" prefHeight="500.0" prefWidth="250.0" styleClass="GrayBoxWithShadow">
                      <columns>
                         <TableColumn fx:id="triangleFractionColumn" prefWidth="40.0" styleClass="GrayBoxWithShadow" text="X分音符" />
                         <TableColumn fx:id="triangleScoreColumn" prefWidth="40.0" styleClass="GrayBoxWithShadow" text="简谱" />
@@ -293,7 +294,7 @@
                         <URL value="@../css/FontWithShadow.css" />
                      </stylesheets>
                   </TableView>
-                  <TableView fx:id="noiseTableView" onMouseClicked="#onNoiseTableViewClick" prefHeight="500.0" prefWidth="250.0" styleClass="GrayBoxWithShadow">
+                  <TableView fx:id="noiseTableView" onMouseClicked="#onNoiseTableViewClick" opacity="0.8" prefHeight="500.0" prefWidth="250.0" styleClass="GrayBoxWithShadow">
                      <columns>
                         <TableColumn fx:id="noiseFractionColumn" prefWidth="40.0" styleClass="GrayBoxWithShadow" text="X分音符" />
                         <TableColumn fx:id="noiseScoreColumn" prefWidth="40.0" styleClass="GrayBoxWithShadow" text="简谱" />
@@ -308,6 +309,9 @@
                      </stylesheets>
                   </TableView>
                </children>
+               <effect>
+                  <Blend mode="SCREEN" />
+               </effect>
             </HBox>
          </children>
       </VBox>

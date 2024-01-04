@@ -12,6 +12,7 @@ import java.util.Objects;
 public class Main extends Application {
 
     public static Stage primaryStage;
+    public static Stage aboutPageStage;
 
     @Override
     public void init() {
@@ -25,6 +26,15 @@ public class Main extends Application {
         // 以后解决布局问题了再允许拉伸
         primaryStage.setResizable(false);
         this.primaryStage = primaryStage;
+
+        Parent aboutPageRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxml/AboutPage.fxml")));
+        aboutPageStage = new Stage();
+        aboutPageStage.setTitle("ABout");
+        aboutPageStage.setScene(new Scene(aboutPageRoot, 400, 200));
+        // 以后解决布局问题了再允许拉伸
+        aboutPageStage.setResizable(false);
+        this.aboutPageStage = aboutPageStage;
+
         primaryStage.show();
     }
 

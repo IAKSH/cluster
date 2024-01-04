@@ -297,7 +297,7 @@ public class MainWindow implements Initializable {
 
     @FXML
     public void onAboutMenuItemClick(ActionEvent actionEvent) {
-        // TODO: show about window
+        Main.aboutPageStage.show();
     }
 
     @FXML

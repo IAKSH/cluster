@@ -1,0 +1,5 @@
+.HBox {
+    -fx-background-image: url('../img/chip.jpg');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+}
