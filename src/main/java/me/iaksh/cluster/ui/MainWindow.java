@@ -1,7 +1,6 @@
 package me.iaksh.cluster.ui;
 
 import com.alibaba.fastjson2.JSON;
-import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -17,7 +16,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
+import me.iaksh.cluster.Main;
 import me.iaksh.cluster.core.mixer.NESLikeSynthesizer;
 import me.iaksh.cluster.core.notation.EqualTempNote;
 import me.iaksh.cluster.core.notation.Section;
@@ -142,7 +141,6 @@ public class MainWindow implements Initializable {
     public TextField noteSimpleScoreTextField;
     public TextField noteOctaveShiftTextField;
     public TextField noteSemitoneShiftTextField;
-    public TextField exportPathTextField;
     public CheckBox noteIsDottedCheckBox;
     public Button addNoteButton;
     public Button editNoteButton;
@@ -192,7 +190,6 @@ public class MainWindow implements Initializable {
     private ObservableList<NoteRecord> squareBRecords;
     private ObservableList<NoteRecord> triangleRecords;
     private ObservableList<NoteRecord> noiseRecords;
-
     private ObservableList<EffectRecord> effectRecords;
 
     @FXML
@@ -201,7 +198,7 @@ public class MainWindow implements Initializable {
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("保存工程");
-        File file = fileChooser.showSaveDialog(new Stage());
+        File file = fileChooser.showSaveDialog(Main.primaryStage);
 
         if(file != null) {
             JSONObject root = new JSONObject();
@@ -251,7 +248,7 @@ public class MainWindow implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("载入工程");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON",".json"));
-        File file = fileChooser.showOpenDialog(new Stage());
+        File file = fileChooser.showOpenDialog(Main.primaryStage);
 
         if(file != null) {
             try {
@@ -361,8 +358,12 @@ public class MainWindow implements Initializable {
 
     @FXML
     public void onExportButtonClick(ActionEvent actionEvent) {
-        int bpm = (int) (Math.floor(bpmSlider.getValue()));
-        new Thread(() -> {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("导出音频");
+        File file = fileChooser.showSaveDialog(Main.primaryStage);
+
+        if(file != null) {
+            int bpm = (int) (Math.floor(bpmSlider.getValue()));
             playButton.setDisable(true);
             volumeSlider.setDisable(true);
             bpmSlider.setDisable(true);
@@ -381,7 +382,7 @@ public class MainWindow implements Initializable {
             if(!noiseChannelCheckBox.isSelected())
                 synthesizer.setDisableChannel(3,true);
 
-            synthesizer.saveWaveform(exportPathTextField.getText(),synthesizer.genWaveform(genAllSections()));
+            synthesizer.saveWaveform(file.getPath(),synthesizer.genWaveform(genAllSections()));
             playButton.setDisable(false);
             volumeSlider.setDisable(false);
             bpmSlider.setDisable(false);
@@ -389,7 +390,7 @@ public class MainWindow implements Initializable {
             squareBChannelCheckBox.setDisable(false);
             triangleChannelCheckBox.setDisable(false);
             noiseChannelCheckBox.setDisable(false);
-        }).start();
+        }
     }
 
     @FXML
@@ -654,6 +655,10 @@ public class MainWindow implements Initializable {
         initAllTableViews();
         initEffectRecords();
         initLabelUpdateThread();
+
+        // 因为还没做，所以先直接禁用了
+        pauseButton.setDisable(true);
+        resetButton.setDisable(true);
     }
 
     public static void setLabelUpdateThreadShouldRunning(boolean labelUpdateThreadShouldRunning) {

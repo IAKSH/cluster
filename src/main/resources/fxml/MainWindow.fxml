@@ -94,13 +94,13 @@
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="506.0">
                      <children>
-                        <VBox prefHeight="59.0" prefWidth="201.0">
+                        <VBox prefHeight="59.0" prefWidth="26.0" />
+                        <VBox prefHeight="59.0" prefWidth="207.0">
                            <children>
-                              <Label text="导出路径" />
-                              <TextField fx:id="exportPathTextField" prefHeight="23.0" prefWidth="86.0" />
+                              <Label text="效果器" />
+                              <ChoiceBox fx:id="effectChoiceBox" prefHeight="23.0" prefWidth="99.0" />
                            </children>
                         </VBox>
-                        <VBox prefHeight="59.0" prefWidth="38.0" />
                         <VBox prefHeight="59.0" prefWidth="51.0">
                            <children>
                               <Button fx:id="addNoteButton" mnemonicParsing="false" onAction="#onAddNoteButtonClick" text="添加" />
@@ -120,12 +120,7 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox prefHeight="99.0" prefWidth="117.0">
-               <children>
-                  <Label text="效果器" />
-                  <ChoiceBox fx:id="effectChoiceBox" prefHeight="23.0" prefWidth="99.0" />
-               </children>
-            </VBox>
+            <VBox prefHeight="99.0" prefWidth="117.0" />
             <VBox prefHeight="99.0" prefWidth="160.0">
                <children>
                   <HBox prefHeight="100.0" prefWidth="256.0">

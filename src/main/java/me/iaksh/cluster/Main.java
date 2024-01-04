@@ -11,6 +11,8 @@ import java.util.Objects;
 
 public class Main extends Application {
 
+    public static Stage primaryStage;
+
     @Override
     public void init() {
     }
@@ -22,6 +24,7 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(mainWindowRoot, 1000, 600));
         // 以后解决布局问题了再允许拉伸
         primaryStage.setResizable(false);
+        this.primaryStage = primaryStage;
         primaryStage.show();
     }
 
