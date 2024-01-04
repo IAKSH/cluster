@@ -1,5 +1,8 @@
 package me.iaksh.cluster.ui;
 
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONArray;
+import com.alibaba.fastjson2.JSONObject;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleFloatProperty;
@@ -13,13 +16,19 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import me.iaksh.cluster.core.mixer.NESLikeSynthesizer;
 import me.iaksh.cluster.core.notation.EqualTempNote;
 import me.iaksh.cluster.core.notation.Section;
 import me.iaksh.cluster.core.player.Player;
 import me.iaksh.cluster.core.waveform.effect.*;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -188,14 +197,102 @@ public class MainWindow implements Initializable {
 
     @FXML
     public void onSaveMenuItemClick(ActionEvent actionEvent) {
+        // TODO: 限定后缀名为json
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("保存工程");
+        File file = fileChooser.showSaveDialog(new Stage());
+
+        if(file != null) {
+            JSONObject root = new JSONObject();
+            root.put("bpm",Math.floor(bpmSlider.getValue()));
+            root.put("volume",Math.floor(volumeSlider.getValue()));
+            root.put("version","SNAPSHOT");
+
+            JSONObject channels = new JSONObject();
+            JSONObject squareA = new JSONObject();
+            JSONObject squareB = new JSONObject();
+            JSONObject triangle = new JSONObject();
+            JSONObject noise = new JSONObject();
+
+            squareA.put("enable",squareAChannelCheckBox.isSelected());
+            squareA.put("records",squareARecords);
+
+            squareB.put("enable",squareBChannelCheckBox.isSelected());
+            squareB.put("records",squareBRecords);
+
+            triangle.put("enable",triangleChannelCheckBox.isSelected());
+            triangle.put("records",triangleRecords);
+
+            noise.put("enable",noiseChannelCheckBox.isSelected());
+            noise.put("records",noiseRecords);
+
+            channels.put("square_a",squareA);
+            channels.put("square_b",squareB);
+            channels.put("triangle",triangle);
+            channels.put("noise",noise);
+            root.put("channels",channels);
+
+            FileWriter writer;
+            try {
+                writer = new FileWriter(file);
+                writer.write("");
+                writer.write(root.toString());
+                writer.flush();
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML
     public void onLoadMenuItemClick(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("载入工程");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON",".json"));
+        File file = fileChooser.showOpenDialog(new Stage());
+
+        if(file != null) {
+            try {
+                String content = new String(Files.readAllBytes(file.toPath()));
+                JSONObject root = JSONObject.parseObject(content);
+
+                // TODO: validate all data from json
+                // TODO: validate version from json
+
+                bpmSlider.setValue(root.getDoubleValue("bpm"));
+                volumeSlider.setValue(root.getDoubleValue("volume"));
+                JSONObject channels = root.getJSONObject("channels");
+
+                JSONObject squareA = channels.getJSONObject("square_a");
+                squareAChannelCheckBox.setSelected(squareA.getBooleanValue("enable"));
+                squareARecords.clear();
+                squareARecords.addAll(JSON.parseArray(squareA.getJSONArray("records").toJSONString(),NoteRecord.class));
+
+                JSONObject squareB = channels.getJSONObject("square_b");
+                squareBChannelCheckBox.setSelected(squareB.getBooleanValue("enable"));
+                squareBRecords.clear();
+                squareBRecords.addAll(JSON.parseArray(squareB.getJSONArray("records").toJSONString(),NoteRecord.class));
+
+                JSONObject triangle = channels.getJSONObject("triangle");
+                triangleChannelCheckBox.setSelected(triangle.getBooleanValue("enable"));
+                triangleRecords.clear();
+                triangleRecords.addAll(JSON.parseArray(triangle.getJSONArray("records").toJSONString(),NoteRecord.class));
+
+                JSONObject noise = channels.getJSONObject("noise");
+                noiseChannelCheckBox.setSelected(noise.getBooleanValue("enable"));
+                noiseRecords.clear();
+                noiseRecords.addAll(JSON.parseArray(noise.getJSONArray("records").toJSONString(),NoteRecord.class));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML
     public void onAboutMenuItemClick(ActionEvent actionEvent) {
+        // TODO: show about window
     }
 
     @FXML
