@@ -1,9 +1,9 @@
 .GrayBox {
-    -fx-background-color: #3F3F4F;
+    -fx-background-color: #FBE9E7;
 }
 
 .GrayBoxWithShadow {
-    -fx-background-color: #3F3F4F;
+    -fx-background-color: #FBE9E7;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0, 0, 0);
 }
 

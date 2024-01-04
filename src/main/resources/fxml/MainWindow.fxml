@@ -50,6 +50,7 @@
                               <Slider fx:id="bpmSlider" max="400.0" min="1.0" prefHeight="37.0" prefWidth="113.0" showTickLabels="true" showTickMarks="true" stylesheets="@../css/BlackButton.css" value="120.0" />
                            </children>
                         </VBox>
+                        <VBox prefHeight="200.0" prefWidth="10.0" />
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0" styleClass="GrayBox" stylesheets="@../css/GrayBox.css">
@@ -65,6 +66,7 @@
                               <Slider fx:id="volumeSlider" prefHeight="37.0" prefWidth="85.0" showTickLabels="true" showTickMarks="true" value="50.0" />
                            </children>
                         </VBox>
+                        <VBox prefHeight="200.0" prefWidth="10.0" />
                      </children>
                   </HBox>
                </children>
