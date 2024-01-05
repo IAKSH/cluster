@@ -476,25 +476,7 @@ public class MainWindowController implements Initializable {
                             record.getSemitoneShift()
                     ));
                 } else {
-                    Effect effect = null;
-                    switch (record.getEffectName()) {
-                        case "EXP_GRADIENT" -> {
-                            ExpGradientEffect expGradientEffect = new ExpGradientEffect();
-                            expGradientEffect.setExpCoefficient(4.0f);
-                            effect = expGradientEffect;
-                        }
-                        case "REV_EXP_GRADIENT" -> {
-                            ReverseExpGradientEffect expGradientEffect = new ReverseExpGradientEffect();
-                            expGradientEffect.setExpCoefficient(4.0f);
-                            effect = expGradientEffect;
-                        }
-                        case "LINEAR_GRADIENT" -> {
-                            effect = new LinearGradientEffect();
-                        }
-                        case "REV_LINEAR_GRADIENT" -> {
-                            effect = new ReverseLinearGradientEffect();
-                        }
-                    }
+                    Effect effect = getEffect(record);
                     sections.get(sections.size() - 1).getNotes().add(new EqualTempNote(
                             record.getNoteFraction(),
                             record.isIsDotted(),
@@ -507,6 +489,29 @@ public class MainWindowController implements Initializable {
             }
         }
         return sections;
+    }
+
+    private static Effect getEffect(NoteRecord record) {
+        Effect effect = null;
+        switch (record.getEffectName()) {
+            case "EXP_GRADIENT" -> {
+                ExpGradientEffect expGradientEffect = new ExpGradientEffect();
+                expGradientEffect.setExpCoefficient(4.0f);
+                effect = expGradientEffect;
+            }
+            case "REV_EXP_GRADIENT" -> {
+                ReverseExpGradientEffect expGradientEffect = new ReverseExpGradientEffect();
+                expGradientEffect.setExpCoefficient(4.0f);
+                effect = expGradientEffect;
+            }
+            case "LINEAR_GRADIENT" -> {
+                effect = new LinearGradientEffect();
+            }
+            case "REV_LINEAR_GRADIENT" -> {
+                effect = new ReverseLinearGradientEffect();
+            }
+        }
+        return effect;
     }
 
     private ArrayList<ArrayList<Section>> genAllSections() {
