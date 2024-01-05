@@ -31,6 +31,7 @@ public class NoteEditPageController implements Initializable {
         record.setIsDotted(dottedCheckbox.isSelected());
 
         FXApplication.getInstance().getMainWindowController().getSelectedTableView().refresh();
+        FXApplication.getInstance().getNoteEditPageStage().hide();
     }
 
     @Override
