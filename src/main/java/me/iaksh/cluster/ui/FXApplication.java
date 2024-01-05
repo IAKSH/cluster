@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class FXApplication  extends Application {
     private static FXApplication app;
@@ -17,6 +19,7 @@ public class FXApplication  extends Application {
     private MainWindowController mainWindowController;
     private NoteEditPageController noteEditPageController;
     private AboutPageController aboutPageController;
+    private Logger logger;
 
     private void initPimaryStage(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/MainWindow.fxml"));
@@ -49,10 +52,19 @@ public class FXApplication  extends Application {
         this.noteEditPageStage = noteEditPageStage;
     }
 
+    private void setExceptionHandler() {
+        logger = Logger.getLogger("FXApplication");
+        Thread.setDefaultUncaughtExceptionHandler((thread,throwable) -> {
+            logger.log(Level.WARNING,String.format("Exception!\n---\nMessage:\n%s",throwable.getMessage()));
+            throwable.printStackTrace();
+        });
+    }
+
     @Override
     public void init() {
         app = this;
         running = true;
+        setExceptionHandler();
     }
 
     @Override
