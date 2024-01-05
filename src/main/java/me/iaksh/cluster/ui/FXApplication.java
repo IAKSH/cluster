@@ -21,7 +21,7 @@ public class FXApplication  extends Application {
     private AboutPageController aboutPageController;
     private Logger logger;
 
-    private void initPimaryStage(Stage stage) throws IOException {
+    private void initPrimaryStage(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/MainWindow.fxml"));
         Parent root = loader.load();
         mainWindowController = loader.getController();
@@ -38,7 +38,6 @@ public class FXApplication  extends Application {
         aboutPageStage.setTitle("关于");
         aboutPageStage.setScene(new Scene(root, 400, 200));
         aboutPageStage.setResizable(false);
-        this.aboutPageStage = aboutPageStage;
     }
 
     private void initNoteEditPage() throws IOException {
@@ -49,7 +48,6 @@ public class FXApplication  extends Application {
         noteEditPageStage.setTitle("编辑音符");
         noteEditPageStage.setScene(new Scene(root, 300, 200));
         noteEditPageStage.setResizable(false);
-        this.noteEditPageStage = noteEditPageStage;
     }
 
     private void setExceptionHandler() {
@@ -69,7 +67,7 @@ public class FXApplication  extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        initPimaryStage(primaryStage);
+        initPrimaryStage(primaryStage);
         initAboutPage();
         initNoteEditPage();
         primaryStage.show();

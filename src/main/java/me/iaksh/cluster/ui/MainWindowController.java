@@ -34,13 +34,13 @@ import java.util.ResourceBundle;
 
 public class MainWindowController implements Initializable {
 
-    public class NoteRecord {
-        private SimpleFloatProperty noteFraction;
-        private SimpleBooleanProperty isDotted;
-        private SimpleIntegerProperty simpleScore;
-        private SimpleIntegerProperty octaveShift;
-        private SimpleIntegerProperty semitoneShift;
-        private SimpleStringProperty effectName;
+    public static class NoteRecord {
+        private final SimpleFloatProperty noteFraction;
+        private final SimpleBooleanProperty isDotted;
+        private final SimpleIntegerProperty simpleScore;
+        private final SimpleIntegerProperty octaveShift;
+        private final SimpleIntegerProperty semitoneShift;
+        private final SimpleStringProperty effectName;
 
         public NoteRecord(float noteFraction, boolean isDotted, int simpleScore, int octaveShift, int semitoneShift) {
             this.noteFraction = new SimpleFloatProperty(noteFraction);
@@ -117,16 +117,7 @@ public class MainWindowController implements Initializable {
         NONE
     }
 
-    public class EffectRecord {
-        private final EffectType effectType;
-
-        public EffectRecord(EffectType effectType) {
-            this.effectType = effectType;
-        }
-
-        public EffectType getEffectType() {
-            return effectType;
-        }
+    public record EffectRecord(EffectType effectType) {
     }
 
     public Label bpmDisplayLabel;
@@ -532,7 +523,7 @@ public class MainWindowController implements Initializable {
         // 临时这样：
         // noteFraction = 0则为Section标记
         // 此时isDotted表示起（true）止（false）
-        list.add(new NoteRecord(0,isStarting,info[0],info[1],0));
+        list.add(new NoteRecord(0, isStarting, info[0], info[1], 0));
     }
 
     private int[] getSectionInfo() {
@@ -564,22 +555,17 @@ public class MainWindowController implements Initializable {
     }
 
     private Callback<TableColumn<NoteRecord, String>, TableCell<NoteRecord, String>> getOrdinalCellFactory() {
-        return new Callback<TableColumn<NoteRecord,String>, TableCell<NoteRecord,String>>()
-        {
+        return new Callback<>() {
             @Override
-            public TableCell<NoteRecord, String> call(TableColumn<NoteRecord, String> param)
-            {
-                TableCell<NoteRecord,String> cell = new TableCell<NoteRecord,String>()
-                {
+            public TableCell<NoteRecord, String> call(TableColumn<NoteRecord, String> param) {
+                TableCell<NoteRecord, String> cell = new TableCell<>() {
                     @Override
-                    protected void updateItem(String item, boolean empty)
-                    {
+                    protected void updateItem(String item, boolean empty) {
                         super.updateItem(item, empty);
                         this.setText(null);
                         this.setGraphic(null);
 
-                        if (!empty)
-                        {
+                        if (!empty) {
                             int rowIndex = this.getIndex() + 1;
                             this.setText(String.valueOf(rowIndex));
                         }
@@ -694,8 +680,8 @@ public class MainWindowController implements Initializable {
         int simpleScore = getNoteSimpleScoreInput();
         int octaveShift = getNoteOctaveShiftInput();
         int semitoneShift = getSemitoneShiftInput();
-        list.add(new NoteRecord(noteFraction,isDotted,simpleScore,octaveShift,semitoneShift,
-                ((EffectRecord)effectChoiceBox.getSelectionModel().getSelectedItem()).getEffectType().toString()));;
+        list.add(new NoteRecord(noteFraction, isDotted, simpleScore, octaveShift, semitoneShift,
+                ((EffectRecord) effectChoiceBox.getSelectionModel().getSelectedItem()).effectType().toString()));;
     }
 
     @Override
