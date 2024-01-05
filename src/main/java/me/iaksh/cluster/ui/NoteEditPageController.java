@@ -25,14 +25,14 @@ public class NoteEditPageController implements Initializable {
 
     @FXML
     public void onSaveButtonClick(ActionEvent actionEvent) {
-        MainWindowController.NoteRecord record = GlobalDatas.mainWindowController.getSelectedNoteRecord();
+        MainWindowController.NoteRecord record = FXApplication.getInstance().getMainWindowController().getSelectedNoteRecord();
         record.setNoteFraction(Float.parseFloat(noteFractionTextField.getText()));
         record.setSimpleScore(Integer.parseInt(simpleScoreTextField.getText()));
         record.setOctaveShift(Integer.parseInt(octaveTextureField.getText()));
         record.setSemitoneShift(Integer.parseInt(semitoneTextField.getText()));
         record.setIsDotted(dottedCheckbox.isSelected());
 
-        GlobalDatas.mainWindowController.getSelectedTableView().refresh();
+        FXApplication.getInstance().getMainWindowController().getSelectedTableView().refresh();
     }
 
     @Override
@@ -43,12 +43,12 @@ public class NoteEditPageController implements Initializable {
     private void initUpdateThread() {
         new Thread(() -> {
             try {
-                while (!Main.closing) {
-                    MainWindowController.NoteRecord currentSelectedRecord = GlobalDatas.mainWindowController.getSelectedNoteRecord();
+                while (!FXApplication.getInstance().isClosing()) {
+                    MainWindowController.NoteRecord currentSelectedRecord = FXApplication.getInstance().getMainWindowController().getSelectedNoteRecord();
                     if(currentSelectedRecord != null) {
                         if(lastSelectedNoteRecord != currentSelectedRecord) {
                             lastSelectedNoteRecord = currentSelectedRecord;
-                            channelTextField.setText(String.valueOf(GlobalDatas.mainWindowController.getSelectedChannelId()));
+                            channelTextField.setText(String.valueOf(FXApplication.getInstance().getMainWindowController().getSelectedChannelId()));
                             noteFractionTextField.setText(String.valueOf(currentSelectedRecord.getNoteFraction()));
                             simpleScoreTextField.setText(String.valueOf(currentSelectedRecord.getSimpleScore()));
                             octaveTextureField.setText(String.valueOf(currentSelectedRecord.getOctaveShift()));

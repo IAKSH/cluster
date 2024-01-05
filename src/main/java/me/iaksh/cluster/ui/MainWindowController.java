@@ -211,7 +211,7 @@ public class MainWindowController implements Initializable {
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("保存工程");
-        File file = fileChooser.showSaveDialog(Main.primaryStage);
+        File file = fileChooser.showSaveDialog(FXApplication.getInstance().getPrimaryStage());
 
         if(file != null) {
             JSONObject root = new JSONObject();
@@ -261,7 +261,7 @@ public class MainWindowController implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("载入工程");
         //fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON",".json"));
-        File file = fileChooser.showOpenDialog(Main.primaryStage);
+        File file = fileChooser.showOpenDialog(FXApplication.getInstance().getPrimaryStage());
 
         if(file != null) {
             try {
@@ -302,7 +302,7 @@ public class MainWindowController implements Initializable {
 
     @FXML
     public void onAboutMenuItemClick(ActionEvent actionEvent) {
-        Main.aboutPageStage.show();
+        FXApplication.getInstance().getAboutPageStage().show();
     }
 
     @FXML
@@ -383,7 +383,7 @@ public class MainWindowController implements Initializable {
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("导出音频");
-        File file = fileChooser.showSaveDialog(Main.primaryStage);
+        File file = fileChooser.showSaveDialog(FXApplication.getInstance().getPrimaryStage());
 
         if(file != null) {
             int bpm = (int) (Math.floor(bpmSlider.getValue()));
@@ -429,7 +429,7 @@ public class MainWindowController implements Initializable {
 
     @FXML
     public void onEditNoteButtonClick(ActionEvent actionEvent) {
-        Main.noteEditPageStage.show();
+        FXApplication.getInstance().getNoteEditPageStage().show();
     }
 
     @FXML
@@ -563,7 +563,7 @@ public class MainWindowController implements Initializable {
         // TODO: 绘制实时波形图
         new Thread(() -> {
             try {
-                while (!Main.closing) {
+                while (!FXApplication.getInstance().isClosing()) {
                     String bpmStr = String.valueOf((int) Math.floor(bpmSlider.getValue()));
                     String volumeStr = String.valueOf((int) Math.floor(volumeSlider.getValue()));
                     Platform.runLater(() -> {
@@ -713,8 +713,6 @@ public class MainWindowController implements Initializable {
         initEffectRecords();
         initExternUIUpdateThread();
         player = new Player();
-
-        GlobalDatas.mainWindowController = this;
     }
 
     public TableView getSelectedTableView() {
