@@ -426,7 +426,7 @@ public class MainWindowController implements Initializable {
 
     @FXML
     public void onDeleteNoteButtonClick(ActionEvent actionEvent) {
-        ObservableList<NoteRecord> list = null;
+        ObservableList<NoteRecord> list;
         TableView view = switch (getSelectedChannelId()) {
             case 0 -> {
                 list = squareARecords;
@@ -550,7 +550,7 @@ public class MainWindowController implements Initializable {
         arr[0] = Integer.parseInt(parts[0]);
         arr[1] = Integer.parseInt(parts[1]);
         return arr;
-    };
+    }
 
     private void initExternUIUpdateThread() {
         // TODO: 绘制实时播放位置
@@ -576,7 +576,7 @@ public class MainWindowController implements Initializable {
         return new Callback<>() {
             @Override
             public TableCell<NoteRecord, String> call(TableColumn<NoteRecord, String> param) {
-                TableCell<NoteRecord, String> cell = new TableCell<>() {
+                return new TableCell<>() {
                     @Override
                     protected void updateItem(String item, boolean empty) {
                         super.updateItem(item, empty);
@@ -589,7 +589,6 @@ public class MainWindowController implements Initializable {
                         }
                     }
                 };
-                return cell;
             }
         };
     }
@@ -699,7 +698,7 @@ public class MainWindowController implements Initializable {
         int octaveShift = getNoteOctaveShiftInput();
         int semitoneShift = getSemitoneShiftInput();
         list.add(new NoteRecord(noteFraction, isDotted, simpleScore, octaveShift, semitoneShift,
-                ((EffectRecord) effectChoiceBox.getSelectionModel().getSelectedItem()).effectType().toString()));;
+                ((EffectRecord) effectChoiceBox.getSelectionModel().getSelectedItem()).effectType().toString()));
     }
 
     @Override
@@ -712,7 +711,7 @@ public class MainWindowController implements Initializable {
     }
 
     public TableView getSelectedTableView() {
-        TableView tableView = switch (getSelectedChannelId()) {
+        return switch (getSelectedChannelId()) {
             case 0 -> squareATableView;
             case 1 -> squareBTableView;
             case 2 -> triangleTableView;
@@ -720,7 +719,6 @@ public class MainWindowController implements Initializable {
             default ->
                     throw new IllegalStateException("Unexpected value: " + getSelectedChannelId());
         };
-        return tableView;
     }
 
     public int getSelectedChannelId() {

@@ -30,7 +30,7 @@ public class Mixer {
         }
 
         short[] result = new short[maxLength];
-        double max = (double) Short.MAX_VALUE;
+        double max = Short.MAX_VALUE;
         for (int i = 0; i < maxLength; i++) {
             // normalize
             result[i] = (short)(mixed[i] * max / Math.max(max, Math.abs(mixed[i])));

@@ -22,7 +22,7 @@ import java.util.ArrayList;
  */
 public class NESLikeSynthesizer extends Synthesizer implements Exporter {
 
-    private boolean[] disableChannel = new boolean[4];
+    private final boolean[] disableChannel = new boolean[4];
 
     public NESLikeSynthesizer(int bpm) {
         for(int i = 0;i < 4;i++)

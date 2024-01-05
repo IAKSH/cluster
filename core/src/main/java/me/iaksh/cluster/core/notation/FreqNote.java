@@ -9,18 +9,18 @@ public class FreqNote extends Note {
 
     private int frequency;
 
-    private void init() {
+    private void init(int frequency) {
         this.frequency = frequency;
     }
 
     public FreqNote(float noteFraction, boolean dotted,int frequency) {
         super(noteFraction, dotted);
-        init();
+        init(frequency);
     }
 
     public FreqNote(float noteFraction, boolean dotted, int frequency, Effect effect) {
         super(noteFraction, dotted,effect);
-        init();
+        init(frequency);
     }
 
     /**

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Section {
     private final int timeSignature0;
     private final int timeSignature1;
-    private ArrayList<Note> notes;
+    private final ArrayList<Note> notes;
 
     public Section(int ts0,int ts1) {
         timeSignature0 = ts0;
