@@ -8,4 +8,9 @@ pluginManagement {
 }
 
 rootProject.name = 'cluster'
+include 'core'
+include 'ui'
+include 'ui:startup'
+findProject(':ui:startup')?.name = 'startup'
+include 'startup'
 

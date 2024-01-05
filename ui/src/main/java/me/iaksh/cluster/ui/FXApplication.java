@@ -79,7 +79,7 @@ public class FXApplication  extends Application {
     }
 
     public static void runApp() {
-        launch();
+        Application.launch();
     }
 
     public boolean isRunning() {

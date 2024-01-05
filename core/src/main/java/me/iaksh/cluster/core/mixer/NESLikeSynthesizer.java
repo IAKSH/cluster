@@ -1,7 +1,10 @@
 package me.iaksh.cluster.core.mixer;
 
 import me.iaksh.cluster.core.notation.Section;
-import me.iaksh.cluster.core.waveform.oscillator.*;
+import me.iaksh.cluster.core.waveform.oscillator.NoiseOscillator;
+import me.iaksh.cluster.core.waveform.oscillator.Oscillator;
+import me.iaksh.cluster.core.waveform.oscillator.SquareOscillator;
+import me.iaksh.cluster.core.waveform.oscillator.TriangleOscillator;
 
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;

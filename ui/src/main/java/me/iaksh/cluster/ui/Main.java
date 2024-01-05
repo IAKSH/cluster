@@ -1,9 +1,6 @@
-package me.iaksh.cluster;
-
-import me.iaksh.cluster.ui.FXApplication;
+package me.iaksh.cluster.ui;
 
 public class Main {
-
     public static void main(String[] args) {
         FXApplication.runApp();
     }

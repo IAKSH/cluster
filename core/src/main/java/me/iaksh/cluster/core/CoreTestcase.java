@@ -5,7 +5,9 @@ import me.iaksh.cluster.core.notation.Section;
 import me.iaksh.cluster.core.mixer.NESLikeSynthesizer;
 import me.iaksh.cluster.core.notation.FreqNote;
 import me.iaksh.cluster.core.player.Player;
-import me.iaksh.cluster.core.waveform.effect.*;
+import me.iaksh.cluster.core.waveform.effect.Effect;
+import me.iaksh.cluster.core.waveform.effect.ExpGradientEffect;
+import me.iaksh.cluster.core.waveform.effect.ReverseExpGradientEffect;
 
 import java.util.ArrayList;
 
