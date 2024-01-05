@@ -257,6 +257,7 @@
                <children>
                   <TableView fx:id="squareATableView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#onSquareATableViewClick" opacity="0.85" prefHeight="455.0" prefWidth="250.0" styleClass="GrayBoxWithShadow" HBox.hgrow="ALWAYS">
                      <columns>
+                        <TableColumn fx:id="squareAOrdinalColumn" prefWidth="40.0" styleClass="GrayBoxWithShadow" text="编号" />
                         <TableColumn fx:id="squareAFractionColumn" prefWidth="40.0" sortable="false" styleClass="GrayBoxWithShadow" text="X分音符" />
                         <TableColumn fx:id="squareADottedColumn" prefWidth="40.0" sortable="false" styleClass="GrayBoxWithShadow" text="附点" />
                         <TableColumn fx:id="squareAScoreColumn" prefWidth="40.0" sortable="false" styleClass="GrayBoxWithShadow" text="简谱" />
@@ -271,6 +272,7 @@
                   </TableView>
                   <TableView fx:id="squareBTableView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#onSquareBTableViewClick" opacity="0.85" prefHeight="455.0" prefWidth="250.0" styleClass="GrayBoxWithShadow" HBox.hgrow="ALWAYS">
                      <columns>
+                        <TableColumn fx:id="squareBOrdinalColumn" prefWidth="40.0" styleClass="GrayBoxWithShadow" text="编号" />
                         <TableColumn fx:id="squareBFractionColumn" prefWidth="40.0" sortable="false" styleClass="GrayBoxWithShadow" text="X分音符" />
                         <TableColumn fx:id="squareBScoreColumn" prefWidth="40.0" sortable="false" styleClass="GrayBoxWithShadow" text="简谱" />
                         <TableColumn fx:id="squareBDottedColumn" prefWidth="40.0" sortable="false" styleClass="GrayBoxWithShadow" text="附点" />
@@ -285,6 +287,7 @@
                   </TableView>
                   <TableView fx:id="triangleTableView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#onTriangleTableViewClick" opacity="0.85" prefHeight="455.0" prefWidth="250.0" styleClass="GrayBoxWithShadow" HBox.hgrow="ALWAYS">
                      <columns>
+                        <TableColumn fx:id="triangleOrdinalColumn" prefWidth="40.0" styleClass="GrayBoxWithShadow" text="编号" />
                         <TableColumn fx:id="triangleFractionColumn" prefWidth="40.0" sortable="false" styleClass="GrayBoxWithShadow" text="X分音符" />
                         <TableColumn fx:id="triangleScoreColumn" prefWidth="40.0" sortable="false" styleClass="GrayBoxWithShadow" text="简谱" />
                         <TableColumn fx:id="triangleDottedColumn" prefWidth="40.0" sortable="false" styleClass="GrayBoxWithShadow" text="附点" />
@@ -299,6 +302,7 @@
                   </TableView>
                   <TableView fx:id="noiseTableView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#onNoiseTableViewClick" opacity="0.85" prefHeight="455.0" prefWidth="250.0" styleClass="GrayBoxWithShadow" HBox.hgrow="ALWAYS">
                      <columns>
+                        <TableColumn fx:id="noiseOrdinalColumn" prefWidth="40.0" styleClass="GrayBoxWithShadow" text="编号" />
                         <TableColumn fx:id="noiseFractionColumn" prefWidth="40.0" sortable="false" styleClass="GrayBoxWithShadow" text="X分音符" />
                         <TableColumn fx:id="noiseScoreColumn" prefWidth="40.0" sortable="false" styleClass="GrayBoxWithShadow" text="简谱" />
                         <TableColumn fx:id="noiseDottedColumn" prefWidth="40.0" sortable="false" styleClass="GrayBoxWithShadow" text="附点" />

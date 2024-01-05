@@ -12,10 +12,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
+import javafx.util.Callback;
 import me.iaksh.cluster.Main;
 import me.iaksh.cluster.core.mixer.NESLikeSynthesizer;
 import me.iaksh.cluster.core.notation.EqualTempNote;
@@ -184,6 +186,11 @@ public class MainWindowController implements Initializable {
     public TableColumn noiseEffectColumn;
     public ChoiceBox effectChoiceBox;
     public Button forceStopButton;
+    public TableColumn squareAOrdinalColumn;
+    public TableColumn squareBOrdinalColumn;
+    public TableColumn triangleOrdinalColumn;
+    public TableColumn noiseOrdinalColumn;
+    public Canvas waveformDisplayCanvas;
 
     private ObservableList<NoteRecord> squareARecords;
     private ObservableList<NoteRecord> squareBRecords;
@@ -192,12 +199,9 @@ public class MainWindowController implements Initializable {
     private ObservableList<EffectRecord> effectRecords;
 
     private Player player;
-    private boolean playing;
-    private double tableViewScrollBarValue;
 
     @FXML
     public void onForceStopButtonClick(ActionEvent actionEvent) {
-        playing = false;
         player.forceStop();
     }
 
@@ -326,7 +330,6 @@ public class MainWindowController implements Initializable {
         float volume = (float) (volumeSlider.getValue() / 100.0f);
         int bpm = (int) (Math.floor(bpmSlider.getValue()));
         new Thread(() -> {
-            playing = true;
             pauseButton.setDisable(false);
             playButton.setDisable(true);
             volumeSlider.setDisable(true);
@@ -357,13 +360,11 @@ public class MainWindowController implements Initializable {
             noiseChannelCheckBox.setDisable(false);
             pauseButton.setDisable(true);
             resetButton.setDisable(true);
-            playing = false;
         }).start();
     }
 
     @FXML
     public void onPauseButtonClick(ActionEvent actionEvent) {
-        playing = false;
         resetButton.setDisable(false);
         pauseButton.setDisable(true);
         player.pause();
@@ -371,7 +372,6 @@ public class MainWindowController implements Initializable {
 
     @FXML
     public void onResetButtonClick(ActionEvent actionEvent) {
-        playing = true;
         pauseButton.setDisable(false);
         resetButton.setDisable(true);
         player.resume();
@@ -571,45 +571,6 @@ public class MainWindowController implements Initializable {
                         volumeDisplayLabel.setText(volumeStr);
                     });
 
-                    // 指示播放位置
-                    // TODO: 难以实现
-                    /*
-                    if(playing) {
-                        Platform.runLater(() -> {
-                            squareATableView.requestFocus();
-                            squareATableView.getSelectionModel().select(0);
-                            squareBTableView.requestFocus();
-                            squareBTableView.getSelectionModel().select(1);
-                        });
-                    }
-                     */
-
-                    // 统一滚动条
-                    // TODO: 难以实现
-                    /*
-                    ScrollBar scrollBarSqA = (ScrollBar) squareATableView.lookup(".scroll-bar:vertical");
-                    ScrollBar scrollBarSqB = (ScrollBar) squareBTableView.lookup(".scroll-bar:vertical");
-                    ScrollBar scrollBarTri = (ScrollBar) triangleTableView.lookup(".scroll-bar:vertical");
-                    ScrollBar scrollBarNoi = (ScrollBar) noiseTableView.lookup(".scroll-bar:vertical");
-                    if(scrollBarSqA != null)
-                        tableViewScrollBarValue = scrollBarSqA.getValue();
-                    else if(scrollBarSqB != null)
-                        tableViewScrollBarValue = scrollBarSqB.getValue();
-                    else if(scrollBarTri != null)
-                        tableViewScrollBarValue = scrollBarTri.getValue();
-                    else if(scrollBarNoi != null)
-                        tableViewScrollBarValue = scrollBarNoi.getValue();
-
-                    if(scrollBarSqA != null)
-                        scrollBarSqA.setValue(tableViewScrollBarValue);
-                    if(scrollBarSqB != null)
-                        scrollBarSqB.setValue(tableViewScrollBarValue);
-                    if(scrollBarTri != null)
-                        scrollBarTri.setValue(tableViewScrollBarValue);
-                    if(scrollBarNoi != null)
-                        scrollBarNoi.setValue(tableViewScrollBarValue);
-                     */
-
                     Thread.sleep(10);
                 }
             } catch (InterruptedException e) {
@@ -618,7 +579,35 @@ public class MainWindowController implements Initializable {
         }).start();
     }
 
+    private Callback<TableColumn<NoteRecord, String>, TableCell<NoteRecord, String>> getOrdinalCellFactory() {
+        return new Callback<TableColumn<NoteRecord,String>, TableCell<NoteRecord,String>>()
+        {
+            @Override
+            public TableCell<NoteRecord, String> call(TableColumn<NoteRecord, String> param)
+            {
+                TableCell<NoteRecord,String> cell = new TableCell<NoteRecord,String>()
+                {
+                    @Override
+                    protected void updateItem(String item, boolean empty)
+                    {
+                        super.updateItem(item, empty);
+                        this.setText(null);
+                        this.setGraphic(null);
+
+                        if (!empty)
+                        {
+                            int rowIndex = this.getIndex() + 1;
+                            this.setText(String.valueOf(rowIndex));
+                        }
+                    }
+                };
+                return cell;
+            }
+        };
+    }
+
     private void initSquareATableView() {
+        squareAOrdinalColumn.setCellFactory(getOrdinalCellFactory());
         squareAFractionColumn.setCellValueFactory(new PropertyValueFactory<>("noteFraction"));
         squareADottedColumn.setCellValueFactory(new PropertyValueFactory<>("isDotted"));
         squareAScoreColumn.setCellValueFactory(new PropertyValueFactory<>("simpleScore"));
@@ -629,6 +618,7 @@ public class MainWindowController implements Initializable {
     }
 
     private void initSquareBTableView() {
+        squareBOrdinalColumn.setCellFactory(getOrdinalCellFactory());
         squareBFractionColumn.setCellValueFactory(new PropertyValueFactory<>("noteFraction"));
         squareBDottedColumn.setCellValueFactory(new PropertyValueFactory<>("isDotted"));
         squareBScoreColumn.setCellValueFactory(new PropertyValueFactory<>("simpleScore"));
@@ -639,6 +629,7 @@ public class MainWindowController implements Initializable {
     }
 
     private void initTriangleTableView() {
+        triangleOrdinalColumn.setCellFactory(getOrdinalCellFactory());
         triangleFractionColumn.setCellValueFactory(new PropertyValueFactory<>("noteFraction"));
         triangleDottedColumn.setCellValueFactory(new PropertyValueFactory<>("isDotted"));
         triangleScoreColumn.setCellValueFactory(new PropertyValueFactory<>("simpleScore"));
@@ -649,6 +640,7 @@ public class MainWindowController implements Initializable {
     }
 
     private void initNoiseTableView() {
+        noiseOrdinalColumn.setCellFactory(getOrdinalCellFactory());
         noiseFractionColumn.setCellValueFactory(new PropertyValueFactory<>("noteFraction"));
         noiseDottedColumn.setCellValueFactory(new PropertyValueFactory<>("isDotted"));
         noiseScoreColumn.setCellValueFactory(new PropertyValueFactory<>("simpleScore"));
