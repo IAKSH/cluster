@@ -181,6 +181,14 @@ public class MainWindowController implements Initializable {
     public TableColumn triangleOrdinalColumn;
     public TableColumn noiseOrdinalColumn;
     public Canvas waveformDisplayCanvas;
+    public MenuItem noiseEditMenuItem;
+    public MenuItem noiseDeleteMenuItem;
+    public MenuItem triangleDeleteMenuItem;
+    public MenuItem triangleEditMenuItem;
+    public MenuItem squareBDeleteMenuItem;
+    public MenuItem squareBEditMenuItem;
+    public MenuItem squareADeleteMenuItem;
+    public MenuItem squareAEditMenuItem;
 
     private ObservableList<NoteRecord> squareARecords;
     private ObservableList<NoteRecord> squareBRecords;
