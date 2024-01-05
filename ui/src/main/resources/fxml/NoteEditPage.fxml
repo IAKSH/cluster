@@ -15,7 +15,7 @@
             <HBox prefHeight="100.0" prefWidth="60.0" />
             <Label text="通道">
                <graphic>
-                  <TextField fx:id="channelTextField" prefHeight="23.0" prefWidth="162.0" />
+                  <TextField fx:id="channelTextField" editable="false" prefHeight="23.0" prefWidth="162.0" />
                </graphic>
             </Label>
          </children>
