@@ -20,7 +20,7 @@
 
 <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.iaksh.cluster.ui.MainWindowController">
    <children>
-      <MenuBar maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="1000.0" stylesheets="@../css/GrayBox.css" VBox.vgrow="SOMETIMES">
+      <MenuBar maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="1000.0" stylesheets="@../css/FontWithShadow.css" VBox.vgrow="SOMETIMES">
         <menus>
           <Menu mnemonicParsing="false" text="文件">
             <items>
