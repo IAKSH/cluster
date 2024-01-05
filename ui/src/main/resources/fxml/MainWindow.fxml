@@ -44,7 +44,7 @@
                         <VBox prefHeight="50.0" prefWidth="50.0" styleClass="GrayBox" stylesheets="@../css/GrayBox.css">
                            <children>
                               <Label prefHeight="15.0" prefWidth="41.0" stylesheets="@../css/FontWithShadow.css" text="BPM" textFill="WHITE" />
-                              <Label fx:id="bpmDisplayLabel" prefHeight="15.0" prefWidth="41.0" stylesheets="@../css/FontWithShadow.css" text="val" textFill="WHITE" />
+                              <Label fx:id="bpmDisplayLabel" onMouseClicked="#onVBPMLableClick" prefHeight="15.0" prefWidth="41.0" stylesheets="@../css/FontWithShadow.css" text="val" textFill="WHITE" />
                            </children>
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="220.0" styleClass="GrayBox" stylesheets="@../css/GrayBox.css">
@@ -60,7 +60,7 @@
                         <VBox prefHeight="50.0" prefWidth="50.0" styleClass="GrayBox" stylesheets="@../css/GrayBox.css">
                            <children>
                               <Label prefHeight="15.0" prefWidth="41.0" stylesheets="@../css/FontWithShadow.css" text="音量" textFill="WHITE" />
-                              <Label fx:id="volumeDisplayLabel" prefHeight="15.0" prefWidth="41.0" stylesheets="@../css/FontWithShadow.css" text="val" textFill="WHITE" />
+                              <Label fx:id="volumeDisplayLabel" onMouseClicked="#onVBPMLableClick" prefHeight="15.0" prefWidth="41.0" stylesheets="@../css/FontWithShadow.css" text="val" textFill="WHITE" />
                            </children>
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="220.0" styleClass="GrayBox" stylesheets="@../css/GrayBox.css">

@@ -469,6 +469,11 @@ public class MainWindowController implements Initializable {
         }
     }
 
+    @FXML
+    public void onVBPMLableClick(MouseEvent mouseEvent) {
+        FXApplication.getInstance().getVbpmSettingPageStage().show();
+    }
+
     private ArrayList<Section> genSectionsFromRecords(ObservableList<NoteRecord> records) {
         ArrayList<Section> sections = new ArrayList<>();
         for(NoteRecord record : records) {

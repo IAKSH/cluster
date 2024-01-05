@@ -16,9 +16,11 @@ public class FXApplication  extends Application {
     private Stage primaryStage;
     private Stage aboutPageStage;
     private Stage noteEditPageStage;
+    private Stage vbpmSettingPageStage;
     private MainWindowController mainWindowController;
     private NoteEditPageController noteEditPageController;
     private AboutPageController aboutPageController;
+    private VBPMSettingPageController vbpmSettingPageController;
     private Logger logger;
 
     private void initPrimaryStage(Stage stage) throws IOException {
@@ -50,6 +52,16 @@ public class FXApplication  extends Application {
         noteEditPageStage.setResizable(false);
     }
 
+    private void initVBPMSettingPage() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/VolumeBPMSettingPage.fxml"));
+        Parent root = loader.load();
+        vbpmSettingPageController = loader.getController();
+        vbpmSettingPageStage = new Stage();
+        vbpmSettingPageStage.setTitle("设置音量/BPM");
+        vbpmSettingPageStage.setScene(new Scene(root, 300, 130));
+        vbpmSettingPageStage.setResizable(false);
+    }
+
     private void setExceptionHandler() {
         logger = Logger.getLogger("FXApplication");
         Thread.setDefaultUncaughtExceptionHandler((thread,throwable) -> {
@@ -70,6 +82,7 @@ public class FXApplication  extends Application {
         initPrimaryStage(primaryStage);
         initAboutPage();
         initNoteEditPage();
+        initVBPMSettingPage();
         primaryStage.show();
     }
 
@@ -108,6 +121,14 @@ public class FXApplication  extends Application {
 
     public NoteEditPageController getNoteEditPageController() {
         return noteEditPageController;
+    }
+
+    public Stage getVbpmSettingPageStage() {
+        return vbpmSettingPageStage;
+    }
+
+    public VBPMSettingPageController getVbpmSettingPageController() {
+        return vbpmSettingPageController;
     }
 
     public static FXApplication getInstance() {
