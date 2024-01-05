@@ -20,8 +20,6 @@ public class Main extends Application {
         Parent mainWindowRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxml/MainWindow.fxml")));
         primaryStage.setTitle("cluster 8bit music editor");
         primaryStage.setScene(new Scene(mainWindowRoot, 1000, 600));
-        // 以后解决布局问题了再允许拉伸
-        primaryStage.setResizable(false);
         this.primaryStage = primaryStage;
     }
 
@@ -30,7 +28,6 @@ public class Main extends Application {
         aboutPageStage = new Stage();
         aboutPageStage.setTitle("关于");
         aboutPageStage.setScene(new Scene(aboutPageRoot, 400, 200));
-        // 以后解决布局问题了再允许拉伸
         aboutPageStage.setResizable(false);
         this.aboutPageStage = aboutPageStage;
     }
@@ -40,7 +37,6 @@ public class Main extends Application {
         noteEditPageStage = new Stage();
         noteEditPageStage.setTitle("编辑音符");
         noteEditPageStage.setScene(new Scene(aboutPageRoot, 300, 200));
-        // 以后解决布局问题了再允许拉伸
         noteEditPageStage.setResizable(false);
         this.noteEditPageStage = noteEditPageStage;
     }
