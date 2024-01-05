@@ -18,7 +18,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.util.Callback;
-import me.iaksh.cluster.Main;
 import me.iaksh.cluster.core.mixer.NESLikeSynthesizer;
 import me.iaksh.cluster.core.notation.EqualTempNote;
 import me.iaksh.cluster.core.notation.Section;
@@ -563,7 +562,7 @@ public class MainWindowController implements Initializable {
         // TODO: 绘制实时波形图
         new Thread(() -> {
             try {
-                while (!FXApplication.getInstance().isClosing()) {
+                while (FXApplication.getInstance().isRunning()) {
                     String bpmStr = String.valueOf((int) Math.floor(bpmSlider.getValue()));
                     String volumeStr = String.valueOf((int) Math.floor(volumeSlider.getValue()));
                     Platform.runLater(() -> {

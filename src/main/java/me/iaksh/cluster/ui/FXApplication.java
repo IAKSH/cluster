@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class FXApplication  extends Application {
     private static FXApplication app;
-    private boolean closing;
+    private boolean running;
     private Stage primaryStage;
     private Stage aboutPageStage;
     private Stage noteEditPageStage;
@@ -52,6 +52,7 @@ public class FXApplication  extends Application {
     @Override
     public void init() {
         app = this;
+        running = true;
     }
 
     @Override
@@ -64,15 +65,15 @@ public class FXApplication  extends Application {
 
     @Override
     public void stop() {
-        closing = true;
+        running = false;
     }
 
     public static void runApp() {
         launch();
     }
 
-    public boolean isClosing() {
-        return closing;
+    public boolean isRunning() {
+        return running;
     }
 
     public Stage getAboutPageStage() {

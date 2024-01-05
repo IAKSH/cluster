@@ -5,9 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import me.iaksh.cluster.Main;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -43,7 +41,7 @@ public class NoteEditPageController implements Initializable {
     private void initUpdateThread() {
         new Thread(() -> {
             try {
-                while (!FXApplication.getInstance().isClosing()) {
+                while (FXApplication.getInstance().isRunning()) {
                     MainWindowController.NoteRecord currentSelectedRecord = FXApplication.getInstance().getMainWindowController().getSelectedNoteRecord();
                     if(currentSelectedRecord != null) {
                         if(lastSelectedNoteRecord != currentSelectedRecord) {
