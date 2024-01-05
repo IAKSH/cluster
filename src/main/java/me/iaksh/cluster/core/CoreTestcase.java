@@ -344,12 +344,13 @@ public class CoreTestcase {
         return sections;
     }
 
-    /*
+
     public void play() {
         int bpm = 120;
-        //new NESLikeSynthesizer(bpm).saveToWave("./out.wav",genTestSection());
-        new Player().play(0.25f,new NESLikeSynthesizer(bpm).genWaveform(genTestSection()));
+        new Player().play(0.25f, new NESLikeSynthesizer(bpm).genWaveform(genTestSection()));
     }
+
+    /*
     public void save() {
         int bpm = 120;
         new NESLikeSynthesizer(bpm).saveToWave("./out.wav",genTestSection());
