@@ -20,7 +20,7 @@
 
 <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.iaksh.cluster.ui.MainWindowController">
    <children>
-      <MenuBar maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="1000.0" VBox.vgrow="SOMETIMES">
+      <MenuBar maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="1000.0" stylesheets="@../css/GrayBox.css" VBox.vgrow="SOMETIMES">
         <menus>
           <Menu mnemonicParsing="false" text="文件">
             <items>
@@ -230,7 +230,7 @@
       </HBox>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
          <children>
-            <HBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="1000.0" styleClass="GrayBox" stylesheets="@../css/GrayBox.css" VBox.vgrow="ALWAYS">
+            <HBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="1000.0" styleClass="GrayBox1" stylesheets="@../css/GrayBox.css" VBox.vgrow="ALWAYS">
                <children>
                   <VBox maxWidth="1.7976931348623157E308" prefHeight="20.0" prefWidth="250.0" HBox.hgrow="ALWAYS">
                      <children>
@@ -273,8 +273,8 @@
                      <contextMenu>
                         <ContextMenu>
                           <items>
-                             <MenuItem fx:id="squareAEditMenuItem" onAction="#onEditNoteButtonClick" mnemonicParsing="false" text="修改" />
-                             <MenuItem fx:id="squareADeleteMenuItem" onAction="#onDeleteNoteButtonClick" mnemonicParsing="false" text="删除" />
+                             <MenuItem fx:id="squareAEditMenuItem" mnemonicParsing="false" onAction="#onEditNoteButtonClick" text="修改" />
+                             <MenuItem fx:id="squareADeleteMenuItem" mnemonicParsing="false" onAction="#onDeleteNoteButtonClick" text="删除" />
                           </items>
                         </ContextMenu>
                      </contextMenu>
@@ -296,8 +296,8 @@
                      <contextMenu>
                         <ContextMenu>
                           <items>
-                             <MenuItem fx:id="squareBEditMenuItem" onAction="#onEditNoteButtonClick" mnemonicParsing="false" text="修改" />
-                             <MenuItem fx:id="squareBDeleteMenuItem" onAction="#onDeleteNoteButtonClick" mnemonicParsing="false" text="删除" />
+                             <MenuItem fx:id="squareBEditMenuItem" mnemonicParsing="false" onAction="#onEditNoteButtonClick" text="修改" />
+                             <MenuItem fx:id="squareBDeleteMenuItem" mnemonicParsing="false" onAction="#onDeleteNoteButtonClick" text="删除" />
                           </items>
                         </ContextMenu>
                      </contextMenu>
@@ -319,8 +319,8 @@
                      <contextMenu>
                         <ContextMenu>
                           <items>
-                             <MenuItem fx:id="triangleEditMenuItem" onAction="#onEditNoteButtonClick" mnemonicParsing="false" text="修改" />
-                             <MenuItem fx:id="triangleDeleteMenuItem" onAction="#onDeleteNoteButtonClick" mnemonicParsing="false" text="删除" />
+                             <MenuItem fx:id="triangleEditMenuItem" mnemonicParsing="false" onAction="#onEditNoteButtonClick" text="修改" />
+                             <MenuItem fx:id="triangleDeleteMenuItem" mnemonicParsing="false" onAction="#onDeleteNoteButtonClick" text="删除" />
                           </items>
                         </ContextMenu>
                      </contextMenu>
@@ -342,8 +342,8 @@
                      <contextMenu>
                         <ContextMenu>
                           <items>
-                             <MenuItem fx:id="noiseEditMenuItem" onAction="#onEditNoteButtonClick" mnemonicParsing="false" text="修改" />
-                             <MenuItem fx:id="noiseDeleteMenuItem" onAction="#onDeleteNoteButtonClick" mnemonicParsing="false" text="删除" />
+                             <MenuItem fx:id="noiseEditMenuItem" mnemonicParsing="false" onAction="#onEditNoteButtonClick" text="修改" />
+                             <MenuItem fx:id="noiseDeleteMenuItem" mnemonicParsing="false" onAction="#onDeleteNoteButtonClick" text="删除" />
                           </items>
                         </ContextMenu>
                      </contextMenu>
