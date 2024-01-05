@@ -206,10 +206,9 @@ public class MainWindowController implements Initializable {
 
     @FXML
     public void onSaveMenuItemClick(ActionEvent actionEvent) {
-        // TODO: 限定后缀名为json
-
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("保存工程");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON files (*.json)","*.json"));
         File file = fileChooser.showSaveDialog(FXApplication.getInstance().getPrimaryStage());
 
         if(file != null) {
@@ -259,16 +258,13 @@ public class MainWindowController implements Initializable {
     public void onLoadMenuItemClick(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("载入工程");
-        //fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON",".json"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON files (*.json)","*.json"));
         File file = fileChooser.showOpenDialog(FXApplication.getInstance().getPrimaryStage());
 
         if(file != null) {
             try {
                 String content = new String(Files.readAllBytes(file.toPath()));
                 JSONObject root = JSONObject.parseObject(content);
-
-                // TODO: validate all data from json
-                // TODO: validate version from json
 
                 bpmSlider.setValue(root.getDoubleValue("bpm"));
                 volumeSlider.setValue(root.getDoubleValue("volume"));
@@ -378,10 +374,9 @@ public class MainWindowController implements Initializable {
 
     @FXML
     public void onExportButtonClick(ActionEvent actionEvent) {
-        // TODO: 限定后缀名为wav
-
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("导出音频");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("WAV files (*.wav)","*.wav"));
         File file = fileChooser.showSaveDialog(FXApplication.getInstance().getPrimaryStage());
 
         if(file != null) {
@@ -417,8 +412,7 @@ public class MainWindowController implements Initializable {
 
     @FXML
     public void onAddNoteButtonClick(ActionEvent actionEvent) {
-        validateNoteInputArgs();
-        switch (Integer.parseInt(channelTextField.getText())) {
+        switch (getSelectedChannelId()) {
             case 0 -> addNoteRecord(squareARecords);
             case 1 -> addNoteRecord(squareBRecords);
             case 2 -> addNoteRecord(triangleRecords);
@@ -433,9 +427,8 @@ public class MainWindowController implements Initializable {
 
     @FXML
     public void onDeleteNoteButtonClick(ActionEvent actionEvent) {
-        validateNoteInputArgs();
         ObservableList<NoteRecord> list = null;
-        TableView view = switch (Integer.parseInt(channelTextField.getText())) {
+        TableView view = switch (getSelectedChannelId()) {
             case 0 -> {
                 list = squareARecords;
                 yield squareATableView;
@@ -459,8 +452,7 @@ public class MainWindowController implements Initializable {
 
     @FXML
     public void onSectionBeginButton(ActionEvent actionEvent) {
-        validateNoteInputArgs();
-        switch (Integer.parseInt(channelTextField.getText())) {
+        switch (getSelectedChannelId()) {
             case 0 -> addSectionRecord(squareARecords,true);
             case 1 -> addSectionRecord(squareBRecords,true);
             case 2 -> addSectionRecord(triangleRecords,true);
@@ -470,8 +462,7 @@ public class MainWindowController implements Initializable {
 
     @FXML
     public void onSectionEndButton(ActionEvent actionEvent) {
-        validateNoteInputArgs();
-        switch (Integer.parseInt(channelTextField.getText())) {
+        switch (getSelectedChannelId()) {
             case 0 -> addSectionRecord(squareARecords,false);
             case 1 -> addSectionRecord(squareBRecords,false);
             case 2 -> addSectionRecord(triangleRecords,false);
@@ -545,17 +536,12 @@ public class MainWindowController implements Initializable {
     }
 
     private int[] getSectionInfo() {
-        validateSectionInputArgs();
         int[] arr = new int[2];
         String[] parts = sectionInfoTextField.getText().split("/");
         arr[0] = Integer.parseInt(parts[0]);
         arr[1] = Integer.parseInt(parts[1]);
         return arr;
     };
-
-    private void validateSectionInputArgs() {
-        //TODO
-    }
 
     private void initExternUIUpdateThread() {
         // TODO: 绘制实时播放位置
@@ -569,7 +555,6 @@ public class MainWindowController implements Initializable {
                         bpmDisplayLabel.setText(bpmStr);
                         volumeDisplayLabel.setText(volumeStr);
                     });
-
                     Thread.sleep(10);
                 }
             } catch (InterruptedException e) {
@@ -657,20 +642,6 @@ public class MainWindowController implements Initializable {
         effectRecords.add(new EffectRecord(EffectType.REV_LINEAR_GRADIENT));
         effectRecords.add(new EffectRecord(EffectType.NONE));
         effectChoiceBox.setItems(effectRecords);
-        /*
-        effectChoiceBox.setConverter(new StringConverter<EffectRecord>() {
-            @Override
-            public String toString(EffectRecord object) {
-                return object.getEffectType().toString();
-            }
-
-            @Override
-            public EffectRecord fromString(String string) {
-                System.out.println(string);
-                return null;
-            }
-        });
-         */
     }
 
     private void initAllTableViews() {
@@ -691,18 +662,40 @@ public class MainWindowController implements Initializable {
         noiseRecords = FXCollections.observableArrayList();
     }
 
-    private void addNoteRecord(ObservableList<NoteRecord> list) {
-        float noteFraction = Float.parseFloat(noteFractionTextField.getText());
-        boolean isDotted = noteIsDottedCheckBox.isSelected();
-        int simpleScore = Integer.parseInt(noteSimpleScoreTextField.getText());
-        int octaveShift = Integer.parseInt(noteOctaveShiftTextField.getText());
-        int semitoneShift = Integer.parseInt(noteSemitoneShiftTextField.getText());
-        list.add(new NoteRecord(noteFraction,isDotted,simpleScore,octaveShift,semitoneShift,
-                ((EffectRecord)effectChoiceBox.getSelectionModel().getSelectedItem()).getEffectType().toString()));;
+    private float getNoteFractionInput() {
+        float fraction = Float.parseFloat(noteFractionTextField.getText());
+        if(fraction < 0.0f)
+            throw new IllegalArgumentException(String.format("fraction can't be negative, given = %f",fraction));
+        return fraction;
     }
 
-    private void validateNoteInputArgs() {
-        // TODO
+    private boolean getNoteDottedInput() {
+        return noteIsDottedCheckBox.isSelected();
+    }
+
+    private int getNoteSimpleScoreInput() {
+        int score = Integer.parseInt(noteSimpleScoreTextField.getText());
+        if(score < 0)
+            throw new IllegalArgumentException(String.format("simple score can't be negative, given = %d",score));
+        return score;
+    }
+
+    private int getNoteOctaveShiftInput() {
+        return Integer.parseInt(noteOctaveShiftTextField.getText());
+    }
+
+    private int getSemitoneShiftInput() {
+        return Integer.parseInt(noteSemitoneShiftTextField.getText());
+    }
+
+    private void addNoteRecord(ObservableList<NoteRecord> list) {
+        float noteFraction = getNoteFractionInput();
+        boolean isDotted = getNoteDottedInput();
+        int simpleScore = getNoteSimpleScoreInput();
+        int octaveShift = getNoteOctaveShiftInput();
+        int semitoneShift = getSemitoneShiftInput();
+        list.add(new NoteRecord(noteFraction,isDotted,simpleScore,octaveShift,semitoneShift,
+                ((EffectRecord)effectChoiceBox.getSelectionModel().getSelectedItem()).getEffectType().toString()));;
     }
 
     @Override
@@ -721,7 +714,7 @@ public class MainWindowController implements Initializable {
             case 2 -> triangleTableView;
             case 3 -> noiseTableView;
             default ->
-                    throw new IllegalStateException("Unexpected value: " + Integer.parseInt(channelTextField.getText()));
+                    throw new IllegalStateException("Unexpected value: " + getSelectedChannelId());
         };
         return tableView;
     }
