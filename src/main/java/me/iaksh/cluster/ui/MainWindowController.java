@@ -192,9 +192,12 @@ public class MainWindowController implements Initializable {
     private ObservableList<EffectRecord> effectRecords;
 
     private Player player;
+    private boolean playing;
+    private double tableViewScrollBarValue;
 
     @FXML
     public void onForceStopButtonClick(ActionEvent actionEvent) {
+        playing = false;
         player.forceStop();
     }
 
@@ -323,6 +326,7 @@ public class MainWindowController implements Initializable {
         float volume = (float) (volumeSlider.getValue() / 100.0f);
         int bpm = (int) (Math.floor(bpmSlider.getValue()));
         new Thread(() -> {
+            playing = true;
             pauseButton.setDisable(false);
             playButton.setDisable(true);
             volumeSlider.setDisable(true);
@@ -353,11 +357,13 @@ public class MainWindowController implements Initializable {
             noiseChannelCheckBox.setDisable(false);
             pauseButton.setDisable(true);
             resetButton.setDisable(true);
+            playing = false;
         }).start();
     }
 
     @FXML
     public void onPauseButtonClick(ActionEvent actionEvent) {
+        playing = false;
         resetButton.setDisable(false);
         pauseButton.setDisable(true);
         player.pause();
@@ -365,6 +371,7 @@ public class MainWindowController implements Initializable {
 
     @FXML
     public void onResetButtonClick(ActionEvent actionEvent) {
+        playing = true;
         pauseButton.setDisable(false);
         resetButton.setDisable(true);
         player.resume();
@@ -563,6 +570,46 @@ public class MainWindowController implements Initializable {
                         bpmDisplayLabel.setText(bpmStr);
                         volumeDisplayLabel.setText(volumeStr);
                     });
+
+                    // 指示播放位置
+                    // TODO: 难以实现
+                    /*
+                    if(playing) {
+                        Platform.runLater(() -> {
+                            squareATableView.requestFocus();
+                            squareATableView.getSelectionModel().select(0);
+                            squareBTableView.requestFocus();
+                            squareBTableView.getSelectionModel().select(1);
+                        });
+                    }
+                     */
+
+                    // 统一滚动条
+                    // TODO: 难以实现
+                    /*
+                    ScrollBar scrollBarSqA = (ScrollBar) squareATableView.lookup(".scroll-bar:vertical");
+                    ScrollBar scrollBarSqB = (ScrollBar) squareBTableView.lookup(".scroll-bar:vertical");
+                    ScrollBar scrollBarTri = (ScrollBar) triangleTableView.lookup(".scroll-bar:vertical");
+                    ScrollBar scrollBarNoi = (ScrollBar) noiseTableView.lookup(".scroll-bar:vertical");
+                    if(scrollBarSqA != null)
+                        tableViewScrollBarValue = scrollBarSqA.getValue();
+                    else if(scrollBarSqB != null)
+                        tableViewScrollBarValue = scrollBarSqB.getValue();
+                    else if(scrollBarTri != null)
+                        tableViewScrollBarValue = scrollBarTri.getValue();
+                    else if(scrollBarNoi != null)
+                        tableViewScrollBarValue = scrollBarNoi.getValue();
+
+                    if(scrollBarSqA != null)
+                        scrollBarSqA.setValue(tableViewScrollBarValue);
+                    if(scrollBarSqB != null)
+                        scrollBarSqB.setValue(tableViewScrollBarValue);
+                    if(scrollBarTri != null)
+                        scrollBarTri.setValue(tableViewScrollBarValue);
+                    if(scrollBarNoi != null)
+                        scrollBarNoi.setValue(tableViewScrollBarValue);
+                     */
+
                     Thread.sleep(10);
                 }
             } catch (InterruptedException e) {
