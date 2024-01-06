@@ -33,6 +33,6 @@ test {
 jar {
     duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
     manifest {
-        attributes 'Main-Class': 'me.iaksh.cluster.ui.Main'
+        attributes 'Main-Class': 'Main'
     } from {configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it)}}
 }

@@ -13,4 +13,5 @@ include 'ui'
 include 'ui:startup'
 findProject(':ui:startup')?.name = 'startup'
 include 'startup'
+include 'jfx'
 

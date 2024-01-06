@@ -1,0 +1,2 @@
+module cluster.jfx.main {
+}

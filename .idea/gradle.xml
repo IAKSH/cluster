@@ -10,6 +10,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/jfx" />
             <option value="$PROJECT_DIR$/startup" />
             <option value="$PROJECT_DIR$/ui" />
             <option value="$PROJECT_DIR$/ui/startup" />
