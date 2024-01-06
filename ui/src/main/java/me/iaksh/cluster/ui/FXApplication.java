@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class FXApplication  extends Application {
+public class FXApplication extends Application {
     private static FXApplication app;
     private boolean running;
     private Stage primaryStage;
