@@ -4,7 +4,7 @@ public class OctaveShift {
     private int shift;
 
     public OctaveShift(int shift) {
-        this.shift = shift;
+        setShift(shift);
     }
 
     public int getShift() {

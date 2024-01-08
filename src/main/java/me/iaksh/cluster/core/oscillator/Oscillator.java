@@ -3,13 +3,14 @@ package me.iaksh.cluster.core.oscillator;
 import me.iaksh.cluster.core.base.PCMData;
 import me.iaksh.cluster.core.base.Waveform;
 import me.iaksh.cluster.core.base.WaveformInput;
+import me.iaksh.cluster.core.data.DurationMs;
 import me.iaksh.cluster.core.data.Frequency;
 import me.iaksh.cluster.core.data.SimpleRate;
 
 public abstract class Oscillator implements WaveformInput {
 
-    private int ms;
-    private Frequency frequency;
+    private final Frequency bindingFrequency;
+    private final DurationMs bindingDurationMs;
 
     private short[] crop(int ms,int freq) {
         short[] croppedData = new short[ms * SimpleRate.get() / 1000];
@@ -33,36 +34,21 @@ public abstract class Oscillator implements WaveformInput {
 
     protected abstract short[] genBasicWaveform(int samplesPerCycle);
 
-    public Oscillator(int ms, Frequency frequency) {
-        if(ms < 0)
-            throw new IllegalArgumentException(String.format("ms must be positive, but given = %d",ms));
-        this.ms = ms;
-        this.frequency = frequency;
+    public Oscillator(Frequency frequency,DurationMs duration) {
+        this.bindingFrequency = frequency;
+        this.bindingDurationMs = duration;
     }
 
-    public Oscillator() {
-        ms = 1000;
-        frequency = new Frequency(100);
+    public Frequency getBindingFrequency() {
+        return bindingFrequency;
     }
 
-    public Frequency getFrequency() {
-        return frequency;
-    }
-
-    public int getMs() {
-        return ms;
-    }
-
-    public void setFrequency(Frequency frequency) {
-        this.frequency = frequency;
-    }
-
-    public void setMs(int ms) {
-        this.ms = ms;
+    public DurationMs getBindingDurationMs() {
+        return bindingDurationMs;
     }
 
     @Override
     public final Waveform getWaveform() {
-        return new Waveform(new PCMData(crop(ms,(int) frequency.getFloat())));
+        return new Waveform(new PCMData(crop(bindingDurationMs.getMs(),(int) bindingFrequency.getFreq())));
     }
 }

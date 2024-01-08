@@ -5,9 +5,8 @@ public class TimeSignature {
     private TimeFraction standardTimeFraction;
 
     public TimeSignature(int standardNotesPerBar,TimeFraction standardTimeFraction) {
-        if(standardNotesPerBar <= 0)
-            throw new IllegalArgumentException(String.format("standardNotesPerBar must be positive, but given = %d",standardNotesPerBar));
-        this.standardNotesPerBar = standardNotesPerBar;
+        setStandardNotesPerBar(standardNotesPerBar);
+        this.standardTimeFraction = standardTimeFraction;
     }
 
     public int getStandardNotesPerBar() {
@@ -19,6 +18,8 @@ public class TimeSignature {
     }
 
     public void setStandardNotesPerBar(int standardNotesPerBar) {
+        if(standardNotesPerBar <= 0)
+            throw new IllegalArgumentException(String.format("standardNotesPerBar must be positive, but given = %d",standardNotesPerBar));
         this.standardNotesPerBar = standardNotesPerBar;
     }
 

@@ -4,9 +4,7 @@ public class TimeFraction {
     private int fraction;
 
     public TimeFraction(int fraction) {
-        if(fraction <= 0)
-            throw new IllegalArgumentException(String.format("fraction must be positive, but given = %d",fraction));
-        this.fraction = fraction;
+        setFraction(fraction);
     }
 
     public int getFraction() {
@@ -14,6 +12,8 @@ public class TimeFraction {
     }
 
     public void setFraction(int fraction) {
+        if(fraction <= 0)
+            throw new IllegalArgumentException(String.format("fraction must be positive, but given = %d",fraction));
         this.fraction = fraction;
     }
 

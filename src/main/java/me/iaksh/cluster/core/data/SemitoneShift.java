@@ -4,7 +4,7 @@ public class SemitoneShift {
     private int shift;
 
     public SemitoneShift(int shift) {
-        this.shift = shift;
+        setShift(shift);
     }
 
     public int getShift() {
