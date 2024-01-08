@@ -1,5 +1,26 @@
 plugins {
     id 'application'
+    id 'org.beryx.jlink' version '2.25.0'
+}
+
+allprojects {
+    repositories {
+        maven { url 'https://mirrors.cloud.tencent.com/nexus/repository/maven-public/' }
+        mavenCentral()
+        mavenLocal()
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+application {
+    mainClass.set('me.iaksh.cluster.Main')
+}
+
+java {
+    modularity.inferModulePath.set(true)
 }
 
 group 'me.iaksh'
@@ -21,14 +42,14 @@ test {
 jar {
     duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
     manifest {
-        attributes 'Main-Class': 'Main'
+        attributes 'Main-Class': 'me.iaksh.cluster.Main'
     } from {configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it)}}
 }
 
-application {
-    mainClass.set('Main')
-}
-
-java {
-    modularity.inferModulePath.set(true)
+jlink {
+    options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
+    launcher {
+        name = 'launcher'
+        jvmArgs = ['-Dlog4j.configurationFile=./log4j2.xml']
+    }
 }
