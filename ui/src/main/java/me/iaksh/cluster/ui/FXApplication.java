@@ -83,7 +83,8 @@ public class FXApplication extends Application {
         initAboutPage();
         initNoteEditPage();
         initVBPMSettingPage();
-        primaryStage.show();
+
+        new LoginPage().start();
     }
 
     @Override

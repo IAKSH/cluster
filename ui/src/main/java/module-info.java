@@ -5,5 +5,6 @@ module cluster.ui.main {
     requires javafx.fxml;
     requires javafx.controls;
     requires com.alibaba.fastjson2;
+    requires java.sql;
     requires cluster.cluster.core.main;
 }
