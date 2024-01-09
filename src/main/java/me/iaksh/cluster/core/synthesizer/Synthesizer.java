@@ -23,8 +23,7 @@ public abstract class Synthesizer implements WaveformInput {
     protected Effect effect;
 
     private void updateDuration() {
-        int ms = (int) (timeFraction.getFraction() *
-                timeSignature.getStandardTimeFraction().getFraction() * 60000.0f / bpm.getBpm());
+        int ms = (int) ((double) timeSignature.getStandardTimeFraction().getFraction() / timeFraction.getFraction() * 60000.0f / bpm.getBpm());
         if(dotted)
             ms = (int)(ms * 1.5f);
         duration.setMs(ms);
