@@ -15,16 +15,13 @@ public class SquareOscillator extends Oscillator {
     @Override
     protected short[] genBasicWaveform(int samplesPerCycle) {
         short[] data = new short[samplesPerCycle];
-        int halfSamples = (int) (samplesPerCycle * dutyCycle);
-        int phaseSamples = (int) (samplesPerCycle * phaseShift);
 
-        for (int i = 0; i < samplesPerCycle; i++) {
-            if ((i + phaseSamples) % samplesPerCycle < halfSamples) {
-                data[i] = (short) (Short.MAX_VALUE * amplitude);
-            } else {
-                data[i] = (short) (Short.MIN_VALUE * amplitude);
-            }
+        for(int i = 0;i < samplesPerCycle;i++) {
+            double x = i + phaseShift * samplesPerCycle;
+            data[i] = (short) (1 - 2 * Math.ceil(x / samplesPerCycle - Math.floor(x / samplesPerCycle) - dutyCycle));
+            data[i] = (short) (((double) data[i] - 0.5) * 2 * amplitude * Short.MAX_VALUE);
         }
+
         return data;
     }
 

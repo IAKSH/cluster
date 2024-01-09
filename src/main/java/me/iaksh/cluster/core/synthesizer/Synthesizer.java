@@ -9,12 +9,12 @@ import me.iaksh.cluster.core.oscillator.Oscillator;
 public abstract class Synthesizer implements WaveformInput {
     private static final double[] equalTemperaments = {0,261.63,293.66,329.63,349.23,392.00,440.00,493.88};
 
-    private int scaleStep;
+    private int scaleStep = 6;
     private final BPM bpm;
     private final DurationMs duration = new DurationMs(1000);
     private final TimeSignature timeSignature = new TimeSignature(4,new TimeFraction(4));
     private final TimeFraction timeFraction = new TimeFraction(4);
-    private final Frequency frequency = new Frequency(100);
+    private final Frequency frequency = new Frequency(440);
     private final OctaveShift octaveShift = new OctaveShift(0);
     private final SemitoneShift semitoneShift = new SemitoneShift(0);
     private boolean dotted;
