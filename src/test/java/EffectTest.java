@@ -2,9 +2,7 @@ import me.iaksh.cluster.core.data.BPM;
 import me.iaksh.cluster.core.effects.ExpAttenuationEffect;
 import me.iaksh.cluster.core.effects.LinearAttenuationEffect;
 import me.iaksh.cluster.core.export.Player;
-import me.iaksh.cluster.core.oscillator.SquareOscillator;
 import me.iaksh.cluster.core.synthesizer.SquareSynth;
-import me.iaksh.cluster.core.synthesizer.Synthesizer;
 import org.junit.jupiter.api.Test;
 
 public class EffectTest {
