@@ -9,7 +9,9 @@ import org.junit.jupiter.api.Test;
 public class EffectTest {
     @Test
     public void testExpAttenuationEffect() {
-        new Player(0.25f).play(new SquareSynth(new BPM(120),new ExpAttenuationEffect()).getWaveform().getPCM().toArray());
+        Player player = new Player(0.25f);
+        player.setPCM(new SquareSynth(new BPM(120),new ExpAttenuationEffect()));
+        player.play();
     }
 
     @Test
@@ -21,7 +23,9 @@ public class EffectTest {
 
     @Test
     public void testLinearAttenuationEffect() {
-        new Player(0.25f).play(new SquareSynth(new BPM(120),new LinearAttenuationEffect()).getWaveform().getPCM().toArray());
+        Player player = new Player(0.25f);
+        player.setPCM(new SquareSynth(new BPM(120), new LinearAttenuationEffect()));
+        player.play();
     }
 
     @Test

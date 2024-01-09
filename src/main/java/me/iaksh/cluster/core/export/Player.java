@@ -1,14 +1,16 @@
 package me.iaksh.cluster.core.export;
 
+import me.iaksh.cluster.core.base.*;
 import me.iaksh.cluster.core.data.SimpleRate;
 
 import javax.sound.sampled.*;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
-public class Player {
+public class Player implements PCMOutput {
     private SourceDataLine line;
     private boolean isPaused;
+    private PCMData pcmData;
 
     private void init() {
         try {
@@ -30,15 +32,18 @@ public class Player {
         setVolume(volume);
     }
 
-    public void play(float volume, short[] data) {
+    public void play(float volume) {
         setVolume(volume);
-        play(data);
+        play();
     }
 
-    public void play(short[] data) {
+    public void play() {
+        if(pcmData == null)
+            throw new RuntimeException("missing pcm data");
+
         try {
-            byte[] byteData = new byte[data.length * 2];
-            ByteBuffer.wrap(byteData).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().put(data);
+            byte[] byteData = new byte[pcmData.toArray().length * 2];
+            ByteBuffer.wrap(byteData).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().put(pcmData.toArray());
 
             int i = 0;
             line.start();
@@ -83,5 +88,10 @@ public class Player {
         line.stop();
         close();
         init();
+    }
+
+    @Override
+    public void setPCM(PCMData pcm) {
+        pcmData = pcm;
     }
 }
