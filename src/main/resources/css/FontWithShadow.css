@@ -1,0 +1,11 @@
+@font-face {
+    font-family: "Unifont";
+    src: url("../font/unifont-15.0.06.ttf");
+}
+
+.text {
+    -fx-font-family: "Unifont";
+    -fx-font-size: 13px;
+    -fx-fill: #000000;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0.0, 0.0, 0.0);
+}

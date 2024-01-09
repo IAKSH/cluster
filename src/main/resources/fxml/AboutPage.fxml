@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.iaksh.cluster.ui.AboutPageController">
+   <children>
+      <HBox prefHeight="204.0" prefWidth="400.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0" />
+            <VBox prefHeight="115.0" prefWidth="200.0">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="100.0" />
+                  <ImageView fx:id="aboutPageImage" fitHeight="100.0" fitWidth="100.0" onMouseClicked="#onAboutPageImageClick" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/chip.jpg" />
+                     </image>
+                  </ImageView>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cluster 8bit Music Editor" />
+                  <VBox prefHeight="200.0" prefWidth="100.0" />
+               </children>
+            </VBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" />
+         </children>
+      </HBox>
+   </children>
+</VBox>

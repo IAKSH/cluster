@@ -1,0 +1,19 @@
+.GrayBox {
+    -fx-background-color: #E8F5E9;
+}
+
+.GrayBox1 {
+    -fx-background-color: linear-gradient(to bottom, #E8F5E9, #C8D5D9);
+}
+
+.GrayBoxWithShadow {
+    -fx-background-color: #E8F5E9;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0, 0, 0);
+    -fx-border-color: #BDBDBD;
+    -fx-border-width: 2px;
+}
+
+.GrayBoxWithShadow1 {
+    -fx-background-color: #2F2F4F;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0, 0, 0);
+}

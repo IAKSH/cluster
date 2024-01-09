@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.iaksh.cluster.ui.MainWindowController">
+   <children>
+      <MenuBar maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="1000.0" stylesheets="@../css/FontWithShadow.css" VBox.vgrow="SOMETIMES">
+        <menus>
+          <Menu mnemonicParsing="false" text="文件">
+            <items>
+               <MenuItem fx:id="saveMenuItem" mnemonicParsing="false" onAction="#onSaveMenuItemClick" text="保存" />
+               <MenuItem fx:id="loadMenuItem" mnemonicParsing="false" onAction="#onLoadMenuItemClick" text="加载" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="帮助">
+            <items>
+              <MenuItem fx:id="aboutMenuItem" mnemonicParsing="false" onAction="#onAboutMenuItemClick" text="关于" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <HBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="600.0" VBox.vgrow="SOMETIMES">
+         <children>
+            <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="260.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0" styleClass="GrayBox" stylesheets="@../css/GrayBox.css">
+                     <children>
+                        <VBox prefHeight="50.0" prefWidth="50.0" styleClass="GrayBox" stylesheets="@../css/GrayBox.css">
+                           <children>
+                              <Label prefHeight="15.0" prefWidth="41.0" stylesheets="@../css/FontWithShadow.css" text="BPM" textFill="WHITE" />
+                              <Label fx:id="bpmDisplayLabel" onMouseClicked="#onVBPMLableClick" prefHeight="15.0" prefWidth="41.0" stylesheets="@../css/FontWithShadow.css" text="val" textFill="WHITE" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="220.0" styleClass="GrayBox" stylesheets="@../css/GrayBox.css">
+                           <children>
+                              <Slider fx:id="bpmSlider" max="400.0" min="1.0" prefHeight="37.0" prefWidth="113.0" showTickLabels="true" showTickMarks="true" stylesheets="@../css/BlackButton.css" value="120.0" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="10.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" styleClass="GrayBox" stylesheets="@../css/GrayBox.css">
+                     <children>
+                        <VBox prefHeight="50.0" prefWidth="50.0" styleClass="GrayBox" stylesheets="@../css/GrayBox.css">
+                           <children>
+                              <Label prefHeight="15.0" prefWidth="41.0" stylesheets="@../css/FontWithShadow.css" text="音量" textFill="WHITE" />
+                              <Label fx:id="volumeDisplayLabel" onMouseClicked="#onVBPMLableClick" prefHeight="15.0" prefWidth="41.0" stylesheets="@../css/FontWithShadow.css" text="val" textFill="WHITE" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="220.0" styleClass="GrayBox" stylesheets="@../css/GrayBox.css">
+                           <children>
+                              <Slider fx:id="volumeSlider" prefHeight="37.0" prefWidth="85.0" showTickLabels="true" showTickMarks="true" value="50.0" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="10.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="70.0">
+               <children>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="70.0" styleClass="GrayBox" stylesheets="@../css/GrayBox.css">
+                     <children>
+                        <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="10.0" />
+                        <VBox prefHeight="60.0" prefWidth="50.0">
+                           <children>
+                              <VBox prefHeight="8.0" prefWidth="100.0" />
+                              <Button fx:id="forceStopButton" mnemonicParsing="false" onAction="#onForceStopButtonClick" prefHeight="20.0" prefWidth="50.0" styleClass="BlackButton" text="终止">
+                                 <stylesheets>
+                                    <URL value="@../css/FontWithShadow.css" />
+                                    <URL value="@../css/BlackButton.css" />
+                                 </stylesheets>
+                              </Button>
+                              <VBox prefHeight="5.0" prefWidth="100.0" />
+                              <Button fx:id="playButton" mnemonicParsing="false" onAction="#onPlayButtonClick" prefHeight="20.0" prefWidth="50.0" styleClass="BlackButton" text="播放">
+                                 <stylesheets>
+                                    <URL value="@../css/BlackButton.css" />
+                                    <URL value="@../css/FontWithShadow.css" />
+                                 </stylesheets>
+                              </Button>
+                              <VBox prefHeight="5.0" prefWidth="50.0" />
+                              <Button fx:id="exportButton" mnemonicParsing="false" onAction="#onExportButtonClick" prefHeight="20.0" prefWidth="50.0" styleClass="BlackButton" text="导出">
+                                 <stylesheets>
+                                    <URL value="@../css/BlackButton.css" />
+                                    <URL value="@../css/FontWithShadow.css" />
+                                 </stylesheets>
+                              </Button>
+                           </children>
+                        </VBox>
+                        <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="10.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="400.0">
+               <children>
+                  <HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="450.0" styleClass="GrayBox" stylesheets="@../css/GrayBox.css">
+                     <children>
+                        <Label stylesheets="@../css/FontWithShadow.css" text="通道" textFill="WHITE" />
+                        <TextField fx:id="channelTextField" editable="false" prefHeight="20.0" prefWidth="30.0" text="0" />
+                        <Label stylesheets="@../css/FontWithShadow.css" text="X分音符" textFill="WHITE" />
+                        <TextField fx:id="noteFractionTextField" prefHeight="20.0" prefWidth="50.0" text="0.25" />
+                        <Label stylesheets="@../css/FontWithShadow.css" text="简谱" textFill="WHITE" />
+                        <TextField fx:id="noteSimpleScoreTextField" prefHeight="20.0" prefWidth="30.0" text="6" />
+                        <Label stylesheets="@../css/FontWithShadow.css" text="八度" textFill="WHITE" />
+                        <TextField fx:id="noteOctaveShiftTextField" prefHeight="20.0" prefWidth="30.0" text="0" />
+                        <Label stylesheets="@../css/FontWithShadow.css" text="半音" textFill="WHITE" />
+                        <TextField fx:id="noteSemitoneShiftTextField" prefHeight="20.0" prefWidth="30.0" text="0" />
+                        <HBox prefHeight="100.0" prefWidth="15.0" />
+                        <VBox prefHeight="200.0" prefWidth="50.0">
+                           <children>
+                              <VBox prefHeight="30.0" prefWidth="50.0">
+                                 <children>
+                                    <CheckBox fx:id="noteIsDottedCheckBox" mnemonicParsing="false" stylesheets="@../css/FontWithShadow.css" text="附点" textFill="WHITE" />
+                                 </children></VBox>
+                              <VBox prefHeight="50.0" prefWidth="50.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="550.0" styleClass="GrayBox" stylesheets="@../css/GrayBox.css">
+                     <children>
+                        <VBox prefHeight="59.0" prefWidth="100.0" styleClass="GrayBox" stylesheets="@../css/GrayBox.css">
+                           <children>
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Button fx:id="pauseButton" disable="true" mnemonicParsing="false" onAction="#onPauseButtonClick" prefHeight="20.0" prefWidth="50.0" styleClass="BlackButton" text="暂停">
+                                       <stylesheets>
+                                          <URL value="@../css/BlackButton.css" />
+                                          <URL value="@../css/FontWithShadow.css" />
+                                       </stylesheets>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Button fx:id="resetButton" disable="true" mnemonicParsing="false" onAction="#onResetButtonClick" prefHeight="20.0" prefWidth="50.0" styleClass="BlackButton" text="重置">
+                                       <stylesheets>
+                                          <URL value="@../css/BlackButton.css" />
+                                          <URL value="@../css/FontWithShadow.css" />
+                                       </stylesheets>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="60.0" prefWidth="120.0" styleClass="GrayBox" stylesheets="@../css/GrayBox.css">
+                           <children>
+                              <Label stylesheets="@../css/FontWithShadow.css" text="效果器" textFill="WHITE" />
+                              <ChoiceBox fx:id="effectChoiceBox" prefHeight="23.0" prefWidth="99.0" styleClass="BlackButton" stylesheets="@../css/BlackButton.css" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="60.0" prefWidth="60.0" styleClass="GrayBox" stylesheets="@../css/GrayBox.css">
+                           <children>
+                              <Button fx:id="addNoteButton" mnemonicParsing="false" onAction="#onAddNoteButtonClick" styleClass="BlackButton" text="添加">
+                                 <stylesheets>
+                                    <URL value="@../css/BlackButton.css" />
+                                    <URL value="@../css/FontWithShadow.css" />
+                                 </stylesheets></Button>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="60.0" prefWidth="60.0" styleClass="GrayBox" stylesheets="@../css/GrayBox.css">
+                           <children>
+                              <Button fx:id="editNoteButton" mnemonicParsing="false" onAction="#onEditNoteButtonClick" styleClass="BlackButton" text="修改">
+                                 <stylesheets>
+                                    <URL value="@../css/BlackButton.css" />
+                                    <URL value="@../css/FontWithShadow.css" />
+                                 </stylesheets></Button>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="60.0" prefWidth="60.0" styleClass="GrayBox" stylesheets="@../css/GrayBox.css">
+                           <children>
+                              <Button fx:id="deleteNoteButton" mnemonicParsing="false" onAction="#onDeleteNoteButtonClick" styleClass="BlackButton" text="删除">
+                                 <stylesheets>
+                                    <URL value="@../css/BlackButton.css" />
+                                    <URL value="@../css/FontWithShadow.css" />
+                                 </stylesheets></Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="150.0" styleClass="GrayBox" stylesheets="@../css/GrayBox.css">
+               <children>
+                  <Canvas fx:id="waveformDisplayCanvas" height="100.0" width="150.0" />
+               </children>
+            </VBox>
+            <VBox prefHeight="100.0" prefWidth="10.0" styleClass="GrayBox" stylesheets="@../css/GrayBox.css" />
+            <VBox maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="110.0">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="256.0" styleClass="GrayBox" stylesheets="@../css/GrayBox.css">
+                     <children>
+                        <Label stylesheets="@../css/FontWithShadow.css" text="小节" textFill="WHITE" />
+                        <TextField fx:id="sectionInfoTextField" prefHeight="23.0" prefWidth="53.0" promptText="4/4" text="4/4" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="190.0" styleClass="GrayBox" stylesheets="@../css/GrayBox.css">
+                     <children>
+                        <VBox prefHeight="50.0" prefWidth="100.0" styleClass="GrayBox" stylesheets="@../css/GrayBox.css">
+                           <children>
+                              <Button fx:id="sectionBeginButton" mnemonicParsing="false" onAction="#onSectionBeginButton" prefHeight="24.0" prefWidth="80.0" styleClass="BlackButton" text="小节开始">
+                                 <stylesheets>
+                                    <URL value="@../css/BlackButton.css" />
+                                    <URL value="@../css/FontWithShadow.css" />
+                                 </stylesheets></Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
+         <children>
+            <HBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="1000.0" styleClass="GrayBox1" stylesheets="@../css/GrayBox.css" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox maxWidth="1.7976931348623157E308" prefHeight="20.0" prefWidth="250.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <CheckBox fx:id="squareAChannelCheckBox" mnemonicParsing="false" stylesheets="@../css/FontWithShadow.css" text="方波A" />
+                     </children>
+                  </VBox>
+                  <VBox maxWidth="1.7976931348623157E308" prefHeight="20.0" prefWidth="250.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <CheckBox fx:id="squareBChannelCheckBox" mnemonicParsing="false" stylesheets="@../css/FontWithShadow.css" text="方波B" />
+                     </children>
+                  </VBox>
+                  <VBox maxWidth="1.7976931348623157E308" prefHeight="20.0" prefWidth="250.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <CheckBox fx:id="triangleChannelCheckBox" mnemonicParsing="false" stylesheets="@../css/FontWithShadow.css" text="三角波" />
+                     </children>
+                  </VBox>
+                  <VBox maxWidth="1.7976931348623157E308" prefHeight="20.0" prefWidth="250.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <CheckBox fx:id="noiseChannelCheckBox" mnemonicParsing="false" stylesheets="@../css/FontWithShadow.css" text="噪声波" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="455.0" prefWidth="1000.0" styleClass="HBox" stylesheets="@../css/Background.css" VBox.vgrow="ALWAYS">
+               <children>
+                  <TableView fx:id="squareATableView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#onSquareATableViewClick" opacity="0.85" prefHeight="455.0" prefWidth="250.0" styleClass="GrayBoxWithShadow" HBox.hgrow="ALWAYS">
+                     <columns>
+                        <TableColumn fx:id="squareAOrdinalColumn" prefWidth="40.0" styleClass="GrayBoxWithShadow" text="编号" />
+                        <TableColumn fx:id="squareAFractionColumn" prefWidth="40.0" sortable="false" styleClass="GrayBoxWithShadow" text="X分音符" />
+                        <TableColumn fx:id="squareADottedColumn" prefWidth="40.0" sortable="false" styleClass="GrayBoxWithShadow" text="附点" />
+                        <TableColumn fx:id="squareAScoreColumn" prefWidth="40.0" sortable="false" styleClass="GrayBoxWithShadow" text="简谱" />
+                        <TableColumn fx:id="squareAOctaveColumn" prefWidth="40.0" sortable="false" styleClass="GrayBoxWithShadow" text="八度" />
+                        <TableColumn fx:id="squareASemitoneColumn" prefWidth="40.0" sortable="false" styleClass="GrayBoxWithShadow" text="半音" />
+                        <TableColumn fx:id="squareAEffectColumn" prefWidth="50.0" sortable="false" styleClass="GrayBoxWithShadow" text="效果" />
+                     </columns>
+                     <stylesheets>
+                        <URL value="@../css/FontWithShadow.css" />
+                        <URL value="@../css/GrayBox.css" />
+                     </stylesheets>
+                     <contextMenu>
+                        <ContextMenu>
+                          <items>
+                             <MenuItem fx:id="squareAEditMenuItem" mnemonicParsing="false" onAction="#onEditNoteButtonClick" text="修改" />
+                             <MenuItem fx:id="squareADeleteMenuItem" mnemonicParsing="false" onAction="#onDeleteNoteButtonClick" text="删除" />
+                          </items>
+                        </ContextMenu>
+                     </contextMenu>
+                  </TableView>
+                  <TableView fx:id="squareBTableView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#onSquareBTableViewClick" opacity="0.85" prefHeight="455.0" prefWidth="250.0" styleClass="GrayBoxWithShadow" HBox.hgrow="ALWAYS">
+                     <columns>
+                        <TableColumn fx:id="squareBOrdinalColumn" prefWidth="40.0" styleClass="GrayBoxWithShadow" text="编号" />
+                        <TableColumn fx:id="squareBFractionColumn" prefWidth="40.0" sortable="false" styleClass="GrayBoxWithShadow" text="X分音符" />
+                        <TableColumn fx:id="squareBScoreColumn" prefWidth="40.0" sortable="false" styleClass="GrayBoxWithShadow" text="简谱" />
+                        <TableColumn fx:id="squareBDottedColumn" prefWidth="40.0" sortable="false" styleClass="GrayBoxWithShadow" text="附点" />
+                        <TableColumn fx:id="squareBOctaveColumn" prefWidth="40.0" sortable="false" styleClass="GrayBoxWithShadow" text="八度" />
+                        <TableColumn fx:id="squareBSemitoneColumn" prefWidth="40.0" sortable="false" styleClass="GrayBoxWithShadow" text="半音" />
+                        <TableColumn fx:id="squareBEffectColumn" prefWidth="50.0" sortable="false" styleClass="GrayBoxWithShadow" text="效果" />
+                     </columns>
+                     <stylesheets>
+                        <URL value="@../css/GrayBox.css" />
+                        <URL value="@../css/FontWithShadow.css" />
+                     </stylesheets>
+                     <contextMenu>
+                        <ContextMenu>
+                          <items>
+                             <MenuItem fx:id="squareBEditMenuItem" mnemonicParsing="false" onAction="#onEditNoteButtonClick" text="修改" />
+                             <MenuItem fx:id="squareBDeleteMenuItem" mnemonicParsing="false" onAction="#onDeleteNoteButtonClick" text="删除" />
+                          </items>
+                        </ContextMenu>
+                     </contextMenu>
+                  </TableView>
+                  <TableView fx:id="triangleTableView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#onTriangleTableViewClick" opacity="0.85" prefHeight="455.0" prefWidth="250.0" styleClass="GrayBoxWithShadow" HBox.hgrow="ALWAYS">
+                     <columns>
+                        <TableColumn fx:id="triangleOrdinalColumn" prefWidth="40.0" styleClass="GrayBoxWithShadow" text="编号" />
+                        <TableColumn fx:id="triangleFractionColumn" prefWidth="40.0" sortable="false" styleClass="GrayBoxWithShadow" text="X分音符" />
+                        <TableColumn fx:id="triangleScoreColumn" prefWidth="40.0" sortable="false" styleClass="GrayBoxWithShadow" text="简谱" />
+                        <TableColumn fx:id="triangleDottedColumn" prefWidth="40.0" sortable="false" styleClass="GrayBoxWithShadow" text="附点" />
+                        <TableColumn fx:id="triangleOctaveColumn" prefWidth="40.0" sortable="false" styleClass="GrayBoxWithShadow" text="八度" />
+                        <TableColumn fx:id="triangleSemitoneColumn" prefWidth="40.0" sortable="false" styleClass="GrayBoxWithShadow" text="半音" />
+                        <TableColumn fx:id="triangleEffectColumn" prefWidth="50.0" sortable="false" styleClass="GrayBoxWithShadow" text="效果" />
+                     </columns>
+                     <stylesheets>
+                        <URL value="@../css/GrayBox.css" />
+                        <URL value="@../css/FontWithShadow.css" />
+                     </stylesheets>
+                     <contextMenu>
+                        <ContextMenu>
+                          <items>
+                             <MenuItem fx:id="triangleEditMenuItem" mnemonicParsing="false" onAction="#onEditNoteButtonClick" text="修改" />
+                             <MenuItem fx:id="triangleDeleteMenuItem" mnemonicParsing="false" onAction="#onDeleteNoteButtonClick" text="删除" />
+                          </items>
+                        </ContextMenu>
+                     </contextMenu>
+                  </TableView>
+                  <TableView fx:id="noiseTableView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#onNoiseTableViewClick" opacity="0.85" prefHeight="455.0" prefWidth="250.0" styleClass="GrayBoxWithShadow" HBox.hgrow="ALWAYS">
+                     <columns>
+                        <TableColumn fx:id="noiseOrdinalColumn" prefWidth="40.0" styleClass="GrayBoxWithShadow" text="编号" />
+                        <TableColumn fx:id="noiseFractionColumn" prefWidth="40.0" sortable="false" styleClass="GrayBoxWithShadow" text="X分音符" />
+                        <TableColumn fx:id="noiseScoreColumn" prefWidth="40.0" sortable="false" styleClass="GrayBoxWithShadow" text="简谱" />
+                        <TableColumn fx:id="noiseDottedColumn" prefWidth="40.0" sortable="false" styleClass="GrayBoxWithShadow" text="附点" />
+                        <TableColumn fx:id="noiseOctaveColumn" prefWidth="40.0" sortable="false" styleClass="GrayBoxWithShadow" text="八度" />
+                        <TableColumn fx:id="noiseSemitoneColumn" prefWidth="40.0" sortable="false" styleClass="GrayBoxWithShadow" text="半音" />
+                        <TableColumn fx:id="noiseEffectColumn" prefWidth="50.0" sortable="false" styleClass="GrayBoxWithShadow" text="效果" />
+                     </columns>
+                     <stylesheets>
+                        <URL value="@../css/GrayBox.css" />
+                        <URL value="@../css/FontWithShadow.css" />
+                     </stylesheets>
+                     <contextMenu>
+                        <ContextMenu>
+                          <items>
+                             <MenuItem fx:id="noiseEditMenuItem" mnemonicParsing="false" onAction="#onEditNoteButtonClick" text="修改" />
+                             <MenuItem fx:id="noiseDeleteMenuItem" mnemonicParsing="false" onAction="#onDeleteNoteButtonClick" text="删除" />
+                          </items>
+                        </ContextMenu>
+                     </contextMenu>
+                  </TableView>
+               </children>
+               <effect>
+                  <Blend mode="SCREEN" />
+               </effect>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</VBox>
