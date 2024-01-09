@@ -1,5 +1,8 @@
 package me.iaksh.cluster.core.oscillator;
 
+import me.iaksh.cluster.core.data.DurationMs;
+import me.iaksh.cluster.core.data.Frequency;
+
 import java.util.Random;
 
 public class NoiseOscillator extends Oscillator {
@@ -17,7 +20,8 @@ public class NoiseOscillator extends Oscillator {
         return data;
     }
 
-    public NoiseOscillator() {
+    public NoiseOscillator(Frequency frequency, DurationMs durationMs) {
+        super(frequency,durationMs);
         random = new Random();
     }
 

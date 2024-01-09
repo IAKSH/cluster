@@ -1,17 +1,14 @@
 package me.iaksh.cluster.core.oscillator;
 
+import me.iaksh.cluster.core.data.DurationMs;
 import me.iaksh.cluster.core.data.Frequency;
 
 public class SinOscillator extends Oscillator {
     private double amplitude = 1.0;
     private double phaseShift = 1.0;
 
-    public SinOscillator(int ms, Frequency frequency) {
-        super(ms, frequency);
-    }
-
-    public SinOscillator() {
-        super();
+    public SinOscillator(Frequency frequency, DurationMs duration) {
+        super(frequency,duration);
     }
 
     @Override

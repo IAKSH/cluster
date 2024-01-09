@@ -8,25 +8,24 @@ import me.iaksh.cluster.core.oscillator.Oscillator;
 
 public abstract class Synthesizer implements WaveformInput {
     private static final double[] equalTemperaments = {0,261.63,293.66,329.63,349.23,392.00,440.00,493.88};
-    private int scaleStep;
 
-    // TODO: init these
-    private BPM bpm;
-    private DurationMs duration;
-    private TimeSignature currentTimeSignature;
-    private TimeFraction currentTimeFraction;
-    private Frequency currentFrequency;
-    private OctaveShift currentOctaveShift;
-    private SemitoneShift currentSemitoneShift;
-    private boolean currentDotted;
+    private int scaleStep;
+    private final BPM bpm;
+    private final DurationMs duration = new DurationMs(1000);
+    private final TimeSignature timeSignature = new TimeSignature(4,new TimeFraction(4));
+    private final TimeFraction timeFraction = new TimeFraction(4);
+    private final Frequency frequency = new Frequency(100);
+    private final OctaveShift octaveShift = new OctaveShift(0);
+    private final SemitoneShift semitoneShift = new SemitoneShift(0);
+    private boolean dotted;
 
     protected Oscillator oscillator;
     protected Effect effect;
 
     private void updateDuration() {
-        int ms = (int) (currentTimeFraction.getFraction() *
-                currentTimeSignature.getStandardTimeFraction().getFraction() * 60000.0f / bpm.getBpm());
-        if(currentDotted)
+        int ms = (int) (timeFraction.getFraction() *
+                timeSignature.getStandardTimeFraction().getFraction() * 60000.0f / bpm.getBpm());
+        if(dotted)
             ms = (int)(ms * 1.5f);
         duration.setMs(ms);
     }
@@ -34,20 +33,22 @@ public abstract class Synthesizer implements WaveformInput {
     private void updateFrequency() {
         double baseFreq = equalTemperaments[scaleStep];
         double freq = baseFreq *
-                Math.pow(2, currentOctaveShift.getShift()) *
-                Math.pow(2, currentSemitoneShift.getShift() / 12.0);
-        currentFrequency.setFreq(freq);
+                Math.pow(2, octaveShift.getShift()) *
+                Math.pow(2, semitoneShift.getShift() / 12.0);
+        frequency.setFreq(freq);
     }
 
-    public Synthesizer(BPM bpm,Oscillator oscillator) {
+    protected abstract Oscillator createOscillator();
+
+    public Synthesizer(BPM bpm) {
         this.bpm = bpm;
-        this.oscillator = oscillator;
+        this.oscillator = createOscillator();
     }
 
-    public Synthesizer(BPM bpm,Oscillator oscillator,Effect effect) {
+    public Synthesizer(BPM bpm,Effect effect) {
         this.bpm = bpm;
-        this.oscillator = oscillator;
         this.effect = effect;
+        this.oscillator = createOscillator();
     }
 
     public void setScaleStep(int scaleStep) {
@@ -57,53 +58,58 @@ public abstract class Synthesizer implements WaveformInput {
         updateFrequency();
     }
 
-    public void setCurrentDotted(boolean currentDotted) {
-        this.currentDotted = currentDotted;
+    public void setDotted(boolean dotted) {
+        this.dotted = dotted;
         updateDuration();
     }
 
-    public void setCurrentOctaveShift(OctaveShift currentOctaveShift) {
-        this.currentOctaveShift = currentOctaveShift;
+    public void setOctaveShift(int octaveShift) {
+        this.octaveShift.setShift(octaveShift);
         updateFrequency();
     }
 
-    public void setCurrentSemitoneShift(SemitoneShift currentSemitoneShift) {
-        this.currentSemitoneShift = currentSemitoneShift;
+    public void setSemitoneShift(int semitoneShift) {
+        this.semitoneShift.setShift(semitoneShift);
         updateFrequency();
     }
 
-    public void setCurrentTimeFraction(TimeFraction currentTimeFraction) {
-        this.currentTimeFraction = currentTimeFraction;
+    public void setTimeFraction(int timeFraction) {
+        this.timeFraction.setFraction(timeFraction);
         updateDuration();
     }
 
-    public void setCurrentTimeSignature(TimeSignature currentTimeSignature) {
-        this.currentTimeSignature = currentTimeSignature;
+    public void setTimeSignature(int standardTimeFraction,int standardNotePerBar) {
+        timeSignature.getStandardTimeFraction().setFraction(standardTimeFraction);
+        timeSignature.setStandardNotesPerBar(standardNotePerBar);
         updateDuration();
     }
 
-    public Frequency getCurrentFrequency() {
-        return currentFrequency;
+    public Frequency getFrequency() {
+        return frequency;
     }
 
-    public OctaveShift getCurrentOctaveShift() {
-        return currentOctaveShift;
+    public OctaveShift getOctaveShift() {
+        return octaveShift;
     }
 
-    public SemitoneShift getCurrentSemitoneShift() {
-        return currentSemitoneShift;
+    public SemitoneShift getSemitoneShift() {
+        return semitoneShift;
     }
 
-    public TimeFraction getCurrentTimeFraction() {
-        return currentTimeFraction;
+    public TimeFraction getTimeFraction() {
+        return timeFraction;
     }
 
-    public TimeSignature getCurrentTimeSignature() {
-        return currentTimeSignature;
+    public TimeSignature getTimeSignature() {
+        return timeSignature;
     }
 
-    public boolean isCurrentDotted() {
-        return currentDotted;
+    public DurationMs getDuration() {
+        return duration;
+    }
+
+    public boolean isDotted() {
+        return dotted;
     }
 
     @Override

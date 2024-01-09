@@ -1,5 +1,8 @@
 package me.iaksh.cluster.core.oscillator;
 
+import me.iaksh.cluster.core.data.DurationMs;
+import me.iaksh.cluster.core.data.Frequency;
+
 public class SteppedTriangleOscillator extends TriangleOscillator {
 
     private int ladderNum;
@@ -25,11 +28,13 @@ public class SteppedTriangleOscillator extends TriangleOscillator {
         return data;
     }
 
-    public SteppedTriangleOscillator() {
+    public SteppedTriangleOscillator(Frequency frequency, DurationMs durationMs) {
+        super(frequency,durationMs);
         ladderNum = 16;
     }
 
-    public SteppedTriangleOscillator(int ladderNum) {
+    public SteppedTriangleOscillator(int ladderNum,Frequency frequency, DurationMs durationMs) {
+        super(frequency,durationMs);
         this.ladderNum = ladderNum;
     }
 

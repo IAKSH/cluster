@@ -1,17 +1,14 @@
 package me.iaksh.cluster.core.oscillator;
 
+import me.iaksh.cluster.core.data.DurationMs;
 import me.iaksh.cluster.core.data.Frequency;
 
 public class TriangleOscillator extends Oscillator {
     protected double amplitude = 1.0;
     protected double phaseShift = 1.0;
 
-    public TriangleOscillator(int ms, Frequency frequency) {
-        super(ms, frequency);
-    }
-
-    public TriangleOscillator() {
-        super();
+    public TriangleOscillator(Frequency frequency, DurationMs durationMs) {
+        super(frequency,durationMs);
     }
 
     @Override

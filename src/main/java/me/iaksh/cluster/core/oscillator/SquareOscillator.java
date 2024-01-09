@@ -1,5 +1,6 @@
 package me.iaksh.cluster.core.oscillator;
 
+import me.iaksh.cluster.core.data.DurationMs;
 import me.iaksh.cluster.core.data.Frequency;
 
 public class SquareOscillator extends Oscillator {
@@ -7,12 +8,8 @@ public class SquareOscillator extends Oscillator {
     private double phaseShift = 1.0;
     private double amplitude = 1.0;
 
-    public SquareOscillator(int ms, Frequency frequency) {
-        super(ms, frequency);
-    }
-
-    public SquareOscillator() {
-        super();
+    public SquareOscillator(Frequency frequency, DurationMs duration) {
+        super(frequency,duration);
     }
 
     @Override
