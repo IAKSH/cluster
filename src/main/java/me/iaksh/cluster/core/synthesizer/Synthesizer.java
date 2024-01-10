@@ -51,8 +51,8 @@ public abstract class Synthesizer implements WaveformInput {
     }
 
     public void setScaleStep(int scaleStep) {
-        if(scaleStep < 1 || scaleStep > 7)
-            throw new IllegalArgumentException(String.format("scale step must be in range of [1,7], but given = %d",scaleStep));
+        if(scaleStep < 0 || scaleStep > 7)
+            throw new IllegalArgumentException(String.format("scale step must be in range of [0,7], but given = %d",scaleStep));
         this.scaleStep = scaleStep;
         updateFrequency();
     }
