@@ -5,7 +5,7 @@ import me.iaksh.cluster.core.base.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Mixer implements WaveformInput {
+public class Mixer implements WaveformInput,WaveformOutput {
     private ArrayList<PCMInput> pcmInputs = new ArrayList<>();
 
     private short[] mix() {
@@ -47,9 +47,17 @@ public class Mixer implements WaveformInput {
         pcmInputs.add(pcmInput);
     }
 
+    public void clear() {
+        pcmInputs.clear();
+    }
+
     @Override
     public Waveform getWaveform() {
-        PCMData pcmData = new PCMData(mix());
-        return new Waveform(pcmData);
+        return new Waveform(new PCMData(mix()));
+    }
+
+    @Override
+    public void setWaveform(Waveform waveform) {
+        add(waveform);
     }
 }
