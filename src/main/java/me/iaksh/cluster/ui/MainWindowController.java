@@ -18,6 +18,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.util.Callback;
+import me.iaksh.cluster.core.base.PCMData;
+import me.iaksh.cluster.core.base.Waveform;
 import me.iaksh.cluster.core.data.BPM;
 import me.iaksh.cluster.core.oscillator.SquareOscillator;
 import me.iaksh.cluster.core.oscillator.TriangleOscillator;
@@ -202,6 +204,7 @@ public class MainWindowController implements Initializable {
     private SteppedTriangleSynth steppedTriangleSynth = new SteppedTriangleSynth(packedBPM,expAttenuationEffect);
     private NoiseSynth noiseSynth = new NoiseSynth(packedBPM,expAttenuationEffect);
     private Player player;
+    private Mixer mixer = new Mixer();
 
     @FXML
     public void onForceStopButtonClick(ActionEvent actionEvent) {
@@ -347,6 +350,23 @@ public class MainWindowController implements Initializable {
         }
     }
 
+    private ArrayList<Waveform> genWaveformsFromRecords(ObservableList<NoteRecord> records,Synthesizer synthesizer) {
+        ArrayList<Waveform> waveforms = new ArrayList<>();
+        for(NoteRecord record : records) {
+            if(record.getNoteFraction() == 0.0f) {
+                synthesizer.setTimeSignature(record.getSimpleScore(),record.getOctaveShift());
+            } else {
+                synthesizer.setOctaveShift(record.getOctaveShift());
+                synthesizer.setSemitoneShift(record.getSemitoneShift());
+                synthesizer.setDotted(record.isIsDotted());
+                synthesizer.setTimeFraction((int) (1.0f / record.getNoteFraction()));
+                synthesizer.setScaleStep(record.getSimpleScore());
+                waveforms.add(synthesizer.getWaveform());
+            }
+        }
+        return waveforms;
+    }
+
     @FXML
     public void onPlayButtonClick(ActionEvent actionEvent) {
         float volume = (float) (volumeSlider.getValue() / 100.0f);
@@ -361,19 +381,58 @@ public class MainWindowController implements Initializable {
             triangleChannelCheckBox.setDisable(true);
             noiseChannelCheckBox.setDisable(true);
 
-            // TODO
+            // TODO: 多通道混合
+            // TODO： 按下终止时结束整首播放，而不是单个音符
+            // TODO: 多线程预生成
+            // TODO: 多通道音符同步
+            // TODO: 自行绘制钢琴窗
+            // TODO: 绘制波形
+            // TODO: 播放位置指示
+
+            ArrayList<ArrayList<Waveform>> channels = new ArrayList<>();
             packedBPM.setBpm(bpm);
             if(squareAChannelCheckBox.isSelected()) {;
-                playRecordsWithSynth(volume,squareARecords,squareSynth);
+                //playRecordsWithSynth(volume,squareARecords,squareSynth);
+                channels.add(genWaveformsFromRecords(squareARecords,squareSynth));
             }
             if(squareBChannelCheckBox.isSelected()) {
-                playRecordsWithSynth(volume,squareBRecords,squareSynth);
+                //playRecordsWithSynth(volume,squareBRecords,squareSynth);
+                channels.add(genWaveformsFromRecords(squareBRecords,squareSynth));
             }
             if(triangleChannelCheckBox.isSelected()) {
-                playRecordsWithSynth(volume,triangleRecords,steppedTriangleSynth);
+                //playRecordsWithSynth(volume,triangleRecords,steppedTriangleSynth);
+                channels.add(genWaveformsFromRecords(triangleRecords,steppedTriangleSynth));
             }
             if(noiseChannelCheckBox.isSelected()) {
-                playRecordsWithSynth(volume,noiseRecords,noiseSynth);
+                //playRecordsWithSynth(volume,noiseRecords,noiseSynth);
+                channels.add(genWaveformsFromRecords(noiseRecords,noiseSynth));
+            }
+
+            ArrayList<Waveform> mixedWaveforms = new ArrayList<>();
+            boolean flag = true;
+            while(flag) {
+                flag = false;
+                for(ArrayList<Waveform> waveforms : channels) {
+                    if(!waveforms.isEmpty()) {
+                        mixer.setWaveform(waveforms.get(0));
+                        waveforms.remove(0);
+                    }
+                }
+
+                mixedWaveforms.add(mixer.getWaveform());
+                mixer.clear();
+
+                for(ArrayList<Waveform> waveforms : channels) {
+                    if(!waveforms.isEmpty()) {
+                        flag = true;
+                        break;
+                    }
+                }
+            }
+
+            for(Waveform waveform : mixedWaveforms) {
+                player.setPCM(waveform);
+                player.play(volume);
             }
 
             playButton.setDisable(false);
